@@ -376,6 +376,9 @@ nnoremap <space> za
 nnoremap <C-left> :bprev!<CR>
 nnoremap <C-right> :bnext!<CR>
 
+" switch between recent tabs with <tab> key
+nmap <tab> :b#<cr>
+
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
