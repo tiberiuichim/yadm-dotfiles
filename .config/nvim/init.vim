@@ -64,9 +64,6 @@ call plug#begin('~/.vim/nvim-plugged')
 
 " The inimitable NerdTree
 Plug 'scrooloose/nerdtree'
-"
-" Show git status icons for files, in NerdTree
-" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Vim file manager
 if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
@@ -153,14 +150,7 @@ Plug 'w0rp/ale'
 " See https://github.com/maralla/validator.vim for a better one??
 " or https://github.com/neomake/neomake
 
-" Everything programming language syntax and indent
-" Plug 'sheerun/vim-polyglot'
 Plug 'python-mode/python-mode'
-" these are slow?
-" Plug 'posva/vim-vue'
-" Plug 'pangloss/vim-javascript'
-"
-" Plug 'hdima/python-syntax'
 
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
@@ -184,18 +174,6 @@ Plug 'AlessandroYorba/Monrovia'
 Plug 'MaxSt/FlatColor'
 Plug 'fcpg/vim-fahrenheit'       " earthy colors similar to alduin, starred by AlessandroYorba
 
-
-" ======== Plugins with problems ===========
-" EditorConfig, global/per project configuration of whitespace settings
-" TODO: this adds time to startup, delay
-" Plug 'editorconfig/editorconfig-vim'
-" Always highlight enclosing tags
-" Plug 'valloric/matchtagalways'
-" Tabline / bufferline plugins. Not all of them work with airline
-" See vim-buftabline github page for alternatives
-" Plug 'ap/vim-buftabline'
-" Adds cx<motion> to exchange texts between them. Has problems with plug
-" Plug 'tommcdo/vimexchange'
 
 call plug#end()
 
@@ -254,7 +232,6 @@ set complete-=i
 set cursorline
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set display+=lastline
-set expandtab
 set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
 set foldcolumn=1        " increase size of fold column
 set foldlevelstart=0    " most folds opened by default
@@ -279,14 +256,12 @@ set number
 set nuw=6               " increase size of gutter column
 set ruler
 set scrolloff=3     " how many lines to bottom cause scrolling
-set shiftwidth=4
 set showcmd
 set showmatch
 set showtabline=2     " always show the tabline
 set sidescrolloff=5
 set splitbelow      " preferences for where the split happens
 set splitright
-set tabstop=4   " not liking big tabs
 set termguicolors
 set textwidth=79
 set ttimeout
@@ -297,25 +272,16 @@ set visualbell
 set wildmenu
 set writebackup
 
+set expandtab
+set tabstop=2   " not liking big tabs
+set shiftwidth=2
+
 " set foldenable    " this makes the folds closed when file is opened
 " set ignorecase        " when searching, ignore case if all letters lowercase
 " set smartcase     " override ignorecase if term has caps
 
 " clipboard configuration
-set clipboard=unnamedplus      "EasyClip + Vim + system clipboard
-" let g:EasyClipShareYanks=1      " share clipboard between vim instances, saves in $HOME/.easyclip
-" let g:EasyClipShareYanksFile='.easyclip'
-" let g:EasyClipShareYanksDirectory='$HOME'
-" let g:EasyClipUseCutDefaults = 0        " don't introduce the m command, make the x instead
-"
-" nmap x <Plug>MoveMotionPlug
-" xmap x <Plug>MoveMotionXPlug
-" nmap xx <Plug>MoveMotionLinePlug
-"
-" let g:EasyClipUsePasteToggleDefaults = 0
-"
-" nmap <c-f> <plug>EasyClipSwapPasteForward
-" nmap <c-d> <plug>EasyClipSwapPasteBackwards
+set clipboard=          " unnamedplus      "EasyClip + Vim + system clipboard
 
 " Specify the behavior when switching between buffers
 try
@@ -324,26 +290,8 @@ catch
 endtry
 
 if (g:my_machine ==# 'laptop')
-    " colorscheme NeoSolarized
-    " colo base16-atelier-forest
-    " colo base16-atelier-seaside
-    " let base16colorspace=256
-    " colo base16-default-dark
-    " colo molokai
-    " colo hybrid
-    " colo PaperColor
-    " highlight Normal guibg=#121212
-    " highlight CursorLine guibg=#020310
-    " highlight Normal guifg=#e0e0e0 guibg=#2C3E50
     set background=dark
-    " let g:alduin_Dragon_Aspect = 1              " almost black background
     let g:alduin_Shout_Become_Ethereal = 1      " black background
-    " let g:alduin_Shout_Aura_Whisper = 1         " underline matching parens
-    " let g:alduin_Shout_Fire_Breath = 0          " adds dark red color
-    " let g:alduin_Shout_Animal_Allegiance = 1    " remove background from strings
-
-    " let g:despacio_Sunset = 1
-    " let g:despacio_Twilight = 1
     let g:despacio_Midnight = 1
 
     colorscheme despacio
@@ -456,17 +404,6 @@ let g:pymode_syntax_indent_errors = g:pymode_syntax_all     " highlight indent e
 " buftabline configuration
 let g:buftabline_numbers = 2    " show buffer position next to each buffer label
 " use \1 to go to tab 1
-" nmap <leader>1 <Plug>BufTabLine.Go(1)
-" nmap <leader>2 <Plug>BufTabLine.Go(2)
-" nmap <leader>3 <Plug>BufTabLine.Go(3)
-" nmap <leader>4 <Plug>BufTabLine.Go(4)
-" nmap <leader>5 <Plug>BufTabLine.Go(5)
-" nmap <leader>6 <Plug>BufTabLine.Go(6)
-" nmap <leader>7 <Plug>BufTabLine.Go(7)
-" nmap <leader>8 <Plug>BufTabLine.Go(8)
-" nmap <leader>9 <Plug>BufTabLine.Go(9)
-" nmap <leader>0 <Plug>BufTabLine.Go(10)
-"
 
 let g:indentLine_char = '│'
 let g:indentLine_color_gui = '#111111'
@@ -1104,5 +1041,72 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 1
+"
+" let g:EasyClipShareYanks=1      " share clipboard between vim instances, saves in $HOME/.easyclip
+" let g:EasyClipShareYanksFile='.easyclip'
+" let g:EasyClipShareYanksDirectory='$HOME'
+" let g:EasyClipUseCutDefaults = 0        " don't introduce the m command, make the x instead
+"
+" nmap x <Plug>MoveMotionPlug
+" xmap x <Plug>MoveMotionXPlug
+" nmap xx <Plug>MoveMotionLinePlug
+"
+" let g:EasyClipUsePasteToggleDefaults = 0
+"
+" nmap <c-f> <plug>EasyClipSwapPasteForward
+" nmap <c-d> <plug>EasyClipSwapPasteBackwards
+"
+" Everything programming language syntax and indent
+" Plug 'sheerun/vim-polyglot'
+" Plug 'hdima/python-syntax'
+" these are slow?
+" Plug 'posva/vim-vue'
+" Plug 'pangloss/vim-javascript'
+" ======== Plugins with problems ===========
+" EditorConfig, global/per project configuration of whitespace settings
+" TODO: this adds time to startup, delay
+" Plug 'editorconfig/editorconfig-vim'
+" Always highlight enclosing tags
+" Plug 'valloric/matchtagalways'
+" Tabline / bufferline plugins. Not all of them work with airline
+" See vim-buftabline github page for alternatives
+" Plug 'ap/vim-buftabline'
+" Adds cx<motion> to exchange texts between them. Has problems with plug
+" Plug 'tommcdo/vimexchange'
+
+"
+" Show git status icons for files, in NerdTree
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+"
+    " let g:alduin_Dragon_Aspect = 1              " almost black background
+    " colorscheme NeoSolarized
+    " colo base16-atelier-forest
+    " colo base16-atelier-seaside
+    " let base16colorspace=256
+    " colo base16-default-dark
+    " colo molokai
+    " colo hybrid
+    " colo PaperColor
+    " highlight Normal guibg=#121212
+    " highlight CursorLine guibg=#020310
+    " highlight Normal guifg=#e0e0e0 guibg=#2C3E50
+    " let g:alduin_Shout_Aura_Whisper = 1         " underline matching parens
+    " let g:alduin_Shout_Fire_Breath = 0          " adds dark red color
+    " let g:alduin_Shout_Animal_Allegiance = 1    " remove background from strings
+
+    " let g:despacio_Sunset = 1
+    " let g:despacio_Twilight = 1
+    "
+" nmap <leader>1 <Plug>BufTabLine.Go(1)
+" nmap <leader>2 <Plug>BufTabLine.Go(2)
+" nmap <leader>3 <Plug>BufTabLine.Go(3)
+" nmap <leader>4 <Plug>BufTabLine.Go(4)
+" nmap <leader>5 <Plug>BufTabLine.Go(5)
+" nmap <leader>6 <Plug>BufTabLine.Go(6)
+" nmap <leader>7 <Plug>BufTabLine.Go(7)
+" nmap <leader>8 <Plug>BufTabLine.Go(8)
+" nmap <leader>9 <Plug>BufTabLine.Go(9)
+" nmap <leader>0 <Plug>BufTabLine.Go(10)
+"
 
 " }}}
