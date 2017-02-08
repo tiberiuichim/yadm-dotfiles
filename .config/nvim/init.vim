@@ -392,6 +392,26 @@ endif
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
+"
+" toggle gundo
+nnoremap <leader>u :GundoToggle<CR>
+
+" Close the current buffer
+:nnoremap <Leader>fq :Bdelete<CR>
+:nnoremap Q :Bdelete<CR>
+
+"add a shortcut to insert pdb by doing \pdb
+map <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
+
+" add a :DiffOrig command to see differences to last saved version
+command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+
+nnoremap <silent> <Leader>f :NERDTreeFind<CR>
+" nnoremap <silent> <Leader>t :TagbarToggle<CR>
+
+" use f2 to format an xml file
+map <F2> <Esc>:1,$!xmllint --format -<CR>
+
 
 " Execute current line or current selection as Vim EX commands.
 nnoremap <leader>x :exe getline(".")<CR>
@@ -522,24 +542,6 @@ call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
-" toggle gundo
-nnoremap <leader>u :GundoToggle<CR>
-
-" Close the current buffer
-:nnoremap <Leader>fq :Bdelete<CR>
-
-"add a shortcut to insert pdb by doing \pdb
-map <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
-
-" add a :DiffOrig command to see differences to last saved version
-command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-
-nnoremap <silent> <Leader>f :NERDTreeFind<CR>
-" nnoremap <silent> <Leader>t :TagbarToggle<CR>
-
-" use f2 to format an xml file
-map <F2> <Esc>:1,$!xmllint --format -<CR>
 
 " }}}
 
