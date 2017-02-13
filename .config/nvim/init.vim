@@ -214,7 +214,7 @@ endfunction
 command! FW call FilterToNewWindow()
 
 " }}}
-"
+
 " ---- Personal preferences ---- {{{
 "
 " Some of this stuff is lifted from sensible.vim
