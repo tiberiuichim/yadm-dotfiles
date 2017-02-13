@@ -505,6 +505,7 @@ augroup configgroup
     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
     autocmd FileType python match Excess /\%120v.*/
     autocmd FileType python setlocal nowrap
+    autocmd FileType python setlocal textwidth=79
     autocmd FileType python setlocal foldlevel=99
     " autocmd VimEnter *.py nested TagbarOpen
 
