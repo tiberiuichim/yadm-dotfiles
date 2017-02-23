@@ -15,3 +15,7 @@ EDITOR=/usr/bin/nvim
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export SHELL=/usr/bin/fish
 # exec fish
+
+# This loads nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
