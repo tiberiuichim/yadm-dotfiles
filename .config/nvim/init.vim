@@ -355,7 +355,7 @@ map <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 
 nnoremap <silent> <Leader>f :NERDTreeFind<CR>
-" nnoremap <silent> <Leader>t :TagbarToggle<CR>
+nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 " use f2 to format an xml file
 map <F2> <Esc>:1,$!xmllint --format -<CR>
