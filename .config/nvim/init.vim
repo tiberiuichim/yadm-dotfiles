@@ -230,6 +230,7 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupskip=/tmp/*,/private/tmp/*
 set complete-=i
 set cursorline
+set conceallevel=0    " if set higher hides quotes in json files
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set display+=lastline
 set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
@@ -491,14 +492,13 @@ augroup configgroup
 
     autocmd BufNewFile,BufRead *.pt setlocal filetype=html
     autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
-
     autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
+    autocmd BufNewFile,BufRead *.vue setlocal filetype=html
+
+    autocmd Filetype html setlocal ts=2 sw=2 sts=0 expandtab
     autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
-    autocmd BufNewFile,BufRead *.js setlocal ts=2 sw=2 sts=0 expandtab
-    autocmd BufNewFile,BufRead *.vue setlocal filetype=html ts=2 sw=2 sts=0 expandtab
     autocmd Filetype vue setlocal ts=2 sw=2 sts=0 expandtab
     autocmd Filetype css setlocal ts=2 sw=2 sts=0 expandtab
-    autocmd Filetype html setlocal ts=2 sw=2 expandtab
 
     autocmd FileType python setlocal commentstring=#\ %s
     autocmd Filetype python setlocal tabstop=4 shiftwidth=4 expandtab colorcolumn=80
