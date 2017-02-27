@@ -295,7 +295,7 @@ if (g:my_machine ==# 'laptop')
     let g:alduin_Shout_Become_Ethereal = 1      " black background
     let g:despacio_Midnight = 1
 
-    colorscheme despacio
+    colorscheme alduin
 elseif (g:my_machine ==# 'desktop')
     set background=dark
     colorscheme flatcolor
@@ -308,7 +308,7 @@ elseif (g:my_machine ==# 'desktop')
 endif
 
 highlight EndOfBuffer guifg=bg     " hide ~ at end of buffers
-highlight NonText guifg=#223311    " change color of at end of line conceal characters
+highlight NonText guifg=#333333    " change color of at end of line conceal characters
 highlight ColorColumn guibg=#2a0111
 " let &colorcolumn=80
 " highlight ColorColumn guibg=red
