@@ -308,7 +308,7 @@ elseif (g:my_machine ==# 'desktop')
 endif
 
 highlight EndOfBuffer guifg=bg     " hide ~ at end of buffers
-highlight NonText guifg=#333333    " change color of at end of line conceal characters
+highlight NonText guifg=#112233    " change color of at end of line conceal characters
 highlight ColorColumn guibg=#2a0111
 " let &colorcolumn=80
 " highlight ColorColumn guibg=red
@@ -327,6 +327,8 @@ nnoremap <C-right> :bnext!<CR>
 
 " switch between recent tabs with <tab> key
 nmap <tab> :b#<cr>
+" cycle through tabs with shift-tab
+nmap <S-tab> :bn<cr>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
