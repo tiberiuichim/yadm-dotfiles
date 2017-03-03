@@ -130,6 +130,9 @@ Plug 'junegunn/vim-easy-align'
 " :Fardo
 Plug 'brooth/far.vim'
 
+" Better quickfix behavior
+Plug 'yssl/QFEnter'
+
 " vim two-panes outliner
 Plug 'vim-voom/VOoM'
 
@@ -173,6 +176,7 @@ Plug 'AlessandroYorba/Sierra'
 Plug 'AlessandroYorba/Monrovia'
 Plug 'MaxSt/FlatColor'
 Plug 'fcpg/vim-fahrenheit'       " earthy colors similar to alduin, starred by AlessandroYorba
+Plug 'danilo-augusto/vim-afterglow'
 
 
 call plug#end()
