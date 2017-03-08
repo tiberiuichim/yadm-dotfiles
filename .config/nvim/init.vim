@@ -148,7 +148,7 @@ Plug 'jlanzarotta/bufexplorer'          " buffer list in buffer, open \be (norma
 Plug 't9md/vim-choosewin'               " Choose window to switch with -
 
 " ========== Language Support =========
-Plug 'othree/html5.vim'
+" Plug 'othree/html5.vim'
 Plug 'w0rp/ale'
 " Plug 'scrooloose/syntastic'
 " ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim
