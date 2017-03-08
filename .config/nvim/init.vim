@@ -113,7 +113,8 @@ if !exists('$TMUX')     " only allow in non-tmux sessions, has display bug
 endif
 "
 " automatically set paste mode based on 'bracketed-paste' terminal support
-Plug 'ConradIrwin/vim-bracketed-paste'
+" disabled, messes with <tab>
+" Plug 'ConradIrwin/vim-bracketed-paste'
 "
 " allow changing between different physical environments adequate settings with
 " :Thematic something
