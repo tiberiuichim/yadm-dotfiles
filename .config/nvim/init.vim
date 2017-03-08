@@ -144,8 +144,10 @@ Plug 'NovaDev94/lightline-onedark'  " lightline theme let g:lightline.colorschem
 " Other UI enhancements
 Plug 'gelus/vim-buffer-enhancement'     " renumber buffer, <count><leader><c-6> renumbers to said <count>
 Plug 'jlanzarotta/bufexplorer'          " buffer list in buffer, open \be (normal) \bs (split), \bv (split vertical)
+Plug 't9md/vim-choosewin'               " Choose window to switch with -
 
 " ========== Language Support =========
+Plug 'othree/html5.vim'
 Plug 'w0rp/ale'
 " Plug 'scrooloose/syntastic'
 " ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim
@@ -486,6 +488,10 @@ call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
+" choose window with letters and overlay preview
+nmap - <Plug>(choosewin)
+let g:choosewin_overlay_enable = 1
 
 " }}}
 
