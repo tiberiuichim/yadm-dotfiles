@@ -171,6 +171,9 @@ Plug 'majutsushi/tagbar'
 " Preview css colors
 Plug 'ap/vim-css-color'
 
+" Better increment (ctrl+a/ctrl+x) behavior
+Plug 'qwertologe/nextval.vim'
+
 " ============ Colorthemes
 Plug 'AlessandroYorba/Alduin'
 Plug 'AlessandroYorba/Despacio'
@@ -181,6 +184,7 @@ Plug 'MaxSt/FlatColor'
 Plug 'fcpg/vim-fahrenheit'       " earthy colors similar to alduin, starred by AlessandroYorba
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'KeitaNakamura/neodark.vim'
 
 
 call plug#end()
@@ -301,9 +305,14 @@ endtry
 if (g:my_machine ==# 'laptop')
     set background=dark
     let g:alduin_Shout_Become_Ethereal = 1      " black background
+    colorscheme alduin
     let g:despacio_Midnight = 1
 
-    colorscheme alduin
+    " let g:neodark#solid_vertsplit = 1
+    " let g:neodark#use_256color = 1
+    " let g:neodark#terminal_transparent = 1
+    " let g:neodark#background='black'
+    " colo neodark
 elseif (g:my_machine ==# 'desktop')
     set background=dark
     colorscheme flatcolor
@@ -557,6 +566,7 @@ let s:p.normal.warning = [ [ 'gray1', 'yellow' ] ]
 
 let g:lightline#colorscheme#farlight#palette = lightline#colorscheme#fill(s:p)
 
+
 let g:lightline = {
             \ 'active': {
             \   'left': [[ 'mode', 'paste', 'alestatus'], ['fugitive', 'filename']],
@@ -579,6 +589,7 @@ let g:lightline = {
             \ }
 
 let g:lightline.colorscheme      = 'farlight'
+" let g:lightline.colorscheme = 'neodark'
 " let g:lightline.mode_map         = { 'c': 'NORMAL' }
 let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers', 'alestatus': 'g:LightLineAleStatus'}
