@@ -317,7 +317,8 @@ elseif (g:my_machine ==# 'desktop')
     set background=dark
     colorscheme flatcolor
     highlight Normal guibg=#000000
-    high Normal guifg=#80CC99   " I'm feeling like green
+    high Normal guifg=#AACCFF   " now it's blue
+    " high Normal guifg=#80CC99   " I'm feeling like green
     highlight Todo guibg=red
     highlight SpellBad term=underline gui=undercurl guisp=Orange
     highlight Search guibg=#3a0b02
