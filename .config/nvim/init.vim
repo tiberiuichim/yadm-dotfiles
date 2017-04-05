@@ -344,8 +344,8 @@ endif
 
 highlight EndOfBuffer guifg=bg     " hide ~ at end of buffers
 highlight NonText guifg=#112233    " change color of at end of line conceal characters
-highlight ColorColumn guibg=#2a0111
-" let &colorcolumn=80
+highlight ColorColumn guibg=#CC2244
+let &colorcolumn=80
 " highlight ColorColumn guibg=red
 
 
