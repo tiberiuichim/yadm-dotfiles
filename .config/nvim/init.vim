@@ -77,6 +77,21 @@ endif
 " runtime), zS (show syntax groups),
 Plug 'tpope/vim-scriptease'
 
+" Mappings for vim-husk.
+" All mappings work only in vim command line mode.
+" C-a go to the beginning of the line
+" C-f go one character right or fall back to c_CTRL-F at the end of the line
+" C-b go one character left
+" C-d delete character or fall back to c_CTRL-D at the end of the line
+" C-k clear line after the cursor, overrides c_CTRL-K (if you're using C-k for digraphs check the docs how to disable)
+" C-x C-e open the command-line window, same as c_CTRL-f
+" M-f (Alt-f) go one "word" right
+" M-b (Alt-b) go one "word" left
+" M-d (Alt-d) delete "word" after the cursor
+" M-BS (Alt-Backspace) delete "word" before the cursor, same as c_CTRL-W
+" M-# (Alt-shift-3) insert comment at the beginning of the line and execute it. Useful for discarding the line, but still keeping it in the command-line history for later retrieval.
+Plug 'vim-utils/vim-husk'
+
 " Vim Substitute as operator plugin
 Plug 'kana/vim-operator-user'   " dependency of vim-operator-substitute
 Plug 'milsen/vim-operator-substitute'
