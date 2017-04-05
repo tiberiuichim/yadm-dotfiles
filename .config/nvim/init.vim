@@ -431,6 +431,11 @@ imap <A-l> <ESC><c-w>l
 imap <A-h> <ESC><c-w>h
 imap <A-k> <ESC><c-w>k
 imap <A-j> <ESC><c-w>j
+
+" terminal keys, escape terminal mode with <esc>
+:tnoremap <Esc> <C-\><C-n>
+
+" move between panes with alt+h/j/k/l
 :tnoremap <A-h> <C-\><C-n><C-w>h
 :tnoremap <A-j> <C-\><C-n><C-w>j
 :tnoremap <A-k> <C-\><C-n><C-w>k
