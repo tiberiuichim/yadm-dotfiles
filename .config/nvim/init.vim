@@ -200,7 +200,7 @@ Plug 'fcpg/vim-fahrenheit'       " earthy colors similar to alduin, starred by A
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'KeitaNakamura/neodark.vim'
-
+Plug 'freeo/vim-kalisi'
 
 call plug#end()
 
@@ -239,6 +239,11 @@ endfunction
 
 " bash execute contents of current buffer and filter it to a new window
 command! FW call FilterToNewWindow()
+
+" hit F10 to show under cursor highlight group
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " }}}
 
@@ -319,9 +324,18 @@ endtry
 
 if (g:my_machine ==# 'laptop')
     set background=dark
-    let g:alduin_Shout_Become_Ethereal = 1      " black background
-    colorscheme alduin
-    let g:despacio_Midnight = 1
+    " let g:alduin_Shout_Become_Ethereal = 1      " black background
+    " colorscheme alduin
+    " let g:despacio_Midnight = 1
+
+    colo kalisi
+    highlight Normal guibg=#111111
+    highlight NonText guifg=#412141 guibg=#111111
+    highlight CursorLine guibg=#222222
+    highlight LineNr guibg=#202032
+    highlight Define guifg=#6633ee
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
+    highlight Visual guibg=#1a5b3a guifg=#CCCCCC
 
     " let g:neodark#solid_vertsplit = 1
     " let g:neodark#use_256color = 1
@@ -331,13 +345,15 @@ if (g:my_machine ==# 'laptop')
 elseif (g:my_machine ==# 'desktop')
     set background=dark
     colorscheme flatcolor
+
     highlight Normal guibg=#000000
-    high Normal guifg=#AACCFF   " now it's blue
-    " high Normal guifg=#80CC99   " I'm feeling like green
+    highlight Normal guifg=#AACCFF   " now it's blue
     highlight Todo guibg=red
     highlight SpellBad term=underline gui=undercurl guisp=Orange
     highlight Search guibg=#3a0b02
     highlight Visual guibg=#0a4b1a
+
+    " high Normal guifg=#80CC99   green
     " highlight Normal guibg=#100e15
 endif
 
@@ -861,7 +877,7 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " let g:pymode_syntax = 1
 " let g:pymode_syntax_all = 1
 " let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-" let g:pymode_syntax_space_errors = g:pymode_syntax_all
+" let g:pymode_2yntax_space_errors = g:pymode_syntax_all
 
 " Show leader guide for all key mappings
 " Plug 'hecal3/vim-leader-guide'
