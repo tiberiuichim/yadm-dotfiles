@@ -325,10 +325,10 @@ endtry
 if (g:my_machine ==# 'laptop')
     set background=dark
     " let g:alduin_Shout_Become_Ethereal = 1      " black background
-    " colorscheme alduin
+    colorscheme alduin
     " let g:despacio_Midnight = 1
 
-    colo kalisi
+    " colo kalisi
     highlight Normal guibg=#111111
     highlight NonText guifg=#412141 guibg=#111111
     highlight CursorLine guibg=#222222
