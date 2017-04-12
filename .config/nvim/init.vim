@@ -331,35 +331,58 @@ if (g:my_machine ==# 'laptop')
     " colo kalisi
     highlight Normal guibg=#111111
     highlight NonText guifg=#412141 guibg=#111111
+    let g:alduin_Shout_Become_Ethereal = 1      " black background
+    " let g:despacio_Midnight = 1
+
+    " colo kalisi
+    highlight ColorColumn guibg=#CC2244
     highlight CursorLine guibg=#222222
-    highlight LineNr guibg=#202032
     highlight Define guifg=#6633ee
+    highlight EndOfBuffer guifg=bg     " hide ~ at end of buffers
+    highlight LineNr guibg=#202032
+    highlight NonText guifg=#112233    " change color of at end of line conceal characters
+    " highlight NonText guifg=#412141 guibg=#111111
+    highlight Normal guibg=#111111
     highlight SpellBad term=underline gui=undercurl guisp=Orange
     highlight Visual guibg=#1a5b3a guifg=#CCCCCC
+
+    colorscheme alduin
 
     " let g:neodark#solid_vertsplit = 1
     " let g:neodark#use_256color = 1
     " let g:neodark#terminal_transparent = 1
     " let g:neodark#background='black'
     " colo neodark
+
 elseif (g:my_machine ==# 'desktop')
     set background=dark
-    colorscheme flatcolor
+    " colorscheme flatcolor
 
+    let g:alduin_Shout_Become_Ethereal = 1      " black background
+    colorscheme alduin
+
+    " highlight NonText guifg=#412141 guibg=#111111
+    highlight ColorColumn guibg=#520a3c guifg=#FFFFFF
+    " highlight CursorLine guibg=#222222
+    highlight CursorLine guibg=#191712
+    highlight Define guifg=#6633ee
+    highlight EndOfBuffer guifg=bg     " hide ~ at end of buffers
+    " highlight LineNr guibg=#202032
+    highlight NonText guifg=#112233    " change color of at end of line conceal characters
     highlight Normal guibg=#000000
-    highlight Normal guifg=#AACCFF   " now it's blue
-    highlight Todo guibg=red
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
+    " highlight Normal guibg=#111111
+    " highlight Normal guifg=#AACCFF   " now it's blue
     highlight Search guibg=#3a0b02
-    highlight Visual guibg=#0a4b1a
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
+    highlight Todo guibg=red
+    " highlight Visual guibg=#0a4b1a
+    highlight Visual guibg=#1a5b3a guifg=#CCCCCC
 
     " high Normal guifg=#80CC99   green
     " highlight Normal guibg=#100e15
 endif
 
-highlight EndOfBuffer guifg=bg     " hide ~ at end of buffers
-highlight NonText guifg=#112233    " change color of at end of line conceal characters
-highlight ColorColumn guibg=#CC2244
+
 let &colorcolumn=80
 " highlight ColorColumn guibg=red
 
@@ -1053,8 +1076,8 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 "   autocmd!
 "   " Map t to "open in new tab".
 "   autocmd FileType dirvish
-" 	\  nnoremap <buffer> t :call dirvish#open('tabedit', 0)<CR>
-" 	\ |xnoremap <buffer> t :call dirvish#open('tabedit', 0)<CR>
+"   \  nnoremap <buffer> t :call dirvish#open('tabedit', 0)<CR>
+"   \ |xnoremap <buffer> t :call dirvish#open('tabedit', 0)<CR>
 "
 "   " Enable :Gstatus and friends.
 "   autocmd FileType dirvish call fugitive#detect(@%)
@@ -1065,7 +1088,7 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 "   " Map `gh` to hide dot-prefixed files.
 "   " To "toggle" this, just press `R` to reload.
 "   autocmd FileType dirvish nnoremap <buffer>
-" 	\ gh :keeppatterns g@\v/\.[^\/]+/?$@d<cr>
+"   \ gh :keeppatterns g@\v/\.[^\/]+/?$@d<cr>
 "
 "   " hide .pyc files by deleting them
 "   autocmd FileType dirvish :g/.pyc/d
