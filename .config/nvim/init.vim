@@ -345,6 +345,7 @@ if (g:my_machine ==# 'laptop')
     highlight Normal guibg=#111111
     highlight SpellBad term=underline gui=undercurl guisp=Orange
     highlight Visual guibg=#1a5b3a guifg=#CCCCCC
+    highlight Search guifg=#dfdfaf guibg=#AA0b02
 
     colorscheme alduin
 
@@ -377,6 +378,7 @@ elseif (g:my_machine ==# 'desktop')
     highlight Todo guibg=red
     " highlight Visual guibg=#0a4b1a
     highlight Visual guibg=#1a5b3a guifg=#CCCCCC
+    highlight Search guifg=#dfdfaf guibg=#AA0b02
 
     " high Normal guifg=#80CC99   green
     " highlight Normal guibg=#100e15
