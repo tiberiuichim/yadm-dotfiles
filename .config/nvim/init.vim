@@ -135,9 +135,6 @@ endif
 " :Thematic something
 Plug 'reedes/vim-thematic'
 "
-" Use :Ack to search with ag (mapped to <leader>a )
-Plug 'mileszs/ack.vim'
-
 " The :EasyAlign command
 Plug 'junegunn/vim-easy-align'
 
@@ -146,8 +143,11 @@ Plug 'junegunn/vim-easy-align'
 " :Fardo
 Plug 'brooth/far.vim'
 
-" Better quickfix behavior
-Plug 'yssl/QFEnter'
+" Use :Ack to search with ag (mapped to <leader>a )
+Plug 'mileszs/ack.vim'
+" Better quickfix behavior.
+" Plug 'yssl/QFEnter'
+Plug 'romainl/vim-qf'
 
 " vim two-panes outliner
 Plug 'vim-voom/VOoM'
@@ -201,6 +201,7 @@ Plug 'danilo-augusto/vim-afterglow'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'freeo/vim-kalisi'
+Plug '0ax1/lxvc'
 
 call plug#end()
 
