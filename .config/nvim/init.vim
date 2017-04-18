@@ -202,6 +202,8 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'freeo/vim-kalisi'
 Plug '0ax1/lxvc'
+Plug 'junegunn/seoul256.vim'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
