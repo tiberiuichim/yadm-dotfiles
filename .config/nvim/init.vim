@@ -49,12 +49,12 @@ call plug#begin('~/.vim/nvim-plugged')
 " ==================== File managers
 
 " The inimitable NerdTree
-" Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
 " Vim file manager
 " if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
-    Plug 'Shougo/unite.vim'     " dependency for vimfiler
-    Plug 'Shougo/vimfiler.vim'
+    " Plug 'Shougo/unite.vim'     " dependency for vimfiler
+    " Plug 'Shougo/vimfiler.vim'
 " endif
 
 " ================== Enhancements to vim's functionality
@@ -86,11 +86,11 @@ Plug 'vim-utils/vim-husk'
 Plug 'tomtom/tcomment_vim'
 
 " Change surrounding parens: cs'"
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
 
 " :set ft=outlow for outliner functionality
 " lines starting with ===, [x], [-] or [ ], followed by a space are topics.
-Plug 'lifepillar/vim-outlaw'
+" Plug 'lifepillar/vim-outlaw'
 "
 " BufferBye, gives :Bdelete command to delete buffers
 Plug 'moll/vim-bbye'
@@ -211,10 +211,10 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 " NERDTress File highlighting
-" function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-"   exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-"   exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-" endfunction
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
 
 function! FilterToNewWindow()
     let TempFile = tempname()
@@ -324,7 +324,7 @@ if (g:my_machine ==# 'laptop')
     highlight CursorLine guibg=#222222
     highlight Define guifg=#6633ee
     highlight EndOfBuffer guifg=bg     " hide ~ at end of buffers
-    highlight LineNr guibg=#202032
+    highlight LineNr guibg=#121519 guifg=#444444
     highlight NonText guifg=#332233    " change color of at end of line conceal characters
     highlight SpellBad term=underline gui=undercurl guisp=Orange
     highlight Visual guibg=#1a5b3a guifg=#CCCCCC
@@ -507,36 +507,36 @@ cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
 "
 " " Auto-open NerdTree on all vims
-" let g:NERDTreeShowHidden=1
-" let g:NERDTreeIndicatorMapCustom = {
-"             \ "Modified"  : "✹",
-"             \ "Staged"    : "✚",
-"             \ "Untracked" : "✭",
-"             \ "Renamed"   : "➜",
-"             \ "Unmerged"  : "",
-"             \ "Deleted"   : "✖",
-"             \ "Dirty"     : "✗",
-"             \ "Clean"     : "✔︎",
-"             \ "Unknown"   : "?"
-"             \ }
-" let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.egg-info$', '\~$', '\.git$', '\.eggs', '__pycache__']
-" let g:NERDTreeDirArrowExpandable = '▸'
-" let g:NERDTreeDirArrowCollapsible = '▾'
-"
-" call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-" call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-" call NERDTreeHighlightFile('vim', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-" call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-" call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-" call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-" call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+let g:NERDTreeShowHidden=1
+let g:NERDTreeIndicatorMapCustom = {
+            \ "Modified"  : "✹",
+            \ "Staged"    : "✚",
+            \ "Untracked" : "✭",
+            \ "Renamed"   : "➜",
+            \ "Unmerged"  : "",
+            \ "Deleted"   : "✖",
+            \ "Dirty"     : "✗",
+            \ "Clean"     : "✔︎",
+            \ "Unknown"   : "?"
+            \ }
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.egg-info$', '\~$', '\.git$', '\.eggs', '__pycache__']
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('vim', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 " choose window with letters and overlay preview
 " nmap - <Plug>(choosewin)
