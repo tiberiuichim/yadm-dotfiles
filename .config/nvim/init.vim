@@ -162,6 +162,8 @@ Plug 'python-mode/python-mode'
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
 
+" Plug 'Galooshi/import-js'   " needs configuration, check package
+
 " Format selection with :Neoformat
 " Format selection in a different format :Neoformat! javascript
 " Plug 'sbdchd/neoformat'
@@ -407,7 +409,7 @@ map <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
 " add a :DiffOrig command to see differences to last saved version
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 
-" nnoremap <silent> <Leader>f :NERDTreeFind<CR>
+nnoremap <silent> <Leader>f :NERDTreeFind<CR>
 nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 " use f2 to format an xml file
