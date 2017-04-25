@@ -157,10 +157,11 @@ Plug 'w0rp/ale'
 " See https://github.com/maralla/validator.vim for a better one??
 " or https://github.com/neomake/neomake
 
-Plug 'python-mode/python-mode'
-
+" Plug 'python-mode/python-mode'
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
+
+Plug 'ryym/vim-riot'
 
 " Plug 'Galooshi/import-js'   " needs configuration, check package
 
@@ -453,13 +454,13 @@ imap <A-j> <ESC><c-w>j
 
 " setup proper python support
 "
-let g:pymode_lint = 0       " disable pymode linting
-let g:pymode_rope = 0       " disable pymode rope support
-let g:pymode_rope_completion = 0       " disable completition on insert mode and  hit .
+let g:pymode_lint = 0                                   " disable pymode linting
+let g:pymode_rope = 0                                   " disable pymode rope support
+let g:pymode_rope_completion = 0                        " disable completition on insert mode and  hit .
 let g:pymode_syntax = 1
-let g:pymode_syntax_slow_sync = 1       " slower syntax mode, better at docstrings
-let g:pymode_syntax_all = 1             " enable all python highlights
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all     " highlight indent errors
+let g:pymode_syntax_slow_sync = 1                       " slower syntax mode, better at docstrings
+let g:pymode_syntax_all = 1                             " enable all python highlights
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all " highlight indent errors
 
 " buftabline configuration
 let g:buftabline_numbers = 2    " show buffer position next to each buffer label
@@ -557,11 +558,13 @@ augroup configgroup
     autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
     autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
     autocmd BufNewFile,BufRead *.vue setlocal filetype=html
+    autocmd BufNewFile,BufRead *.tag setlocal filetype=html
 
-    autocmd Filetype html setlocal ts=2 sw=2 sts=0 expandtab
-    autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
-    autocmd Filetype vue setlocal ts=2 sw=2 sts=0 expandtab
-    autocmd Filetype css setlocal ts=2 sw=2 sts=0 expandtab
+    autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
+    autocmd Filetype javascript setlocal ts=2 sw=2 sts=2 expandtab
+    autocmd Filetype css setlocal ts=2 sw=2 sts=2 expandtab
+    " autocmd Filetype vue setlocal ts=2 sw=2 sts=2 expandtab
+    " autocmd Filetype riot setlocal ts=2 sw=2 sts=0 expandtab
 
     autocmd FileType python setlocal commentstring=#\ %s
     autocmd Filetype python setlocal tabstop=4 shiftwidth=4 expandtab colorcolumn=80
