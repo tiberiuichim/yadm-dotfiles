@@ -28,6 +28,8 @@ function! Identify()
 endfunction
 let g:my_machine = Identify()
 
+" let g:go_bin_path = expand("$GOROOT/bin")
+
 " }}}
 
 " {{{ ---- Plugin configuration ----
@@ -160,6 +162,8 @@ Plug 'w0rp/ale'
 " Plug 'python-mode/python-mode'
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
+Plug 'fatih/vim-go'         " do a :GoInstallBinaries
+Plug 'jodosha/vim-godebug'    " :GoToggleBreakpoint & :GoDebug
 
 Plug 'ryym/vim-riot'
 
@@ -497,8 +501,17 @@ let g:ale_lint_on_save = 1
 
 " let g:ale_sign_error = "\u2639"     " sad smiley face
 " let g:ale_sign_warning = "\u2614"     " umbrela under rain
-let g:ale_sign_error = "EE"
-let g:ale_sign_warning = "WW"
+let g:ale_sign_error = "WW"
+let g:ale_sign_warning = "EE"
+
+let s:golint = expand('$HOME/go/bin/golint %t')
+call ale#linter#Define('go', {
+\   'name': 'golint',
+\   'executable': 'golint',
+\   'command': s:golint,
+\   'callback': 'ale#handlers#unix#HandleAsWarning',
+\})
+let g:ale_linters.go = ['golint']
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'

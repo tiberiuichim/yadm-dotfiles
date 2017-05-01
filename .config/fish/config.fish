@@ -40,3 +40,6 @@ set -g theme_title_display_path yes
 set -g theme_title_use_abbreviated_path no
 
 set theme_color_scheme default
+
+set -g GOROOT /usr/local/go
+set PATH $PATH $GOROOT/bin $HOME/go/bin
