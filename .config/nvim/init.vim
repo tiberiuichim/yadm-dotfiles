@@ -337,6 +337,7 @@ if (g:my_machine ==# 'laptop')
     highlight Visual guibg=#1a5b3a guifg=#CCCCCC
     highlight Search guifg=#dfdfaf guibg=#AA0b02
     highlight Conceal guibg=#000000 guifg=#111111
+    hi htmlLink guifg=#663333
 
 elseif (g:my_machine ==# 'desktop')
     set background=dark
@@ -365,6 +366,7 @@ elseif (g:my_machine ==# 'desktop')
     highlight Todo guibg=red
     highlight Visual guibg=#1a5b3a guifg=#CCCCCC
     highlight Conceal guibg=#000000 guifg=#111111
+    hi htmlLink guifg=#663333
 
 endif
 
