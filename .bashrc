@@ -20,4 +20,9 @@ export SHELL=/usr/bin/fish
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-#. $HOME/.nix-profile/etc/profile.d/nix.sh
+NIXSH="$HOME/.nix-profile/etc/profile.d/nix.sh"
+if [ -f $NIXSH ]; then
+  . $NIXSH
+fi
+
+exec fish
