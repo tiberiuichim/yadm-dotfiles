@@ -28,8 +28,6 @@ function! Identify()
 endfunction
 let g:my_machine = Identify()
 
-" let g:go_bin_path = expand("$GOROOT/bin")
-
 " }}}
 
 " {{{ ---- Plugin configuration ----
@@ -162,9 +160,13 @@ Plug 'w0rp/ale'
 " Plug 'python-mode/python-mode'
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
+
 Plug 'fatih/vim-go'         " do a :GoInstallBinaries
 Plug 'jodosha/vim-godebug'    " :GoToggleBreakpoint & :GoDebug
 
+" Mustache and handlebars support
+Plug 'mustache/vim-mustache-handlebars'
+" Riot.js support
 Plug 'ryym/vim-riot'
 
 " Plug 'Galooshi/import-js'   " needs configuration, check package
@@ -326,19 +328,20 @@ if (g:my_machine ==# 'laptop')
     colorscheme alduin
 
   " highlight SignColumn guibg=black
-    highlight Normal guibg=#111111
-    highlight ColorColumn guibg=#CC2244
-    highlight CursorLine guibg=#222222
-    highlight Define guifg=#6633ee
-    highlight EndOfBuffer guifg=bg     " hide ~ at end of buffers
-    highlight LineNr guibg=#121519 guifg=#444444
-    highlight NonText guifg=#332233    " change color of at end of line conceal characters
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-    highlight Visual guibg=#1a5b3a guifg=#CCCCCC
-    highlight Search guifg=#dfdfaf guibg=#AA0b02
-    highlight Conceal guibg=#000000 guifg=#111111
-    hi htmlLink guifg=#663333
+    hi ColorColumn guibg=#CC2244
+    hi Conceal guibg=#000000 guifg=#111111
+    hi CursorLine guibg=#222222
+    hi CursorLineNr guibg=CursorLine
+    hi Define guifg=#6633ee
+    hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
+    hi LineNr guibg=#121519 guifg=#444444
+    hi NonText guifg=#332233    " change color of at end of line conceal characters
+    hi Normal guibg=#111111
+    hi Search guifg=#dfdfaf guibg=#AA0b02
+    hi SpellBad term=underline gui=undercurl guisp=Orange
     hi String guibg=Normal
+    hi Visual guibg=#1a5b3a guifg=#CCCCCC
+    hi htmlLink guifg=#668866
 
 elseif (g:my_machine ==# 'desktop')
     set background=dark
@@ -346,40 +349,31 @@ elseif (g:my_machine ==# 'desktop')
 
     let g:alduin_Shout_Become_Ethereal = 1      " black background
     colorscheme alduin
-    "
-    " high Normal guifg=#80CC99   green
-    " highlight CursorLine guibg=#222222
-    " highlight LineNr guibg=#202032
-    " highlight NonText guifg=#412141 guibg=#111111
-    " highlight Normal guibg=#100e15
-    " highlight Normal guibg=#111111
-    " highlight Normal guifg=#AACCFF   " now it's blue
-    " highlight Visual guibg=#0a4b1a
-    highlight ColorColumn guibg=#520a3c guifg=#FFFFFF
-    highlight CursorLine guibg=#191712
-    highlight Define guifg=#6633ee
-    highlight EndOfBuffer guifg=bg     " hide ~ at end of buffers
-    highlight NonText guifg=#112233    " change color of at end of line conceal characters
-    highlight Normal guibg=#000000
-    highlight Search guibg=#3a0b02
-    highlight Search guifg=#dfdfaf guibg=#AA0b02
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-    highlight Todo guibg=red
-    highlight Visual guibg=#1a5b3a guifg=#CCCCCC
-    highlight Conceal guibg=#000000 guifg=#111111
-    hi htmlLink guifg=#663333
+
+    hi ColorColumn guibg=#520a3c guifg=#FFFFFF
+    hi Conceal guibg=#000000 guifg=#111111
+    hi CursorLine guibg=#191712
+    hi CursorLineNr guibg=#191712 guifg=#FFFFFF
+    hi Define guifg=#6633ee
+    hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
+    hi LineNr guibg=#060606
+    hi NonText guifg=#112233    " change color of at end of line conceal characters
+    hi Normal guibg=#000000
+    hi Search guibg=#3a0b02
+    hi Search guifg=#dfdfaf guibg=#AA0b02
+    hi SpellBad term=underline gui=undercurl guisp=Orange
     hi String guibg=Normal
+    hi Todo guibg=red
+    hi Visual guibg=#1a5b3a guifg=#CCCCCC
+    hi htmlLink guifg=#668866
 
 endif
 
-
 let &colorcolumn=80
-" highlight ColorColumn guibg=red
 
-
-" highlight OverLength guibg=#592929
-" match OverLength /\%81v.\+/
 " highlight the column at 80 chars
+" match OverLength /\%81v.\+/
+" highlight OverLength guibg=#592929
 
 " space open/closes folds
 nnoremap <space> za
@@ -753,7 +747,4 @@ nmap <Leader>8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
-" }}}
-
-" ---- Stuff that's commented ---- {{{
 " }}}
