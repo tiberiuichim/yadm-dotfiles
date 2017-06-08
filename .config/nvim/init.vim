@@ -461,13 +461,13 @@ imap <A-j> <ESC><c-w>j
 
 " setup proper python support
 "
-" let g:pymode_lint = 0                                   " disable pymode linting
-" let g:pymode_rope = 0                                   " disable pymode rope support
-" let g:pymode_rope_completion = 0                        " disable completition on insert mode and  hit .
-" let g:pymode_syntax = 1
-" let g:pymode_syntax_slow_sync = 1                       " slower syntax mode, better at docstrings
-" let g:pymode_syntax_all = 1                             " enable all python highlights
-" let g:pymode_syntax_indent_errors = g:pymode_syntax_all " highlight indent errors
+let g:pymode_lint = 0                                   " disable pymode linting
+let g:pymode_rope = 0                                   " disable pymode rope support
+let g:pymode_rope_completion = 0                        " disable completition on insert mode and  hit .
+let g:pymode_syntax = 1
+let g:pymode_syntax_slow_sync = 1                       " slower syntax mode, better at docstrings
+let g:pymode_syntax_all = 1                             " enable all python highlights
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all " highlight indent errors
 
 " buftabline configuration
 let g:buftabline_numbers = 2    " show buffer position next to each buffer label
