@@ -76,7 +76,7 @@ Plug 'tpope/vim-scriptease'
 " M-d (Alt-d) delete "word" after the cursor
 " M-BS (Alt-Backspace) delete "word" before the cursor, same as c_CTRL-W
 " M-# (Alt-shift-3) insert comment at the beginning of the line and execute it. Useful for discarding the line, but still keeping it in the command-line history for later retrieval.
-Plug 'vim-utils/vim-husk'
+" Plug 'vim-utils/vim-husk'
 
 " Vim Substitute as operator plugin
 " Plug 'kana/vim-operator-user'   " dependency of vim-operator-substitute
@@ -103,6 +103,8 @@ Plug 'tpope/vim-fugitive'
 
 " Show indent guides
 Plug 'Yggdroot/indentLine'
+
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
 " Adds :Gundo, a visual tree of the undo
 " Plug 'sjl/gundo.vim'
@@ -157,17 +159,18 @@ Plug 'w0rp/ale'
 " See https://github.com/maralla/validator.vim for a better one??
 " or https://github.com/neomake/neomake
 
-" Plug 'python-mode/python-mode'
+Plug 'python-mode/python-mode'
+
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
 
-Plug 'fatih/vim-go'         " do a :GoInstallBinaries
-Plug 'jodosha/vim-godebug'    " :GoToggleBreakpoint & :GoDebug
+" Plug 'fatih/vim-go'         " do a :GoInstallBinaries
+" Plug 'jodosha/vim-godebug'    " :GoToggleBreakpoint & :GoDebug
 
 " Mustache and handlebars support
-Plug 'mustache/vim-mustache-handlebars'
+" Plug 'mustache/vim-mustache-handlebars'
 " Riot.js support
-Plug 'ryym/vim-riot'
+" Plug 'ryym/vim-riot'
 
 " Plug 'Galooshi/import-js'   " needs configuration, check package
 
@@ -188,7 +191,7 @@ Plug 'qwertologe/nextval.vim'
 Plug 'AlessandroYorba/Alduin'
 " Plug 'AlessandroYorba/Despacio'
 " Plug 'AlessandroYorba/Sierra'
-" " Plug 'AlessandroYorba/Arcadia' " not a scheme yet
+" Plug 'AlessandroYorba/Arcadia' " not a scheme yet
 " Plug 'AlessandroYorba/Monrovia'
 Plug 'MaxSt/FlatColor'
 
@@ -254,7 +257,7 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 syntax enable
 
-set autoindent
+" set autoindent
 set backspace=indent,eol,start
 set backup      " backups
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -458,13 +461,13 @@ imap <A-j> <ESC><c-w>j
 
 " setup proper python support
 "
-let g:pymode_lint = 0                                   " disable pymode linting
-let g:pymode_rope = 0                                   " disable pymode rope support
-let g:pymode_rope_completion = 0                        " disable completition on insert mode and  hit .
-let g:pymode_syntax = 1
-let g:pymode_syntax_slow_sync = 1                       " slower syntax mode, better at docstrings
-let g:pymode_syntax_all = 1                             " enable all python highlights
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all " highlight indent errors
+" let g:pymode_lint = 0                                   " disable pymode linting
+" let g:pymode_rope = 0                                   " disable pymode rope support
+" let g:pymode_rope_completion = 0                        " disable completition on insert mode and  hit .
+" let g:pymode_syntax = 1
+" let g:pymode_syntax_slow_sync = 1                       " slower syntax mode, better at docstrings
+" let g:pymode_syntax_all = 1                             " enable all python highlights
+" let g:pymode_syntax_indent_errors = g:pymode_syntax_all " highlight indent errors
 
 " buftabline configuration
 let g:buftabline_numbers = 2    " show buffer position next to each buffer label
@@ -579,6 +582,7 @@ augroup configgroup
     " autocmd Filetype vue setlocal ts=2 sw=2 sts=2 expandtab
     " autocmd Filetype riot setlocal ts=2 sw=2 sts=0 expandtab
 
+    " temp disabled:
     autocmd FileType python setlocal commentstring=#\ %s
     autocmd Filetype python setlocal tabstop=4 shiftwidth=4 expandtab colorcolumn=80
     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
@@ -586,6 +590,7 @@ augroup configgroup
     autocmd FileType python setlocal nowrap
     autocmd FileType python setlocal textwidth=79
     autocmd FileType python setlocal foldlevel=99
+    "
     " autocmd VimEnter *.py nested TagbarOpen
 
     autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
