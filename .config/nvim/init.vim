@@ -194,6 +194,7 @@ Plug 'AlessandroYorba/Alduin'
 " Plug 'AlessandroYorba/Arcadia' " not a scheme yet
 " Plug 'AlessandroYorba/Monrovia'
 Plug 'MaxSt/FlatColor'
+Plug 'ajmwagar/vim-dues'
 
 " Plug 'fcpg/vim-fahrenheit'       " earthy colors similar to alduin, starred by AlessandroYorba
 " Plug 'danilo-augusto/vim-afterglow'
@@ -366,7 +367,7 @@ elseif (g:my_machine ==# 'desktop')
     hi Search guifg=#dfdfaf guibg=#AA0b02
     hi SpellBad term=underline gui=undercurl guisp=Orange
     hi String guibg=Normal
-    hi Todo guibg=red
+    hi Todo guibg=red guifg=#333333
     hi Visual guibg=#1a5b3a guifg=#CCCCCC
     hi htmlLink guifg=#668866
 
