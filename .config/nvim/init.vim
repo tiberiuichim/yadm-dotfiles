@@ -301,7 +301,7 @@ set splitright
 set termguicolors
 set textwidth=79
 set ttimeout
-set timeoutlen=200
+set timeoutlen=800
 set ttimeoutlen=10
 set undofile
 set undolevels=10000        " undo settings
