@@ -12,17 +12,15 @@ BROWSER=/usr/bin/chromium
 EDITOR=/usr/bin/nvim
 # >>>>>END ADDED BY CNCHI INSTALLER<<<<< #
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export SHELL=/usr/bin/fish
-# exec fish
-
 # This loads nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-NIXSH="$HOME/.nix-profile/etc/profile.d/nix.sh"
-if [ -f $NIXSH ]; then
-  . $NIXSH
-fi
+# NIXSH="$HOME/.nix-profile/etc/profile.d/nix.sh"
+# if [ -f $NIXSH ]; then
+#   . $NIXSH
+# fi
 
-exec fish
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export SHELL=/usr/bin/fish
+# exec fish
