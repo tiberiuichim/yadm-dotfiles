@@ -1,3 +1,5 @@
+set t_Co=256
+
 " {{{ ---- Bootstrap ----
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -305,7 +307,7 @@ set timeoutlen=800
 set ttimeoutlen=10
 set undofile
 set undolevels=10000        " undo settings
-set visualbell
+set novisualbell  " annoying screen flash in VIM
 set wildmenu
 set writebackup
 
