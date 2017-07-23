@@ -336,7 +336,7 @@ if (g:my_machine ==# 'laptop')
     hi ColorColumn guibg=#CC2244
     hi Conceal guibg=#000000 guifg=#111111
     hi CursorLine guibg=#222222
-    hi CursorLineNr guibg=CursorLine
+    hi CursorLineNr guibg=#222222
     hi Define guifg=#6633ee
     hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
     hi LineNr guibg=#121519 guifg=#444444
@@ -344,7 +344,7 @@ if (g:my_machine ==# 'laptop')
     hi Normal guibg=#111111
     hi Search guifg=#dfdfaf guibg=#AA0b02
     hi SpellBad term=underline gui=undercurl guisp=Orange
-    hi String guibg=Normal
+    hi String guibg=#111111
     hi Visual guibg=#1a5b3a guifg=#CCCCCC
     hi htmlLink guifg=#668866
 
@@ -367,7 +367,7 @@ elseif (g:my_machine ==# 'desktop')
     hi Search guibg=#3a0b02
     hi Search guifg=#dfdfaf guibg=#AA0b02
     hi SpellBad term=underline gui=undercurl guisp=Orange
-    hi String guibg=Normal
+    hi String guibg=#111111
     hi Todo guibg=red guifg=#333333
     hi Visual guibg=#1a5b3a guifg=#CCCCCC
     hi htmlLink guifg=#668866
@@ -445,13 +445,15 @@ imap <A-k> <ESC><c-w>k
 imap <A-j> <ESC><c-w>j
 
 " terminal keys, escape terminal mode with <esc>
-:tnoremap <Esc> <C-\><C-n>
+if exists(':tnoremap')
+  :tnoremap <Esc> <C-\><C-n>
 
-" move between panes with alt+h/j/k/l
-:tnoremap <A-h> <C-\><C-n><C-w>h
-:tnoremap <A-j> <C-\><C-n><C-w>j
-:tnoremap <A-k> <C-\><C-n><C-w>k
-:tnoremap <A-l> <C-\><C-n><C-w>l
+  " move between panes with alt+h/j/k/l
+  :tnoremap <A-h> <C-\><C-n><C-w>h
+  :tnoremap <A-j> <C-\><C-n><C-w>j
+  :tnoremap <A-k> <C-\><C-n><C-w>k
+  :tnoremap <A-l> <C-\><C-n><C-w>l
+end
 :nnoremap <A-h> <C-w>h
 :nnoremap <A-j> <C-w>j
 :nnoremap <A-k> <C-w>k
