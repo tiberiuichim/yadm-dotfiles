@@ -338,7 +338,7 @@ if (g:my_machine ==# 'laptop')
     colorscheme alduin
 
   " highlight SignColumn guibg=black
-    hi ColorColumn guibg=#CC2244
+    hi ColorColumn guibg=#112233
     hi Conceal guibg=#000000 guifg=#111111
     hi CursorLine guibg=#222222
     hi CursorLineNr guibg=#222222
@@ -360,7 +360,7 @@ elseif (g:my_machine ==# 'desktop')
     let g:alduin_Shout_Become_Ethereal = 1      " black background
     colorscheme alduin
 
-    hi ColorColumn guibg=#520a3c guifg=#FFFFFF
+    hi ColorColumn guibg=#112233 guifg=#FFFFFF
     hi Conceal guibg=#000000 guifg=#111111
     hi CursorLine guibg=#191712
     hi CursorLineNr guibg=#191712 guifg=#FFFFFF
