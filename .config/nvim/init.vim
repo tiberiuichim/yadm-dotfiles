@@ -189,6 +189,9 @@ Plug 'ap/vim-css-color'
 " Better increment (ctrl+a/ctrl+x) behavior
 Plug 'qwertologe/nextval.vim'
 
+" Better (faster) auto-folding. Type zuz to manually update folds
+Plug 'Konfekt/FastFold'
+
 " ============ Colorthemes
 Plug 'AlessandroYorba/Alduin'
 " Plug 'AlessandroYorba/Despacio'
@@ -306,7 +309,7 @@ set ttimeout
 set timeoutlen=800
 set ttimeoutlen=10
 set undofile
-set undolevels=10000        " undo settings
+set undolevels=200        " undo settings
 set novisualbell  " annoying screen flash in VIM
 set wildmenu
 set writebackup
@@ -384,6 +387,19 @@ let &colorcolumn=80
 
 " space open/closes folds
 nnoremap <space> za
+
+" FastFold mapping and settings
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
+let g:python_syntax_folding = 1
+" let g:php_folding = 1
+" let g:perl_fold = 1
+
 "
 " buffer movement, this doesn't work in Tmux
 " nnoremap <C-left> :bprev!<CR>
