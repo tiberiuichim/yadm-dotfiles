@@ -515,8 +515,14 @@ call ale#linter#Define('html', {
 \})
 let g:ale_linters = {}
 let g:ale_linters.html = ['customhtmlhint']
-let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
+
+" let g:ale_python_pylint_executable = expand("$HOME/tools3/bin/pylint")
+" let g:ale_python_pylint_options = '--rcfile=~/.pylintc'
+" let g:ale_linters.python = ['pylint']
+"
+let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
 let g:ale_linters.python = ['flake8']
+
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -526,8 +532,8 @@ let g:ale_lint_on_save = 1
 
 " let g:ale_sign_error = "\u2639"     " sad smiley face
 " let g:ale_sign_warning = "\u2614"     " umbrela under rain
-let g:ale_sign_error = "WW"
-let g:ale_sign_warning = "EE"
+" let g:ale_sign_error = "WW"
+" let g:ale_sign_warning = "EE"
 
 let s:golint = expand('$HOME/go/bin/golint %t')
 call ale#linter#Define('go', {
