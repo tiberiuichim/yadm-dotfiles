@@ -261,6 +261,10 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
+" fix spurious q characters in konsole
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+set guicursor=
+
 syntax enable
 
 " set autoindent
