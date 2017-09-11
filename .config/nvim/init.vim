@@ -527,6 +527,14 @@ let g:ale_linters.html = ['customhtmlhint']
 let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
 let g:ale_linters.python = ['flake8']
 
+
+let g:ale_fixers = {
+\   'python': [
+\       'add_blank_lines_for_python_control_statements',
+\       'remove_trailing_lines'
+\   ],
+\}
+
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
