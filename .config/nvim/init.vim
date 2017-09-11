@@ -161,7 +161,7 @@ Plug 'w0rp/ale'
 " See https://github.com/maralla/validator.vim for a better one??
 " or https://github.com/neomake/neomake
 
-Plug 'python-mode/python-mode'
+" Plug 'python-mode/python-mode'
 
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
