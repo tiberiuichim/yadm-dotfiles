@@ -169,6 +169,7 @@ Plug 'w0rp/ale'
 " or https://github.com/neomake/neomake
 
 " Plug 'python-mode/python-mode'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
