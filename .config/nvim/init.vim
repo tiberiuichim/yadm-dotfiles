@@ -3,36 +3,37 @@ set t_Co=256
 " {{{ ---- Bootstrap ----
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 let s:py2 = expand("$HOME/tools/bin/python2")
 if executable(s:py2)
-    let g:autopep8_cmd = expand("$HOME/tools/bin/autopep8")
-    let g:python_host_prog = s:py2
+  let g:autopep8_cmd = expand("$HOME/tools/bin/autopep8")
+  let g:python_host_prog = s:py2
 else
-    echom "not installed"
-endif
-let s:py3 = expand("$HOME/tools3/bin/python")
-if executable(s:py3)
+  echom "not installed"
+  let s:py3 = expand("$HOME/tools3/bin/python")
+  if executable(s:py3)
     let g:autopep8_cmd = expand("$HOME/tools3/bin/autopep8")
     let g:python3_host_prog = s:py3
+  endif
 endif
 
+
 function! Identify()
-    let l:h = hostname()
-    if match(l:h, 'Lenovo') > -1
-        return 'laptop'
-    else
-        return 'desktop'
-    endif
+  let l:h = hostname()
+  if match(l:h, 'Lenovo') > -1
+    return 'laptop'
+  else
+    return 'desktop'
+  endif
 endfunction
 let g:my_machine = Identify()
 
@@ -61,8 +62,8 @@ Plug 'scrooloose/nerdtree'
 
 " Vim file manager
 " if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
-    " Plug 'Shougo/unite.vim'     " dependency for vimfiler
-    " Plug 'Shougo/vimfiler.vim'
+" Plug 'Shougo/unite.vim'     " dependency for vimfiler
+" Plug 'Shougo/vimfiler.vim'
 " endif
 
 " ================== Enhancements to vim's functionality
@@ -120,7 +121,7 @@ Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 " changes cursor shape to beam in insert mode
 " bug: inserts q in terminal
 if !exists('$TMUX')     " only allow in non-tmux sessions, has display bug
-    Plug 'jszakmeister/vim-togglecursor'
+  Plug 'jszakmeister/vim-togglecursor'
 endif
 "
 " automatically set paste mode based on 'bracketed-paste' terminal support
@@ -225,13 +226,13 @@ call plug#end()
 " strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
 function! <SID>StripTrailingWhitespaces()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
+  " save last search & cursor position
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  let @/=_s
+  call cursor(l, c)
 endfunction
 
 " NERDTress File highlighting
@@ -241,14 +242,14 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 endfunction
 
 function! FilterToNewWindow()
-    let TempFile = tempname()
-    let SaveModified = &modified
-    exe 'w ' . TempFile
-    exe '!chmod +x ' . TempFile
-    let &modified = SaveModified
-    exe ':e ' . TempFile
-    exe '%! ' . @%
-    exe 'w!'
+  let TempFile = tempname()
+  let SaveModified = &modified
+  exe 'w ' . TempFile
+  exe '!chmod +x ' . TempFile
+  let &modified = SaveModified
+  exe ':e ' . TempFile
+  exe '%! ' . @%
+  exe 'w!'
 endfunction
 
 " bash execute contents of current buffer and filter it to a new window
@@ -337,55 +338,55 @@ set clipboard=          " unnamedplus      "EasyClip + Vim + system clipboard
 
 " Specify the behavior when switching between buffers
 try
-    set switchbuf=useopen,usetab,newtab
+  set switchbuf=useopen,usetab,newtab
 catch
 endtry
 
 if (g:my_machine ==# 'laptop')
-    set background=dark
+  set background=dark
 
-    let g:alduin_Shout_Become_Ethereal = 1      " black background
-    colorscheme alduin
+  let g:alduin_Shout_Become_Ethereal = 1      " black background
+  colorscheme alduin
 
   " highlight SignColumn guibg=black
-    hi ColorColumn guibg=#112233
-    hi Conceal guibg=#000000 guifg=#111111
-    hi CursorLine guibg=#222222
-    hi CursorLineNr guibg=#222222
-    hi Define guifg=#6633ee
-    hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
-    hi LineNr guibg=#121519 guifg=#444444
-    hi NonText guifg=#332233    " change color of at end of line conceal characters
-    hi Normal guibg=#111111
-    hi Search guifg=#dfdfaf guibg=#AA0b02
-    hi SpellBad term=underline gui=undercurl guisp=Orange
-    hi String guibg=#111111
-    hi Visual guibg=#1a5b3a guifg=#CCCCCC
-    hi htmlLink guifg=#668866
+  hi ColorColumn guibg=#112233
+  hi Conceal guibg=#000000 guifg=#111111
+  hi CursorLine guibg=#222222
+  hi CursorLineNr guibg=#222222
+  hi Define guifg=#6633ee
+  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
+  hi LineNr guibg=#121519 guifg=#444444
+  hi NonText guifg=#332233    " change color of at end of line conceal characters
+  hi Normal guibg=#111111
+  hi Search guifg=#dfdfaf guibg=#AA0b02
+  hi SpellBad term=underline gui=undercurl guisp=Orange
+  hi String guibg=#111111
+  hi Visual guibg=#1a5b3a guifg=#CCCCCC
+  hi htmlLink guifg=#668866
 
 elseif (g:my_machine ==# 'desktop')
-    set background=dark
-    " colorscheme flatcolor
+  set background=dark
+  " colorscheme flatcolor
 
-    let g:alduin_Shout_Become_Ethereal = 1      " black background
-    colorscheme alduin
+  let g:alduin_Shout_Become_Ethereal = 1      " black background
+  colorscheme alduin
 
-    hi ColorColumn guibg=#112233 guifg=#FFFFFF
-    hi Conceal guibg=#000000 guifg=#111111
-    hi CursorLine guibg=#191712
-    hi CursorLineNr guibg=#191712 guifg=#FFFFFF
-    hi Define guifg=#6633ee
-    hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
-    hi LineNr guibg=#060606
-    hi NonText guifg=#112233    " change color of at end of line conceal characters
-    hi Normal guibg=#000000
-    hi Search guibg=#3a0b02
-    hi Search guifg=#dfdfaf guibg=#AA0b02
-    hi SpellBad term=underline gui=undercurl guisp=Orange
-    hi String guibg=#111111
-    hi Todo guibg=red guifg=#333333
-    hi Visual guibg=#1a5b3a guifg=#CCCCCC
-    hi htmlLink guifg=#668866
+  hi ColorColumn guibg=#112233 guifg=#FFFFFF
+  hi Conceal guibg=#000000 guifg=#111111
+  hi CursorLine guibg=#191712
+  hi CursorLineNr guibg=#191712 guifg=#FFFFFF
+  hi Define guifg=#6633ee
+  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
+  hi LineNr guibg=#060606
+  hi NonText guifg=#112233    " change color of at end of line conceal characters
+  hi Normal guibg=#000000
+  hi Search guibg=#3a0b02
+  hi Search guifg=#dfdfaf guibg=#AA0b02
+  hi SpellBad term=underline gui=undercurl guisp=Orange
+  hi String guibg=#111111
+  hi Todo guibg=red guifg=#333333
+  hi Visual guibg=#1a5b3a guifg=#CCCCCC
+  hi htmlLink guifg=#668866
 
 endif
 
@@ -422,13 +423,13 @@ nmap <S-tab> :bn<cr>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
 "
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
-    nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
 
 " Switch CWD to the directory of the open buffer
@@ -518,11 +519,11 @@ let g:indentLine_color_gui = '#111111'
 " \}
 
 call ale#linter#Define('html', {
-\   'name': 'customhtmlhint',
-\   'executable': 'htmlhint',
-\   'command': expand("htmlhint --config $HOME/.htmlhintrc --format=unix stdin"),
-\   'callback': 'ale#handlers#HandleUnixFormatAsError',
-\})
+      \   'name': 'customhtmlhint',
+      \   'executable': 'htmlhint',
+      \   'command': expand("htmlhint --config $HOME/.htmlhintrc --format=unix stdin"),
+      \   'callback': 'ale#handlers#HandleUnixFormatAsError',
+      \})
 let g:ale_linters = {}
 let g:ale_linters.html = ['customhtmlhint']
 
@@ -530,16 +531,17 @@ let g:ale_linters.html = ['customhtmlhint']
 " let g:ale_python_pylint_options = '--rcfile=~/.pylintc'
 " let g:ale_linters.python = ['pylint']
 "
-let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
+let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
 let g:ale_linters.python = ['flake8']
 
 
 let g:ale_fixers = {
-\   'python': [
-\       'add_blank_lines_for_python_control_statements',
-\       'remove_trailing_lines'
-\   ],
-\}
+      \   'python': [
+      \       'add_blank_lines_for_python_control_statements',
+      \       'remove_trailing_lines',
+      \       'isort',
+      \   ],
+      \}
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -547,6 +549,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 let g:ale_sign_column_always = 1
 let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
 
 " let g:ale_sign_error = "\u2639"     " sad smiley face
 " let g:ale_sign_warning = "\u2614"     " umbrela under rain
@@ -555,11 +558,11 @@ let g:ale_lint_on_save = 1
 
 let s:golint = expand('$HOME/go/bin/golint %t')
 call ale#linter#Define('go', {
-\   'name': 'golint',
-\   'executable': 'golint',
-\   'command': s:golint,
-\   'callback': 'ale#handlers#unix#HandleAsWarning',
-\})
+      \   'name': 'golint',
+      \   'executable': 'golint',
+      \   'command': s:golint,
+      \   'callback': 'ale#handlers#unix#HandleAsWarning',
+      \})
 let g:ale_linters.go = ['golint']
 
 if executable('ag')
@@ -574,16 +577,16 @@ nnoremap <Leader>a :Ack!<Space>
 " " Auto-open NerdTree on all vims
 let g:NERDTreeShowHidden=1
 let g:NERDTreeIndicatorMapCustom = {
-            \ "Modified"  : "✹",
-            \ "Staged"    : "✚",
-            \ "Untracked" : "✭",
-            \ "Renamed"   : "➜",
-            \ "Unmerged"  : "",
-            \ "Deleted"   : "✖",
-            \ "Dirty"     : "✗",
-            \ "Clean"     : "✔︎",
-            \ "Unknown"   : "?"
-            \ }
+      \ "Modified"  : "✹",
+      \ "Staged"    : "✚",
+      \ "Untracked" : "✭",
+      \ "Renamed"   : "➜",
+      \ "Unmerged"  : "",
+      \ "Deleted"   : "✖",
+      \ "Dirty"     : "✗",
+      \ "Clean"     : "✔︎",
+      \ "Unknown"   : "?"
+      \ }
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.egg-info$', '\~$', '\.git$', '\.eggs', '__pycache__']
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -613,33 +616,33 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 "
 
 augroup configgroup
-    autocmd!
-    autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+  autocmd!
+  autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-    autocmd BufNewFile,BufRead *.pt setlocal filetype=html
-    autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
-    autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
-    autocmd BufNewFile,BufRead *.vue setlocal filetype=html
-    autocmd BufNewFile,BufRead *.tag setlocal filetype=html
+  autocmd BufNewFile,BufRead *.pt setlocal filetype=html
+  autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
+  autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
+  autocmd BufNewFile,BufRead *.vue setlocal filetype=html
+  autocmd BufNewFile,BufRead *.tag setlocal filetype=html
 
-    autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
-    autocmd Filetype javascript setlocal ts=2 sw=2 sts=2 expandtab
-    autocmd Filetype css setlocal ts=2 sw=2 sts=2 expandtab
-    " autocmd Filetype vue setlocal ts=2 sw=2 sts=2 expandtab
-    " autocmd Filetype riot setlocal ts=2 sw=2 sts=0 expandtab
+  autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
+  autocmd Filetype javascript setlocal ts=2 sw=2 sts=2 expandtab
+  autocmd Filetype css setlocal ts=2 sw=2 sts=2 expandtab
+  " autocmd Filetype vue setlocal ts=2 sw=2 sts=2 expandtab
+  " autocmd Filetype riot setlocal ts=2 sw=2 sts=0 expandtab
 
-    " temp disabled:
-    autocmd FileType python setlocal commentstring=#\ %s
-    autocmd Filetype python setlocal tabstop=4 shiftwidth=4 expandtab colorcolumn=80
-    autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
-    autocmd FileType python match Excess /\%120v.*/
-    autocmd FileType python setlocal nowrap
-    autocmd FileType python setlocal textwidth=79
-    autocmd FileType python setlocal foldlevel=99
-    "
-    " autocmd VimEnter *.py nested TagbarOpen
+  " temp disabled:
+  autocmd FileType python setlocal commentstring=#\ %s
+  autocmd Filetype python setlocal tabstop=4 shiftwidth=4 expandtab colorcolumn=80
+  autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
+  autocmd FileType python match Excess /\%120v.*/
+  autocmd FileType python setlocal nowrap
+  autocmd FileType python setlocal textwidth=79
+  autocmd FileType python setlocal foldlevel=99
+  "
+  " autocmd VimEnter *.py nested TagbarOpen
 
-    autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+  autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 
 augroup END
 " }}}
@@ -674,25 +677,25 @@ let g:lightline#colorscheme#farlight#palette = lightline#colorscheme#fill(s:p)
 
 
 let g:lightline = {
-            \ 'active': {
-            \   'left': [[ 'mode', 'paste', 'alestatus'], ['fugitive', 'filename']],
-            \   'right': [['percent'], ['lineinfo'], ['bufsettings']]
-            \ },
-            \ 'component_function': {
-            \   'modified': 'LightLineModified',
-            \   'readonly': 'LightLineReadonly',
-            \   'fugitive': 'LightLineFugitive',
-            \   'filename': 'LightLineFilename',
-            \   'filetype': 'LightLineFiletype',
-            \   'fileformat': 'LightLineFileformat',
-            \   'fileencoding': 'LightLineFileencoding',
-            \   'mode': 'LightLineMode',
-            \   'bufsettings': 'LightLineBufSettings',
-            \ },
-            \ 'component': {
-            \   'readonly': '%{&readonly?"":""}',
-            \ }
-            \ }
+      \ 'active': {
+      \   'left': [[ 'mode', 'paste', 'alestatus'], ['fugitive', 'filename']],
+      \   'right': [['percent'], ['lineinfo'], ['bufsettings']]
+      \ },
+      \ 'component_function': {
+      \   'modified': 'LightLineModified',
+      \   'readonly': 'LightLineReadonly',
+      \   'fugitive': 'LightLineFugitive',
+      \   'filename': 'LightLineFilename',
+      \   'filetype': 'LightLineFiletype',
+      \   'fileformat': 'LightLineFileformat',
+      \   'fileencoding': 'LightLineFileencoding',
+      \   'mode': 'LightLineMode',
+      \   'bufsettings': 'LightLineBufSettings',
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ }
+      \ }
 
 let g:lightline.colorscheme      = 'farlight'
 " let g:lightline.colorscheme = 'neodark'
@@ -711,8 +714,8 @@ let g:lightline#bufferline#filename_modifier  = ':t'    " only show filename. Se
 "
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
 function! g:LightLineAleStatus()
-    let l:s = ALEGetStatusLine()
-    return ('' != l:s ? ['', l:s, '' ] : '')
+  let l:s = ALEGetStatusLine()
+  return ('' != l:s ? ['', l:s, '' ] : '')
 endfunction
 
 " augroup alestatusupdate
@@ -724,18 +727,18 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 augroup alestatusupdate
-    autocmd!
-    autocmd BufEnter,BufRead * call ale#Queue(0)
-    autocmd User ALELint call lightline#update()
+  autocmd!
+  autocmd BufEnter,BufRead * call ale#Queue(0)
+  autocmd User ALELint call lightline#update()
 augroup END
 
 function! LightLineBufSettings()
-    let et = &et ==# 1 ? "•" : "➜"
-    return ('│ts│'. &tabstop . '│sw│'. &shiftwidth . '│et│' . et . '│')
+  let et = &et ==# 1 ? "•" : "➜"
+  return ('│ts│'. &tabstop . '│sw│'. &shiftwidth . '│et│' . et . '│')
 endfunction
 
 function! LightLineModified()
-    return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? "✱" : &modifiable ? '' : '-'
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? "✱" : &modifiable ? '' : '-'
 endfunction
 
 function! LightLineReadonly()
@@ -746,10 +749,10 @@ function! LightLineFilename()
   " let fname = expand('%:t')
   let fname = expand('%:t')
   return fname == '__Tagbar__' ? g:lightline.fname :
-              \ fname =~ '__Gundo\|NERD_tree' ? '' :
-              \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-              \ ('' != fname ? fname : '[No Name]') .
-              \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
 " for more symbols, see this:
