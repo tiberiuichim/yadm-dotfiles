@@ -59,6 +59,7 @@ call plug#begin('~/.vim/nvim-plugged')
 
 " The inimitable NerdTree
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Vim file manager
 " if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
