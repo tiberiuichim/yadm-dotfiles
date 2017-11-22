@@ -93,7 +93,8 @@ Plug 'tpope/vim-scriptease'
 " Plug 'milsen/vim-operator-substitute'
 "
 " Toggle comments with tcc
-Plug 'tomtom/tcomment_vim'
+" Plug 'tomtom/tcomment_vim'
+Plug 'scrooloose/nerdcommenter'
 
 " Change surrounding parens: cs'"
 " Plug 'tpope/vim-surround'
