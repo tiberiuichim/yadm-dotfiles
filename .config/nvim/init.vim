@@ -159,6 +159,8 @@ Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering
 Plug 'gelus/vim-buffer-enhancement'     " renumber buffer, <count><leader><c-6> renumbers to said <count>
 " Plug 'jlanzarotta/bufexplorer'          " buffer list in buffer, open \be (normal) \bs (split), \bv (split vertical)
 " Plug 't9md/vim-choosewin'               " Choose window to switch with -
+"
+" Plug 'vim-scripts/XQuery-indentomnicompleteftplugin'
 
 " ========== Language Support =========
 " Plug 'othree/html5.vim'
@@ -630,6 +632,7 @@ augroup configgroup
   autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype javascript setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype css setlocal ts=2 sw=2 sts=2 expandtab
+  autocmd Filetype xquery setlocal ts=4 sw=4 sts=4 expandtab
   " autocmd Filetype vue setlocal ts=2 sw=2 sts=2 expandtab
   " autocmd Filetype riot setlocal ts=2 sw=2 sts=0 expandtab
 
