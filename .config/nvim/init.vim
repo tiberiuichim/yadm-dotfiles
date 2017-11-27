@@ -807,4 +807,37 @@ nmap <Leader>8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
+let g:tagbar_type_xquery = {
+  \ 'ctagstype' : 'xquery',
+  \ 'kinds'     : [
+      \ 'd:macros:1:0',
+      \ 'p:prototypes:1:0',
+      \ 'g:enums',
+      \ 'e:enumerators:0:0',
+      \ 't:typedefs:0:0',
+      \ 'n:namespaces',
+      \ 'c:classes',
+      \ 's:structs',
+      \ 'u:unions',
+      \ 'f:functions',
+      \ 'm:members:0:0',
+      \ 'v:variables:0:0'
+  \ ],
+  \ 'sro'        : '::',
+  \ 'kind2scope' : {
+      \ 'g' : 'enum',
+      \ 'n' : 'namespace',
+      \ 'c' : 'class',
+      \ 's' : 'struct',
+      \ 'u' : 'union'
+  \ },
+  \ 'scope2kind' : {
+      \ 'enum'      : 'g',
+      \ 'namespace' : 'n',
+      \ 'class'     : 'c',
+      \ 'struct'    : 's',
+      \ 'union'     : 'u'
+  \ }
+\ }
+
 " }}}
