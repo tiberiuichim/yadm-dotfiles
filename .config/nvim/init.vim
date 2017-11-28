@@ -278,7 +278,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
 set guicursor=
 
 syntax enable
-
+syntax sync minlines=20000		" fixes syntax not updating on large files
 " set autoindent
 set backspace=indent,eol,start
 set backup      " backups
@@ -624,6 +624,7 @@ augroup configgroup
   autocmd!
   autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
+	autocmd BufEnter * :syntax sync fromstart
   autocmd BufNewFile,BufRead *.pt setlocal filetype=html
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
   autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
