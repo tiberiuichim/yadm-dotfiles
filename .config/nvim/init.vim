@@ -278,7 +278,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
 set guicursor=
 
 syntax enable
-syntax sync minlines=20000		" fixes syntax not updating on large files
+" syntax sync minlines=20000		" fixes syntax not updating on large files
 " set autoindent
 set backspace=indent,eol,start
 set backup      " backups
@@ -433,9 +433,9 @@ autocmd BufReadPost *
       \ endif
 "
 " Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-endif
+" if maparg('<C-L>', 'n') ==# ''
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>:syntax sync fromstart<CR>
+" endif
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -624,7 +624,7 @@ augroup configgroup
   autocmd!
   autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-	autocmd BufEnter * :syntax sync fromstart
+  " autocmd BufEnter * :syntax sync fromstart
   autocmd BufNewFile,BufRead *.pt setlocal filetype=html
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
   autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
