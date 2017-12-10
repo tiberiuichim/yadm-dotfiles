@@ -59,7 +59,8 @@ call plug#begin('~/.vim/nvim-plugged')
 
 " The inimitable NerdTree
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" really slows down nvim
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Vim file manager
 " if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
@@ -93,8 +94,8 @@ Plug 'tpope/vim-scriptease'
 " Plug 'milsen/vim-operator-substitute'
 "
 " Toggle comments with tcc
-" Plug 'tomtom/tcomment_vim'
-Plug 'scrooloose/nerdcommenter'
+Plug 'tomtom/tcomment_vim'
+" Plug 'scrooloose/nerdcommenter'
 
 " Change surrounding parens: cs'"
 " Plug 'tpope/vim-surround'
