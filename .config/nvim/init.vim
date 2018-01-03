@@ -179,6 +179,8 @@ Plug 'Vimjas/vim-python-pep8-indent'
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
 
+Plug 'vim-scripts/nginx.vim'
+
 " Plug 'fatih/vim-go'         " do a :GoInstallBinaries
 " Plug 'jodosha/vim-godebug'    " :GoToggleBreakpoint & :GoDebug
 
@@ -620,6 +622,9 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 " ---- File type based settings ---- {{{
 "
+"
+
+au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/* if &ft == '' | setfiletype nginx | endif
 
 augroup configgroup
   autocmd!
