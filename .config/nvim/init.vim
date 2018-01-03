@@ -72,7 +72,7 @@ Plug 'scrooloose/nerdtree'
 "
 " Helpers for writing vim scripts: :PP (pretty print), :Runtime (reload
 " runtime), zS (show syntax groups),
-Plug 'tpope/vim-scriptease'
+" Plug 'tpope/vim-scriptease'
 
 " Mappings for vim-husk.
 " All mappings work only in vim command line mode.
@@ -158,7 +158,7 @@ Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering
 " Plug 'NovaDev94/lightline-onedark'  " lightline theme let g:lightline.colorscheme = 'onedark'
 
 " Other UI enhancements
-Plug 'gelus/vim-buffer-enhancement'     " renumber buffer, <count><leader><c-6> renumbers to said <count>
+" Plug 'gelus/vim-buffer-enhancement'     " renumber buffer, <count><leader><c-6> renumbers to said <count>
 " Plug 'jlanzarotta/bufexplorer'          " buffer list in buffer, open \be (normal) \bs (split), \bv (split vertical)
 " Plug 't9md/vim-choosewin'               " Choose window to switch with -
 "
@@ -203,17 +203,17 @@ Plug 'ap/vim-css-color'
 Plug 'qwertologe/nextval.vim'
 
 " Better (faster) auto-folding. Type zuz to manually update folds
-Plug 'Konfekt/FastFold'
+" Plug 'Konfekt/FastFold'
 
 " ============ Colorthemes
 Plug 'AlessandroYorba/Alduin'
+Plug 'AlessandroYorba/Libertine'
 " Plug 'AlessandroYorba/Despacio'
 " Plug 'AlessandroYorba/Sierra'
 " Plug 'AlessandroYorba/Arcadia' " not a scheme yet
 " Plug 'AlessandroYorba/Monrovia'
-Plug 'MaxSt/FlatColor'
-Plug 'ajmwagar/vim-dues'
-
+" Plug 'MaxSt/FlatColor'
+" Plug 'ajmwagar/vim-dues'
 " Plug 'fcpg/vim-fahrenheit'       " earthy colors similar to alduin, starred by AlessandroYorba
 " Plug 'danilo-augusto/vim-afterglow'
 " Plug 'NLKNguyen/papercolor-theme'
