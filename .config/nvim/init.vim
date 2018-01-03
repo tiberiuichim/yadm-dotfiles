@@ -179,6 +179,8 @@ Plug 'Vimjas/vim-python-pep8-indent'
 " Python fix code with F8
 Plug 'tell-k/vim-autopep8'
 
+Plug 'vim-scripts/nginx.vim'
+
 " Plug 'fatih/vim-go'         " do a :GoInstallBinaries
 " Plug 'jodosha/vim-godebug'    " :GoToggleBreakpoint & :GoDebug
 
@@ -537,7 +539,7 @@ let g:ale_linters.html = ['customhtmlhint']
 " let g:ale_python_pylint_options = '--rcfile=~/.pylintc'
 " let g:ale_linters.python = ['pylint']
 "
-let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
+let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
 let g:ale_linters.python = ['flake8']
 
 
@@ -620,6 +622,9 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 " ---- File type based settings ---- {{{
 "
+"
+
+au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/* if &ft == '' | setfiletype nginx | endif
 
 augroup configgroup
   autocmd!
