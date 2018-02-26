@@ -123,9 +123,9 @@ Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
 " changes cursor shape to beam in insert mode
 " bug: inserts q in terminal
-if !exists('$TMUX')     " only allow in non-tmux sessions, has display bug
-  Plug 'jszakmeister/vim-togglecursor'
-endif
+" if !exists('$TMUX')     " only allow in non-tmux sessions, has display bug
+"   Plug 'jszakmeister/vim-togglecursor'
+" endif
 "
 " automatically set paste mode based on 'bracketed-paste' terminal support
 " disabled, messes with <tab>
@@ -395,6 +395,8 @@ elseif (g:my_machine ==# 'desktop')
   hi Todo guibg=red guifg=#333333
   hi Visual guibg=#1a5b3a guifg=#CCCCCC
   hi htmlLink guifg=#668866
+  " fixes match cursor
+  highlight MatchParen       guifg=#dfdfaf  guibg=#875f5f  gui=NONE       ctermfg=187   ctermbg=95    cterm=NONE
 
 endif
 
