@@ -209,7 +209,7 @@ Plug 'qwertologe/nextval.vim'
 
 " ============ Colorthemes
 Plug 'AlessandroYorba/Alduin'
-Plug 'AlessandroYorba/Libertine'
+" Plug 'AlessandroYorba/Libertine'
 " Plug 'AlessandroYorba/Despacio'
 " Plug 'AlessandroYorba/Sierra'
 " Plug 'AlessandroYorba/Arcadia' " not a scheme yet
