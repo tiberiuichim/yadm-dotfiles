@@ -716,7 +716,8 @@ let g:lightline.colorscheme      = 'farlight'
 " let g:lightline.colorscheme = 'neodark'
 " let g:lightline.mode_map         = { 'c': 'NORMAL' }
 let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers', 'alestatus': 'g:LightLineAleStatus'}
+" let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers', 'alestatus': 'g:LightLineAleStatus'}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers', 'alestatus': 'g:LinterStatus'}
 let g:lightline.component_type   = {'buffers': 'tabsel' , 'alestatus': 'error'}
 let g:lightline.separator        = { 'left': '', 'right': '' }
 let g:lightline.subseparator     = { 'left': '', 'right': '' }
@@ -731,6 +732,20 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
 function! g:LightLineAleStatus()
   let l:s = ALEGetStatusLine()
   return ('' != l:s ? ['', l:s, '' ] : '')
+endfunction
+
+
+function! g:LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
 endfunction
 
 " augroup alestatusupdate
