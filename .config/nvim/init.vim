@@ -541,9 +541,10 @@ let g:ale_linters.html = ['customhtmlhint']
 " let g:ale_python_pylint_options = '--rcfile=~/.pylintc'
 " let g:ale_linters.python = ['pylint']
 "
-let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
+let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
 let g:ale_linters.python = ['flake8']
 
+let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
 
 let g:ale_fixers = {
       \   'python': [
