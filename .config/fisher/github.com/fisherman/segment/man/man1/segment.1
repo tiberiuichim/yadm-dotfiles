@@ -1,0 +1,68 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "SEGMENT" "1" "March 2016" "" "segment"
+.
+.SH "NAME"
+\fBsegment\fR \- Powerline prompt builder
+.
+.SH "SYNOPSIS"
+\fBsegment\fR \fIforeground color\fR \fIbackground color\fR [\fItext\fR]
+.
+.br
+\fBsegment_right\fR \fIforeground color\fR \fIbackground color\fR [\fItext\fR]
+.
+.br
+\fBsegment_close\fR
+.
+.br
+.
+.SH "DESCRIPTION"
+\fBSegment\fR is a fish library to build powerline prompts\.
+.
+.SH "USAGE"
+Call segment / segment_right to create a powerline segment\. Call segment_close after you have added all the prompt segments\.
+.
+.IP "" 4
+.
+.nf
+
+function fish_prompt
+    segment white red FRONT
+    segment black white BASE
+    segment_close
+end
+
+function fish_right_prompt
+    segment_right white red FRONT
+    segment_right black white BASE
+    segment_close
+end
+.
+.fi
+.
+.IP "" 0
+.
+.SH "OPTIONS"
+.
+.IP "\(bu" 4
+\fIforeground\fR: Set the text foreground color\.
+.
+.IP "\(bu" 4
+\fIbackground\fR: Set the text background color\.
+.
+.IP "\(bu" 4
+[\fItext\fR]: Set the text to display\.
+.
+.IP "" 0
+.
+.SH "NOTES"
+.
+.IP "\(bu" 4
+The left prompt is built from \fIright\fR to left\.
+.
+.IP "\(bu" 4
+The right prompt is built from \fIleft\fR to right\.
+.
+.IP "" 0
+

@@ -1,0 +1,55 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "HOST_INFO" "1" "March 2016" "" "host_info"
+.
+.SH "NAME"
+\fBhost_info\fR \- Get user and host / domain information
+.
+.SH "SYNOPSIS"
+host_info [\fIformat\fR]
+.
+.br
+.
+.SH "USAGE"
+Get user and host / domain information\.
+.
+.IP "" 4
+.
+.nf
+
+host_info
+bucaran@mbp
+.
+.fi
+.
+.IP "" 0
+.
+.SH "EXAMPLES"
+Use \fIformat\fR to customize the output\.
+.
+.IP "" 4
+.
+.nf
+
+host_info domain\.host@~user
+local\.mbp@~bucaran
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Shorten the user name with \fIusr\fR\.
+.
+.IP "" 4
+.
+.nf
+
+host_info usr~:host/domain
+b~:mbp/local
+.
+.fi
+.
+.IP "" 0
+
