@@ -1,0 +1,7 @@
+[user]
+	name = Tiberiu Ichim
+	email = tiberiu.ichim@gmail.com
+[http]
+	sslVerify = false
+[credential]
+	helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring

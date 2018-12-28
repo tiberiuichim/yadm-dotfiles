@@ -218,7 +218,7 @@ Plug 'AlessandroYorba/Alduin'
 " Plug 'ajmwagar/vim-dues'
 " Plug 'fcpg/vim-fahrenheit'       " earthy colors similar to alduin, starred by AlessandroYorba
 " Plug 'danilo-augusto/vim-afterglow'
-" Plug 'NLKNguyen/papercolor-theme'
+Plug 'NLKNguyen/papercolor-theme'
 " Plug 'KeitaNakamura/neodark.vim'
 " Plug 'freeo/vim-kalisi'
 " Plug '0ax1/lxvc'
@@ -541,10 +541,10 @@ let g:ale_linters.html = ['customhtmlhint']
 " let g:ale_python_pylint_options = '--rcfile=~/.pylintc'
 " let g:ale_linters.python = ['pylint']
 "
-let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
+let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
 let g:ale_linters.python = ['flake8']
 
-let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
+let g:ale_python_autopep8_executable = expand("$HOME/tools3/bin/autopep8")
 
 let g:ale_fixers = {
       \   'python': [
@@ -634,12 +634,13 @@ augroup configgroup
   autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
   " autocmd BufEnter * :syntax sync fromstart
-  autocmd BufNewFile,BufRead *.pt setlocal filetype=html
+  autocmd BufNewFile,BufRead *.pt setlocal filetype=xml
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
   autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
   autocmd BufNewFile,BufRead *.vue setlocal filetype=html
   autocmd BufNewFile,BufRead *.tag setlocal filetype=html
 
+  autocmd Filetype json setlocal conceallevel=0
   autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype javascript setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype css setlocal ts=2 sw=2 sts=2 expandtab
