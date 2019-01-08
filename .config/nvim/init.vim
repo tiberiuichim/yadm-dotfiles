@@ -550,9 +550,10 @@ let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
 
 let g:ale_fixers = {
       \   'python': [
-      \       'add_blank_lines_for_python_control_statements',
       \       'remove_trailing_lines',
+      \       'autopep8',
       \       'isort',
+      \       'add_blank_lines_for_python_control_statements',
       \   ],
       \}
 
