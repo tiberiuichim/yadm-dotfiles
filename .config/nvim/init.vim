@@ -18,7 +18,7 @@ if executable(s:py2)
   let g:autopep8_cmd = expand("$HOME/tools/bin/autopep8")
   let g:python_host_prog = s:py2
 else
-  echom "not installed"
+  echom "tools3/bin/python not installed"
   let s:py3 = expand("$HOME/tools3/bin/python")
   if executable(s:py3)
     let g:autopep8_cmd = expand("$HOME/tools3/bin/autopep8")
@@ -541,10 +541,12 @@ let g:ale_linters.html = ['customhtmlhint']
 " let g:ale_python_pylint_options = '--rcfile=~/.pylintc'
 " let g:ale_linters.python = ['pylint']
 "
-let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
+" TODO: solve python3 compatibility
+"
+let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
 let g:ale_linters.python = ['flake8']
 
-let g:ale_python_autopep8_executable = expand("$HOME/tools3/bin/autopep8")
+let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
 
 let g:ale_fixers = {
       \   'python': [
