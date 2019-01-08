@@ -115,6 +115,7 @@ Plug 'tpope/vim-fugitive'
 
 " Show indent guides
 Plug 'Yggdroot/indentLine'
+let g:indentLine_fileTypeExclude = ['json']
 
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
