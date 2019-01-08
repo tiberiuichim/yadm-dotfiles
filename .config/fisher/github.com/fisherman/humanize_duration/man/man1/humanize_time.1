@@ -1,0 +1,31 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "HUMANIZE_TIME" "1" "March 2016" "" "humanize_duration"
+.
+.SH "NAME"
+\fBhumanize_duration\fR \- Humanize a time interval for display
+.
+.SH "SYNOPSIS"
+echo \fImilliseconds elapsed\fR | humanize_duration
+.
+.br
+humanize_duration [\-\-help]
+.
+.br
+.
+.SH "OPTIONS"
+.
+.TP
+\-h, \-\-help
+Show usage help\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+sleep 1
+echo $CMD_DURATION | humanize_duration
+1s 5ms
+.
+.fi
