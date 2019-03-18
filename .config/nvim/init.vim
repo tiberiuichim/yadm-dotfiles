@@ -639,10 +639,12 @@ augroup configgroup
 
   " autocmd BufEnter * :syntax sync fromstart
   autocmd BufNewFile,BufRead *.pt setlocal filetype=xml
+  autocmd BufNewFile,BufRead *.zpt setlocal filetype=xml
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
   autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
   autocmd BufNewFile,BufRead *.vue setlocal filetype=html
   autocmd BufNewFile,BufRead *.tag setlocal filetype=html
+  autocmd BufNewFile,BufRead *.json setlocal conceallevel=0
 
   autocmd Filetype json setlocal conceallevel=0
   autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
