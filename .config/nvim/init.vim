@@ -144,8 +144,12 @@ Plug 'junegunn/vim-easy-align'
 " :Fardo
 " Plug 'brooth/far.vim'
 
+" See https://www.mattlayman.com/blog/2019/supercharging-vim-blazing-fast-search/
+Plug 'jremmen/vim-ripgrep'
+Plug 'stefandtw/quickfix-reflector.vim'
+
 " Use :Ack to search with ag (mapped to <leader>a )
-Plug 'mileszs/ack.vim'
+" Plug 'mileszs/ack.vim'
 " Better quickfix behavior.
 " Plug 'yssl/QFEnter'
 " Plug 'romainl/vim-qf'
@@ -166,8 +170,9 @@ Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering
 " Plug 'vim-scripts/XQuery-indentomnicompleteftplugin'
 
 " ========== Language Support =========
-" Plug 'othree/html5.vim'
 Plug 'w0rp/ale'
+"
+" Plug 'othree/html5.vim'
 " Plug 'scrooloose/syntastic'
 " ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim
 " and Vim 8 while you edit your text files.
@@ -580,14 +585,14 @@ call ale#linter#Define('go', {
       \})
 let g:ale_linters.go = ['golint']
 
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-  " let g:ackprg = 'ag --nogroup --nocolor --column'
-endif
-" dont jump to quickfix window immediately
-" TODO: see how to configure ag https://gist.github.com/manasthakur/5afd3166a14bbadc1dc0f42d070bd746
-cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
+" if executable('ag')
+"   let g:ackprg = 'ag --vimgrep'
+"   " let g:ackprg = 'ag --nogroup --nocolor --column'
+" endif
+" " dont jump to quickfix window immediately
+" " TODO: see how to configure ag https://gist.github.com/manasthakur/5afd3166a14bbadc1dc0f42d070bd746
+" cnoreabbrev Ack Ack!
+" nnoremap <Leader>a :Ack!<Space>
 "
 " " Auto-open NerdTree on all vims
 let g:NERDTreeShowHidden=1

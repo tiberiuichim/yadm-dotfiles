@@ -17,11 +17,15 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # set PATH so it includes user's private bin directories
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+PATH="$HOME/bin:$HOME/.local/bin:$PATH:$HOME/anaconda3/bin"
 
 export PATH="$HOME/.cargo/bin:$PATH"
 export GOPATH="$HOME/Software/go"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 if [ -e /home/tibi/.nix-profile/etc/profile.d/nix.sh ]; then . /home/tibi/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+
+PATH="$HOME/.node_modules/bin:$PATH"
+export npm_config_prefix=~/.node_modules
