@@ -8,6 +8,6 @@ end
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-eval (eval /home/tibi/anaconda3/bin/conda "shell.fish" "hook" $argv)
+# eval (eval /home/tibi/miniconda3/bin/conda "shell.fish" "hook" $argv)
 # <<< conda initialize <<<
 

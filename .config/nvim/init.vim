@@ -200,6 +200,9 @@ Plug 'vim-scripts/nginx.vim'
 " Format selection with :Neoformat
 " Format selection in a different format :Neoformat! javascript
 " Plug 'sbdchd/neoformat'
+"
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
 
 " Python 'tags' in a tagbar
 Plug 'majutsushi/tagbar'
@@ -447,6 +450,12 @@ autocmd BufReadPost *
 " if maparg('<C-L>', 'n') ==# ''
 nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>:syntax sync fromstart<CR>
 " endif
+"
+"
+" Copy to system clipboard with F7, paste with Shift+f7
+:map <F7> :w !xclip<CR><CR>
+:vmap <F7> "*y
+:map <S-F7> :r!xclip -o<CR>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -561,6 +570,7 @@ let g:ale_fixers = {
       \       'isort',
       \       'add_blank_lines_for_python_control_statements',
       \   ],
+      \   'javascript': ['eslint']
       \}
 
 let g:ale_echo_msg_error_str = 'E'
@@ -571,10 +581,11 @@ let g:ale_sign_column_always = 1
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 
+let g:ale_sign_error = "EE"
+let g:ale_sign_warning = "WW"
+
 " let g:ale_sign_error = "\u2639"     " sad smiley face
 " let g:ale_sign_warning = "\u2614"     " umbrela under rain
-" let g:ale_sign_error = "WW"
-" let g:ale_sign_warning = "EE"
 
 let s:golint = expand('$HOME/go/bin/golint %t')
 call ale#linter#Define('go', {
