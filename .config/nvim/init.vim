@@ -657,7 +657,10 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.pt setlocal filetype=xml
   autocmd BufNewFile,BufRead *.zpt setlocal filetype=xml
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
+
+  autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript
   autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
+
   autocmd BufNewFile,BufRead *.vue setlocal filetype=html
   autocmd BufNewFile,BufRead *.tag setlocal filetype=html
   autocmd BufNewFile,BufRead *.json setlocal conceallevel=0
