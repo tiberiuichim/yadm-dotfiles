@@ -17,6 +17,7 @@ let s:py2 = expand("$HOME/tools/bin/python2")
 if executable(s:py2)
   let g:autopep8_cmd = expand("$HOME/tools/bin/autopep8")
   let g:python_host_prog = s:py2
+  " bin/pip install pynvim
 else
   echom "tools3/bin/python not installed"
   let s:py3 = expand("$HOME/tools3/bin/python")
@@ -61,6 +62,7 @@ call plug#begin('~/.vim/nvim-plugged')
 Plug 'scrooloose/nerdtree'
 " really slows down nvim
 " Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'liuchengxu/vim-clap'
 
 " Vim file manager
 " if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
@@ -205,7 +207,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 
 " Python 'tags' in a tagbar
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 "
 " Preview css colors
 Plug 'ap/vim-css-color'
@@ -450,6 +453,10 @@ autocmd BufReadPost *
 " if maparg('<C-L>', 'n') ==# ''
 nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>:syntax sync fromstart<CR>
 " endif
+
+" navigate between errors quickly
+nmap <silent> <C-K> <Plug>(ale_previous_wrap)
+nmap <silent> <C-J> <Plug>(ale_next_wrap)
 "
 "
 " Copy to system clipboard with F7, paste with Shift+f7
@@ -474,7 +481,9 @@ map <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 
 nnoremap <silent> <Leader>f :NERDTreeFind<CR>
-nnoremap <silent> <Leader>t :TagbarToggle<CR>
+" nnoremap <silent> <Leader>t :TagbarToggle<CR>
+" toggle vista (Tagbar replacement)
+nnoremap <silent> <Leader>t :Vista!!<CR>
 
 " use f2 to format an xml file
 map <F2> <Esc>:1,$!xmllint --format -<CR>
@@ -780,8 +789,8 @@ endfunction
 "     " autocmd BufWritePre * :call lightline#update()
 " augroup END
 " move between ALE error signs
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 augroup alestatusupdate
   autocmd!
