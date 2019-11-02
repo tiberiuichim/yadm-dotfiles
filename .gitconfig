@@ -5,13 +5,18 @@
 	sslVerify = false
 [credential]
 	helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring
+
+# compatibility with https://github.com/samoshkin/vim-mergetool
 [merge]
-    tool = vimdiff
-[mergetool]
-    prompt = true
-[mergetool "vimdiff"]
-    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-[difftool]
-    prompt = false
-[diff]
-    tool = vimdiff
+  conflictStyle = diff3
+
+# [merge]
+#     tool = vimdiff
+# [mergetool]
+#     prompt = true
+# [mergetool "vimdiff"]
+#     cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+# [difftool]
+#     prompt = false
+# [diff]
+#     tool = vimdiff

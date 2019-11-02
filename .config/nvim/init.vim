@@ -121,6 +121,13 @@ let g:indentLine_fileTypeExclude = ['json']
 
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
+filetype plugin indent on
+Plug 'samoshkin/vim-mergetool'
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
+" open mergetool with \mt
+nmap <leader>mt <plug>(MergetoolToggle)
+
 " Adds :Gundo, a visual tree of the undo
 " Plug 'sjl/gundo.vim'
 
