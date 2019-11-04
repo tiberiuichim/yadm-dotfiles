@@ -292,248 +292,6 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 " }}}
 
-" ---- Personal preferences ---- {{{
-"
-" Some of this stuff is lifted from sensible.vim
-
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-" fix spurious q characters in konsole
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
-set guicursor=
-
-syntax enable
-" syntax sync minlines=20000		" fixes syntax not updating on large files
-" set autoindent
-set backspace=indent,eol,start
-set backup      " backups
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=/tmp/*,/private/tmp/*
-set complete-=i
-set cursorline
-set conceallevel=0    " if set higher hides quotes in json files
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set display+=lastline
-set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
-set foldcolumn=1        " increase size of fold column
-set foldlevelstart=0    " most folds opened by default
-set foldmethod=marker   " fold based on markers level
-set formatoptions=tcqrn1        " set autoformat options (think gq). See http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
-set history=1000
-set hlsearch        " highlight search matches
-set laststatus=2
-set lazyredraw
-set list            " show whitespace characters, useful
-set listchars=tab:▸\ ,trail:•,extends:>,precedes:<,nbsp:+,eol:¬
-set mouse=
-set noincsearch     " jumps to first match as you type
-set noshowmode      " already provided by lightline
-set nosmartcase
-set nosmartindent
-set nosmarttab
-set nospell
-set nowrap          " don't wrap, it's annoying
-set nrformats-=octal
-set number
-set nuw=6               " increase size of gutter column
-set ruler
-set scrolloff=3     " how many lines to bottom cause scrolling
-set showcmd
-set showmatch
-set showtabline=2     " always show the tabline
-set sidescrolloff=5
-set splitbelow      " preferences for where the split happens
-set splitright
-set termguicolors
-set textwidth=79
-set ttimeout
-set timeoutlen=800
-set ttimeoutlen=10
-set undofile
-set undolevels=200        " undo settings
-set novisualbell  " annoying screen flash in VIM
-set wildmenu
-set writebackup
-
-set expandtab
-set tabstop=2   " not liking big tabs
-set shiftwidth=2
-
-" set foldenable    " this makes the folds closed when file is opened
-" set ignorecase        " when searching, ignore case if all letters lowercase
-" set smartcase     " override ignorecase if term has caps
-
-" clipboard configuration
-set clipboard=          " unnamedplus      "EasyClip + Vim + system clipboard
-
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-catch
-endtry
-
-if (g:my_machine ==# 'laptop')
-  set background=dark
-
-  let g:alduin_Shout_Become_Ethereal = 1      " black background
-  colorscheme alduin
-
-  " highlight SignColumn guibg=black
-  hi ColorColumn guibg=#112233
-  hi Conceal guibg=#000000 guifg=#111111
-  hi CursorLine guibg=#222222
-  hi CursorLineNr guibg=#222222
-  hi Define guifg=#6633ee
-  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
-  hi LineNr guibg=#121519 guifg=#444444
-  hi NonText guifg=#332233    " change color of at end of line conceal characters
-  hi Normal guibg=#111111
-  hi Search guifg=#dfdfaf guibg=#AA0b02
-  hi SpellBad term=underline gui=undercurl guisp=Orange
-  hi String guibg=#111111
-  hi Visual guibg=#1a5b3a guifg=#CCCCCC
-  hi htmlLink guifg=#668866
-
-elseif (g:my_machine ==# 'desktop')
-  set background=dark
-  " colorscheme flatcolor
-
-  let g:alduin_Shout_Become_Ethereal = 1      " black background
-  colorscheme alduin
-
-  hi ColorColumn guibg=#112233 guifg=#FFFFFF
-  hi Conceal guibg=#000000 guifg=#111111
-  hi CursorLine guibg=#191712
-  hi CursorLineNr guibg=#191712 guifg=#FFFFFF
-  hi Define guifg=#6633ee
-  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
-  hi LineNr guibg=#060606
-  hi NonText guifg=#112233    " change color of at end of line conceal characters
-  hi Normal guibg=#000000
-  hi Search guibg=#3a0b02
-  hi Search guifg=#dfdfaf guibg=#AA0b02
-  hi SpellBad term=underline gui=undercurl guisp=Orange
-  hi String guibg=#111111
-  hi Todo guibg=red guifg=#333333
-  hi Visual guibg=#1a5b3a guifg=#CCCCCC
-  hi htmlLink guifg=#668866
-  " fixes match cursor
-  highlight MatchParen       guifg=#dfdfaf  guibg=#875f5f  gui=NONE       ctermfg=187   ctermbg=95    cterm=NONE
-
-endif
-
-let &colorcolumn=80
-
-" highlight the column at 80 chars
-" match OverLength /\%81v.\+/
-" highlight OverLength guibg=#592929
-
-" space open/closes folds
-nnoremap <space> za
-
-" FastFold mapping and settings
-nmap zuz <Plug>(FastFoldUpdate)
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-let g:tex_fold_enabled=1
-let g:vimsyn_folding='af'
-let g:xml_syntax_folding = 1
-let g:python_syntax_folding = 1
-" let g:php_folding = 1
-" let g:perl_fold = 1
-
-"
-" buffer movement, this doesn't work in Tmux
-" nnoremap <C-left> :bprev!<CR>
-" nnoremap <C-right> :bnext!<CR>
-
-" switch between recent tabs with <tab> key
-nmap <tab> :b#<cr>
-" cycle through tabs with shift-tab
-nmap <S-tab> :bn<cr>
-
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \   exe "normal! g`\"" |
-      \ endif
-"
-" Use <C-L> to clear the highlighting of :set hlsearch.
-" if maparg('<C-L>', 'n') ==# ''
-nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>:syntax sync fromstart<CR>
-" endif
-
-" navigate between errors quickly
-nmap <silent> <C-K> <Plug>(ale_previous_wrap)
-nmap <silent> <C-J> <Plug>(ale_next_wrap)
-"
-"
-" Copy to system clipboard with F7, paste with Shift+f7
-:map <F7> :w !xclip<CR><CR>
-:vmap <F7> "*y
-:map <S-F7> :r!xclip -o<CR>
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-"
-" toggle gundo
-" nnoremap <leader>u :GundoToggle<CR>
-
-" Close the current buffer
-:nnoremap <Leader>fq :Bdelete<CR>
-:nnoremap Q :Bdelete<CR>
-
-"add a shortcut to insert pdb by doing \pdb
-map <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
-
-" add a :DiffOrig command to see differences to last saved version
-command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-
-nnoremap <silent> <Leader>f :NERDTreeFind<CR>
-" nnoremap <silent> <Leader>t :TagbarToggle<CR>
-" toggle vista (Tagbar replacement)
-nnoremap <silent> <Leader>t :Vista!!<CR>
-
-" use f2 to format an xml file
-map <F2> <Esc>:1,$!xmllint --format -<CR>
-
-
-" Execute current line or current selection as Vim EX commands.
-" nnoremap <leader>x :exe getline(".")<CR>
-" vnoremap <leader>X :<C-w>exe join(getline("'<","'>"),'<Bar>')<CR>
-
-" hit \D to insert date in format 2014-05-30
-:nnoremap <Leader>D "=strftime("%Y-%m-%d")<CR>P
-:inoremap <Leader>D <C-R>=strftime("%Y-%m-%d")<CR>
-
-" navigate windows with meta+arrows (including 'escape' from terminal)
-map <A-l> <c-w>l
-map <A-h> <c-w>h
-map <A-k> <c-w>k
-map <A-j> <c-w>j
-imap <A-l> <ESC><c-w>l
-imap <A-h> <ESC><c-w>h
-imap <A-k> <ESC><c-w>k
-imap <A-j> <ESC><c-w>j
-
-" terminal keys, escape terminal mode with <esc>
-if exists(':tnoremap')
-  :tnoremap <Esc> <C-\><C-n>
-
-  " move between panes with alt+h/j/k/l
-  :tnoremap <A-h> <C-\><C-n><C-w>h
-  :tnoremap <A-j> <C-\><C-n><C-w>j
-  :tnoremap <A-k> <C-\><C-n><C-w>k
-  :tnoremap <A-l> <C-\><C-n><C-w>l
-end
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
-
-" }}}
-
 " ---- Plugin configurations --- {{{
 
 " setup proper python support
@@ -925,7 +683,7 @@ set nobackup
 set nowritebackup
 
 " Better display for messages
-set cmdheight=2
+set cmdheight=1
 
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
@@ -986,8 +744,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>cf  <Plug>(coc-format-selected)
+nmap <leader>cf  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -1046,7 +804,249 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-
   " Use auocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 " }}}
+
+" ---- Personal preferences ---- {{{
+"
+" Some of this stuff is lifted from sensible.vim
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+" fix spurious q characters in konsole
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+set guicursor=
+
+syntax enable
+" syntax sync minlines=20000		" fixes syntax not updating on large files
+" set autoindent
+set backspace=indent,eol,start
+set backup      " backups
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set complete-=i
+set cursorline
+set conceallevel=0    " if set higher hides quotes in json files
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set display+=lastline
+set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
+set foldcolumn=1        " increase size of fold column
+set foldlevelstart=0    " most folds opened by default
+set foldmethod=marker   " fold based on markers level
+set formatoptions=tcqrn1        " set autoformat options (think gq). See http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
+set history=1000
+set hlsearch        " highlight search matches
+set laststatus=2
+set lazyredraw
+set list            " show whitespace characters, useful
+set listchars=tab:▸\ ,trail:•,extends:>,precedes:<,nbsp:+,eol:¬
+set mouse=
+set noincsearch     " jumps to first match as you type
+set noshowmode      " already provided by lightline
+set nosmartcase
+set nosmartindent
+set nosmarttab
+set nospell
+set nowrap          " don't wrap, it's annoying
+set nrformats-=octal
+set number
+set nuw=6               " increase size of gutter column
+set ruler
+set scrolloff=3     " how many lines to bottom cause scrolling
+set showcmd
+set showmatch
+set showtabline=2     " always show the tabline
+set sidescrolloff=5
+set splitbelow      " preferences for where the split happens
+set splitright
+set termguicolors
+set textwidth=79
+set ttimeout
+set timeoutlen=800
+set ttimeoutlen=10
+set undofile
+set undolevels=200        " undo settings
+set novisualbell  " annoying screen flash in VIM
+set wildmenu
+set writebackup
+
+set expandtab
+set tabstop=2   " not liking big tabs
+set shiftwidth=2
+
+" set foldenable    " this makes the folds closed when file is opened
+" set ignorecase        " when searching, ignore case if all letters lowercase
+" set smartcase     " override ignorecase if term has caps
+
+" clipboard configuration
+set clipboard=          " unnamedplus      "EasyClip + Vim + system clipboard
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+catch
+endtry
+
+if (g:my_machine ==# 'laptop')
+  set background=dark
+
+  let g:alduin_Shout_Become_Ethereal = 1      " black background
+  colorscheme alduin
+
+  " highlight SignColumn guibg=black
+  hi ColorColumn guibg=#112233
+  hi Conceal guibg=#000000 guifg=#111111
+  hi CursorLine guibg=#222222
+  hi CursorLineNr guibg=#222222
+  hi Define guifg=#6633ee
+  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
+  hi LineNr guibg=#121519 guifg=#444444
+  hi NonText guifg=#332233    " change color of at end of line conceal characters
+  hi Normal guibg=#111111
+  hi Search guifg=#dfdfaf guibg=#AA0b02
+  hi SpellBad term=underline gui=undercurl guisp=Orange
+  hi String guibg=#111111
+  hi Visual guibg=#1a5b3a guifg=#CCCCCC
+  hi htmlLink guifg=#668866
+
+elseif (g:my_machine ==# 'desktop')
+  set background=dark
+  " colorscheme flatcolor
+
+  let g:alduin_Shout_Become_Ethereal = 1      " black background
+  colorscheme alduin
+
+  hi ColorColumn guibg=#112233 guifg=#FFFFFF
+  hi Conceal guibg=#000000 guifg=#111111
+  hi CursorLine guibg=#191712
+  hi CursorLineNr guibg=#191712 guifg=#FFFFFF
+  hi Define guifg=#6633ee
+  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
+  hi LineNr guibg=#060606
+  hi NonText guifg=#112233    " change color of at end of line conceal characters
+  hi Normal guibg=#000000
+  hi Search guibg=#3a0b02
+  hi Search guifg=#dfdfaf guibg=#AA0b02
+  hi SpellBad term=underline gui=undercurl guisp=Orange
+  hi String guibg=#111111
+  hi Todo guibg=red guifg=#333333
+  hi Visual guibg=#1a5b3a guifg=#CCCCCC
+  hi htmlLink guifg=#668866
+  " fixes match cursor
+  highlight MatchParen       guifg=#dfdfaf  guibg=#875f5f  gui=NONE       ctermfg=187   ctermbg=95    cterm=NONE
+
+endif
+
+let &colorcolumn=80
+
+" highlight the column at 80 chars
+" match OverLength /\%81v.\+/
+" highlight OverLength guibg=#592929
+
+" space open/closes folds
+nnoremap <space> za
+
+" FastFold mapping and settings
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
+let g:python_syntax_folding = 1
+" let g:php_folding = 1
+" let g:perl_fold = 1
+
+"
+" buffer movement, this doesn't work in Tmux
+" nnoremap <C-left> :bprev!<CR>
+" nnoremap <C-right> :bnext!<CR>
+
+" switch between recent tabs with <tab> key
+nmap <tab> :b#<cr>
+" cycle through tabs with shift-tab
+nmap <S-tab> :bn<cr>
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+"
+" Use <C-L> to clear the highlighting of :set hlsearch.
+" if maparg('<C-L>', 'n') ==# ''
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>:syntax sync fromstart<CR>
+" endif
+
+" navigate between errors quickly
+nmap <silent> <C-K> <Plug>(ale_previous_wrap)
+nmap <silent> <C-J> <Plug>(ale_next_wrap)
+"
+"
+" Copy to system clipboard with F7, paste with Shift+f7
+:map <F7> :w !xclip<CR><CR>
+:vmap <F7> "*y
+:map <S-F7> :r!xclip -o<CR>
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+"
+" toggle gundo
+" nnoremap <leader>u :GundoToggle<CR>
+
+" Close the current buffer
+:nnoremap <Leader>fq :Bdelete<CR>
+:nnoremap Q :Bdelete<CR>
+
+"add a shortcut to insert pdb by doing \pdb
+map <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
+
+" add a :DiffOrig command to see differences to last saved version
+command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+
+nnoremap <silent> <Leader>f :NERDTreeFind<CR>
+" nnoremap <silent> <Leader>t :TagbarToggle<CR>
+" toggle vista (Tagbar replacement)
+nnoremap <silent> <Leader>t :Vista!!<CR>
+
+" use f2 to format an xml file
+map <F2> <Esc>:1,$!xmllint --format -<CR>
+
+
+" Execute current line or current selection as Vim EX commands.
+" nnoremap <leader>x :exe getline(".")<CR>
+" vnoremap <leader>X :<C-w>exe join(getline("'<","'>"),'<Bar>')<CR>
+
+" hit \D to insert date in format 2014-05-30
+:nnoremap <Leader>D "=strftime("%Y-%m-%d")<CR>P
+:inoremap <Leader>D <C-R>=strftime("%Y-%m-%d")<CR>
+
+" navigate windows with meta+arrows (including 'escape' from terminal)
+map <A-l> <c-w>l
+map <A-h> <c-w>h
+map <A-k> <c-w>k
+map <A-j> <c-w>j
+imap <A-l> <ESC><c-w>l
+imap <A-h> <ESC><c-w>h
+imap <A-k> <ESC><c-w>k
+imap <A-j> <ESC><c-w>j
+
+" terminal keys, escape terminal mode with <esc>
+if exists(':tnoremap')
+  :tnoremap <Esc> <C-\><C-n>
+
+  " move between panes with alt+h/j/k/l
+  :tnoremap <A-h> <C-\><C-n><C-w>h
+  :tnoremap <A-j> <C-\><C-n><C-w>j
+  :tnoremap <A-k> <C-\><C-n><C-w>k
+  :tnoremap <A-l> <C-\><C-n><C-w>l
+end
+:nnoremap <A-h> <C-w>h
+:nnoremap <A-j> <C-w>j
+:nnoremap <A-k> <C-w>k
+:nnoremap <A-l> <C-w>l
+
+" }}}
+
