@@ -494,7 +494,6 @@ let s:p.normal.warning = [ [ 'gray1', 'yellow' ] ]
 
 let g:lightline#colorscheme#farlight#palette = lightline#colorscheme#fill(s:p)
 
-
 let g:lightline = {
       \ 'colorscheme': 'farlight',
       \ 'separator': { 'left': '', 'right': '' },
@@ -696,11 +695,11 @@ set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <C-space>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -708,7 +707,7 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
@@ -804,6 +803,9 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+" show git hunk diff
+nnoremap <silent> <leader>g  :CocCommand git.chunkInfo<CR>
+
   " Use auocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 " }}}
@@ -818,17 +820,18 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
 set guicursor=
 
-syntax enable
 " syntax sync minlines=20000		" fixes syntax not updating on large files
 " set autoindent
+" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+syntax enable
 set backspace=indent,eol,start
 set backup      " backups
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupskip=/tmp/*,/private/tmp/*
 set complete-=i
 set cursorline
 set conceallevel=0    " if set higher hides quotes in json files
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set display+=lastline
 set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
 set foldcolumn=1        " increase size of fold column
@@ -851,7 +854,8 @@ set nospell
 set nowrap          " don't wrap, it's annoying
 set nrformats-=octal
 set number
-set nuw=6               " increase size of gutter column
+" set nuw=6               " increase size of gutter column
+set nuw=5               " increase size of gutter column
 set ruler
 set scrolloff=3     " how many lines to bottom cause scrolling
 set showcmd
@@ -974,7 +978,7 @@ autocmd BufReadPost *
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
       \   exe "normal! g`\"" |
       \ endif
-"
+
 " Use <C-L> to clear the highlighting of :set hlsearch.
 " if maparg('<C-L>', 'n') ==# ''
 nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>:syntax sync fromstart<CR>
@@ -983,8 +987,7 @@ nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR
 " navigate between errors quickly
 nmap <silent> <C-K> <Plug>(ale_previous_wrap)
 nmap <silent> <C-J> <Plug>(ale_next_wrap)
-"
-"
+
 " Copy to system clipboard with F7, paste with Shift+f7
 :map <F7> :w !xclip<CR><CR>
 :vmap <F7> "*y
@@ -1049,4 +1052,3 @@ end
 :nnoremap <A-l> <C-w>l
 
 " }}}
-
