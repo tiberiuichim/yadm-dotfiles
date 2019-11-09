@@ -27,7 +27,6 @@ else
   endif
 endif
 
-
 function! Identify()
   let l:h = hostname()
   if match(l:h, 'Lenovo') > -1
@@ -55,67 +54,63 @@ filetype plugin indent on
 " NOTE: Make sure you use single quotes when defining Plug
 
 call plug#begin('~/.vim/nvim-plugged')
-"
+
 " ==================== File managers
 
-" The inimitable NerdTree
+" The inimitable NerdTree. Locate files in explorer pane with <leader>f
 Plug 'scrooloose/nerdtree'
-" really slows down nvim
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'liuchengxu/vim-clap'
-
-Plug 'mbadran/headlights'
-
-" Vim file manager
-" if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
-" Plug 'Shougo/unite.vim'     " dependency for vimfiler
-" Plug 'Shougo/vimfiler.vim'
-" endif
 
 " ================== Enhancements to vim's functionality
-"
-" Helpers for writing vim scripts: :PP (pretty print), :Runtime (reload
-" runtime), zS (show syntax groups),
-" Plug 'tpope/vim-scriptease'
 
-" Mappings for vim-husk.
-" All mappings work only in vim command line mode.
-" C-a go to the beginning of the line
-" C-f go one character right or fall back to c_CTRL-F at the end of the line
-" C-b go one character left
-" C-d delete character or fall back to c_CTRL-D at the end of the line
-" C-k clear line after the cursor, overrides c_CTRL-K (if you're using C-k for digraphs check the docs how to disable)
-" C-x C-e open the command-line window, same as c_CTRL-f
-" M-f (Alt-f) go one "word" right
-" M-b (Alt-b) go one "word" left
-" M-d (Alt-d) delete "word" after the cursor
-" M-BS (Alt-Backspace) delete "word" before the cursor, same as c_CTRL-W
-" M-# (Alt-shift-3) insert comment at the beginning of the line and execute it. Useful for discarding the line, but still keeping it in the command-line history for later retrieval.
-" Plug 'vim-utils/vim-husk'
-
-" Vim Substitute as operator plugin
-" Plug 'kana/vim-operator-user'   " dependency of vim-operator-substitute
-" Plug 'milsen/vim-operator-substitute'
-"
 " Toggle comments with tcc
 Plug 'tomtom/tcomment_vim'
-" Plug 'scrooloose/nerdcommenter'
 
-" Change surrounding parens: cs'"
-" Plug 'tpope/vim-surround'
-
-" :set ft=outlow for outliner functionality
-" lines starting with ===, [x], [-] or [ ], followed by a space are topics.
-" Plug 'lifepillar/vim-outlaw'
-"
-" BufferBye, gives :Bdelete command to delete buffers
+" BufferBye, gives :Bdelete command to delete buffers. Mapped to Q
 Plug 'moll/vim-bbye'
-"
+
+" See https://jakobgm.com/posts/vim/git-integration/
 " Show git status stull in guter column (next to numbers)
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '>'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+let g:gitgutter_override_sign_column_highlight = 1
+highlight SignColumn guibg=bg
+highlight SignColumn ctermbg=bg
+" Jump between hunks
+nmap <Leader>gn <Plug>GitGutterNextHunk
+nmap <Leader>gp <Plug>GitGutterPrevHunk
+
+" Hunk-add and hunk-revert for chunk staging: git add/undo (chunk)
+nmap <Leader>ga <Plug>GitGutterStageHunk
+nmap <Leader>gu <Plug>GitGutterUndoHunk
+
+Plug 'jreybert/vimagit'
+" Open vimagit pane
+nnoremap <leader>gs :Magit<CR>       " git status
+" Push to remote
+nnoremap <leader>gP :! git push<CR>  " git Push
+" browse through chunks with <C-n> and <C-n, stage the current chunk with S,
+" and enter commit mode with CC, alternatively CA for making an amending
+" commit. Once you have written your commit message in commit mode, “write” the
+" buffer with your preferred save command and you’re done! Also the E binding,
+" which will open the modified/staged chunk in your other pane.
 
 " Git integration, do :Gdiff, :Gblame, :Gremove and more
 Plug 'tpope/vim-fugitive'
+" Show commits for every source line
+nnoremap <Leader>gb :Gblame<CR>  " git blame
+
+Plug 'tpope/vim-rhubarb'
+" Open current line in the browser
+nnoremap <Leader>gB :.Gbrowse<CR>
+" Open visual selection in the browser
+vnoremap <Leader>gB :Gbrowse<CR>
+
+" Add the entire file to the staging area
+nnoremap <Leader>gaf :Gw<CR>      " git add file
 
 " Show indent guides
 Plug 'Yggdroot/indentLine'
@@ -182,7 +177,7 @@ Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering
 
 " ========== Language Support =========
 Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "
 " Plug 'othree/html5.vim'
 " Plug 'scrooloose/syntastic'
@@ -674,140 +669,141 @@ let g:tagbar_type_xquery = {
 
 " ---- COC configuration ---- {{{
 
-" if hidden is not set, TextEdit might fail.
-set hidden
+" " if hidden is not set, TextEdit might fail.
+" set hidden
+"
+" " Some servers have issues with backup files, see #649
+" set nobackup
+" set nowritebackup
+"
+" " Better display for messages
+" set cmdheight=1
+"
+" " You will have bad experience for diagnostic messages when it's default 4000.
+" set updatetime=300
+"
+" " don't give |ins-completion-menu| messages.
+" " set shortmess+=c
+"
+" " always show signcolumns
+" set signcolumn=yes
+"
+" " Use tab for trigger completion with characters ahead and navigate.
+" " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" " inoremap <silent><expr> <C-space>
+" "       \ pumvisible() ? "\<C-n>" :
+" "       \ <SID>check_back_space() ? "\<TAB>" :
+" "       \ coc#refresh()
+" " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+"
+" " Use <c-space> to trigger completion.
+" " inoremap <silent><expr> <c-space> coc#refresh()
+"
+" " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" " Coc only does snippet and additional edit on confirm.
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" " Or use `complete_info` if your vim support it, like:
+" " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+"
+" " Use `[g` and `]g` to navigate diagnostics
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+"
+" " Remap keys for gotos
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+"
+" " Use K to show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+"
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
+"
+" " Highlight symbol under cursor on CursorHold
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+"
+" " Remap for rename current word
+" nmap <leader>rn <Plug>(coc-rename)
+"
+" " Remap for format selected region
+" xmap <leader>cf  <Plug>(coc-format-selected)
+" nmap <leader>cf  <Plug>(coc-format-selected)
+"
+" augroup mygroup
+"   autocmd!
+"   " Setup formatexpr specified filetype(s).
+"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+"   " Update signature help on jump placeholder
+"   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" augroup end
+"
+" " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+"
+" " Remap for do codeAction of current line
+" nmap <leader>ac  <Plug>(coc-codeaction)
+" " Fix autofix problem of current line
+" nmap <leader>qf  <Plug>(coc-fix-current)
+"
+" " Create mappings for function text object, requires document symbols feature of languageserver.
+" xmap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap if <Plug>(coc-funcobj-i)
+" omap af <Plug>(coc-funcobj-a)
+"
+" " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" nmap <silent> <C-d> <Plug>(coc-range-select)
+" xmap <silent> <C-d> <Plug>(coc-range-select)
+"
+" " Use `:Format` to format current buffer
+" command! -nargs=0 Format :call CocAction('format')
+"
+" " Use `:Fold` to fold current buffer
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+"
+" " use `:OR` for organize import of current buffer
+" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+"
+" " Add status line support, for integration with other plugin, checkout `:h coc-status`
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"
+" " Using CocList
+" " Show all diagnostics
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+"
+" " show git hunk diff
+" nnoremap <silent> <leader>g  :CocCommand git.chunkInfo<CR>
+"
+" " Use auocmd to force lightline update.
+" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-set cmdheight=1
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-" inoremap <silent><expr> <C-space>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-" inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>cf  <Plug>(coc-format-selected)
-nmap <leader>cf  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-d> <Plug>(coc-range-select)
-xmap <silent> <C-d> <Plug>(coc-range-select)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" show git hunk diff
-nnoremap <silent> <leader>g  :CocCommand git.chunkInfo<CR>
-
-  " Use auocmd to force lightline update.
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 " }}}
 
 " ---- Personal preferences ---- {{{
@@ -1052,3 +1048,48 @@ end
 :nnoremap <A-l> <C-w>l
 
 " }}}
+
+" really slows down nvim
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'liuchengxu/vim-clap'
+
+" Plug 'mbadran/headlights'
+
+" Vim file manager
+" if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
+" Plug 'Shougo/unite.vim'     " dependency for vimfiler
+" Plug 'Shougo/vimfiler.vim'
+" endif
+
+" Helpers for writing vim scripts: :PP (pretty print), :Runtime (reload
+" runtime), zS (show syntax groups),
+" Plug 'tpope/vim-scriptease'
+
+" Mappings for vim-husk.
+" All mappings work only in vim command line mode.
+" C-a go to the beginning of the line
+" C-f go one character right or fall back to c_CTRL-F at the end of the line
+" C-b go one character left
+" C-d delete character or fall back to c_CTRL-D at the end of the line
+" C-k clear line after the cursor, overrides c_CTRL-K (if you're using C-k for digraphs check the docs how to disable)
+" C-x C-e open the command-line window, same as c_CTRL-f
+" M-f (Alt-f) go one "word" right
+" M-b (Alt-b) go one "word" left
+" M-d (Alt-d) delete "word" after the cursor
+" M-BS (Alt-Backspace) delete "word" before the cursor, same as c_CTRL-W
+" M-# (Alt-shift-3) insert comment at the beginning of the line and execute it. Useful for discarding the line, but still keeping it in the command-line history for later retrieval.
+" Plug 'vim-utils/vim-husk'
+
+" Vim Substitute as operator plugin
+" Plug 'kana/vim-operator-user'   " dependency of vim-operator-substitute
+" Plug 'milsen/vim-operator-substitute'
+"
+" Plug 'scrooloose/nerdcommenter'
+
+" Change surrounding parens: cs'"
+" Plug 'tpope/vim-surround'
+
+" :set ft=outlow for outliner functionality
+" lines starting with ===, [x], [-] or [ ], followed by a space are topics.
+" Plug 'lifepillar/vim-outlaw'
+"
