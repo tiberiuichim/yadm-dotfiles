@@ -219,7 +219,7 @@ let g:ale_fix_on_save = 1
 
 let g:ale_sign_error = "X"
 let g:ale_sign_warning = "‼"
-
+"
 let g:NERDTreeShowHidden=1
 let g:NERDTreeIndicatorMapCustom = {
       \ "Modified"  : "✹",
@@ -232,7 +232,8 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Clean"     : "✔︎",
       \ "Unknown"   : "?"
       \ }
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.egg-info$', '\~$', '\.git$', '\.eggs', '__pycache__', '.~']
+
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.egg-info$', '\~$', '\.git$', '\.eggs', '__pycache__', '\.\~']
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
@@ -250,6 +251,18 @@ call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" Ensure you have installed some decent font to show these pretty symbols, then
+" you can enable icon for the kind.
+let g:vista_icon_indent = ["╰▸ ", "├▸ "]
+let g:vista#renderer#enable_icon = 1
+" TODO: need to fix the default icon
+let g:vista#renderer#icons = {
+\   "default": "\uf794",
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
 
 " }}}
 
@@ -293,7 +306,6 @@ augroup configgroup
   autocmd FileType python setlocal foldlevel=99
   " autocmd Filetype python nnoremap <buffer> <silent> <C-K> :LspPreviousError<CR>
   " autocmd Filetype python nnoremap <buffer> <silent> <C-J> :LspNextError<CR>
-
   " autocmd VimEnter *.py nested TagbarOpen
 
   autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
@@ -335,8 +347,8 @@ let g:lightline = {
       \ 'subseparator': { 'left': '', 'right': '' },
       \ 'tabline': {'left': [['buffers']], 'right': [['close']]},
       \ 'active': {
-      \   'left': [[ 'mode', 'paste', 'alestatus', 'cocstatus'], ['fugitive', 'filename']],
-      \   'right': [['percent'], ['lineinfo'], ['bufsettings']]
+      \   'left': [[ 'mode', 'paste', 'alestatus'], ['fugitive', 'filename']],
+      \   'right': [['percent'], ['lineinfo'], ['bufsettings'], ['method']]
       \ },
       \ 'component_function': {
       \   'modified': 'LightLineModified',
@@ -348,7 +360,8 @@ let g:lightline = {
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode',
       \   'bufsettings': 'LightLineBufSettings',
-      \   'cocstatus': 'coc#status'
+      \   'cocstatus': 'coc#status',
+      \   'method': 'NearestMethodOrFunction',
       \ },
       \ 'component_expand': {'buffers': 'lightline#bufferline#buffers', 'alestatus': 'g:LinterStatus'},
       \ 'component': {
@@ -382,6 +395,10 @@ function! g:LinterStatus() abort
     \)
 endfunction
 
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
 augroup alestatusupdate
   autocmd!
   autocmd BufEnter,BufRead * call ale#Queue(0)
@@ -402,13 +419,17 @@ function! LightLineReadonly()
 endfunction
 
 function! LightLineFilename()
-  " let fname = expand('%:t')
   let fname = expand('%:t')
-  return fname == '__Tagbar__' ? g:lightline.fname :
+  return fname == '__vista__' ? "tags by Vista" :
         \ fname =~ '__Gundo\|NERD_tree' ? '' :
         \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ ('' != fname ? fname : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+  " return fname == '__Tagbar__' ? g:lightline.fname :
+  "       \ fname =~ '__Gundo\|NERD_tree' ? '' :
+  "       \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+  "       \ ('' != fname ? fname : '[No Name]') .
+  "       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
 " for more symbols, see this:
