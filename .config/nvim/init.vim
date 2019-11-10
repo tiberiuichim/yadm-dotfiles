@@ -99,6 +99,9 @@ Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering
 " ========== Language Support =========
 " ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim
 " and Vim 8 while you edit your text files.
+let g:ale_set_balloons = 0
+let g:ale_cursor_detail = 0
+let g:ale_virtualtext_cursor = 1
 Plug 'w0rp/ale'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
@@ -177,6 +180,7 @@ let g:indentLine_color_gui = '#111111'
 
 let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
 let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
+let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
 
 let g:ale_fixers = {
       \   'python': [
@@ -659,8 +663,21 @@ elseif (g:my_machine ==# 'desktop')
   hi Todo guibg=#AA0b02 guifg=bg
   hi Visual guibg=#1a5b3a guifg=#CCCCCC
   hi htmlLink guifg=#668866
+
   " fixes match cursor
   highlight MatchParen       guifg=#dfdfaf  guibg=#875f5f  gui=NONE       ctermfg=187   ctermbg=95    cterm=NONE
+
+  hi ALEVirtualTextError guifg=#dfdfaf guibg=#AA0b02
+  hi ALEVirtualTextWarning guifg=#dfdfaf guibg=#AA0b02
+  hi ALEVirtualTextInfo guifg=#dfdfaf guibg=#AA0b02
+  hi ALEVirtualTextStyleError guifg=#dfdfaf guibg=#AA0b02
+  hi ALEVirtualTextStyleWarning guifg=#dfdfaf guibg=#AA0b02
+
+  " |ALEVirtualTextError|        - Items with `'type': 'E'`
+  " |ALEVirtualTextInfo|         - Items with `'type': 'I'`
+  " |ALEVirtualTextStyleError|   - Items with `'type': 'E'` and `'sub_type': 'style'`
+  " |ALEVirtualTextStyleWarning| - Items with `'type': 'W'` and `'sub_type': 'style'`
+  " |ALEVirtualTextWarning|      - Items with `'type': 'W'`
 
 endif
 
