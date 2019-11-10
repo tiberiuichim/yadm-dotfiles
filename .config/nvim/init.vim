@@ -192,8 +192,11 @@ let g:ale_fixers = {
       \   'javascript': ['eslint']
       \}
 
-let g:ale_linters = {}
-let g:ale_linters.python = ['pyls']   " use vim-lsp for python integration
+let g:ale_linters = {
+  \ 'python': ['flake8'],
+  \ 'javascript': ['eslint']
+  \ }
+" let g:ale_linters.python = ['pyls']   " use vim-lsp for python integration
 
 " Available Linters: ['bandit', 'flake8', 'mypy', 'prospector', 'pycodestyle', 'pydocstyle', 'pyflakes', 'pylama', 'pylint', 'pyls', 'pyre', 'vulture']
 " Enabled Linters: ['flake8', 'mypy', 'pylint']                                                                                                                                                    Suggested Fixers:                                                                                                                                                                                  'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.                                                                                                      'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'isort' - Sort Python imports with isort.                                                                                                                                                         'remove_trailing_lines' - Remove all blank lines at the end of a file.                                                                                                                            'reorder-python-imports' - Sort Python imports with reorder-python-imports.                                                                                                                       'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.                                                                                                           'yapf' - Fix Python files with yapf.
