@@ -217,8 +217,8 @@ let g:ale_sign_column_always = 1
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 
-let g:ale_sign_error = "EE"
-let g:ale_sign_warning = "WW"
+let g:ale_sign_error = "X"
+let g:ale_sign_warning = "‼"
 
 let g:NERDTreeShowHidden=1
 let g:NERDTreeIndicatorMapCustom = {
