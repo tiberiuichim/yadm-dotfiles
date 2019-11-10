@@ -56,15 +56,14 @@ filetype plugin indent on
 
 call plug#begin('~/.vim/nvim-plugged')
 
-" ==================== File managers
-
 " The inimitable NerdTree. Locate files in explorer pane with <leader>f
 Plug 'scrooloose/nerdtree'
 
-" ================== Enhancements to vim's functionality
-
 " Toggle comments with tcc
 Plug 'tomtom/tcomment_vim'
+
+" The :EasyAlign command
+Plug 'junegunn/vim-easy-align'
 
 " BufferBye, gives :Bdelete command to delete buffers. Mapped to Q
 Plug 'moll/vim-bbye'
@@ -85,12 +84,7 @@ let g:indentLine_fileTypeExclude = ['json']
 
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
-filetype plugin indent on
 Plug 'samoshkin/vim-mergetool'
-let g:mergetool_layout = 'mr'
-let g:mergetool_prefer_revision = 'local'
-" open mergetool with \mt
-nmap <leader>mt <plug>(MergetoolToggle)
 
 " Lightline colors in status bar
 Plug 'itchyny/lightline.vim'
@@ -99,16 +93,15 @@ Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering
 " ========== Language Support =========
 " ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim
 " and Vim 8 while you edit your text files.
-let g:ale_set_balloons = 0
-let g:ale_cursor_detail = 0
-let g:ale_virtualtext_cursor = 1
+
 Plug 'w0rp/ale'
+
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 
 " Python 'tags' in a tagbar
 " Plug 'majutsushi/tagbar'
-Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/vista.vim'   " tagbar replacement that uses LSP
 "
 " Preview css colors
 Plug 'ap/vim-css-color'
@@ -116,7 +109,7 @@ Plug 'ap/vim-css-color'
 " Better increment (ctrl+a/ctrl+x) behavior
 Plug 'qwertologe/nextval.vim'
 
-" ============ Colorthemes
+" Best color theme evah
 Plug 'AlessandroYorba/Alduin'
 
 call plug#end()
@@ -143,6 +136,8 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
   exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
+" bash execute contents of current buffer and filter it to a new window
+command! FW call FilterToNewWindow()
 function! FilterToNewWindow()
   let TempFile = tempname()
   let SaveModified = &modified
@@ -153,14 +148,6 @@ function! FilterToNewWindow()
   exe '%! ' . @%
   exe 'w!'
 endfunction
-
-" bash execute contents of current buffer and filter it to a new window
-command! FW call FilterToNewWindow()
-
-" hit F10 to show under cursor highlight group
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " }}}
 
@@ -178,6 +165,10 @@ let g:indentLine_color_gui = '#111111'
 
 " asynchronous lint engine (ale) settings
 
+let g:ale_set_balloons = 0
+let g:ale_cursor_detail = 0
+let g:ale_virtualtext_cursor = 1
+
 let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
 let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
 let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
@@ -193,24 +184,11 @@ let g:ale_fixers = {
       \}
 
 let g:ale_linters = {
-  \ 'python': ['flake8'],
-  \ 'javascript': ['eslint']
-  \ }
+      \ 'python': ['flake8'],
+      \ 'javascript': ['eslint']
+      \ }
 " let g:ale_linters.python = ['pyls']   " use vim-lsp for python integration
 
-" Available Linters: ['bandit', 'flake8', 'mypy', 'prospector', 'pycodestyle', 'pydocstyle', 'pyflakes', 'pylama', 'pylint', 'pyls', 'pyre', 'vulture']
-" Enabled Linters: ['flake8', 'mypy', 'pylint']                                                                                                                                                    Suggested Fixers:                                                                                                                                                                                  'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.                                                                                                      'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'isort' - Sort Python imports with isort.                                                                                                                                                         'remove_trailing_lines' - Remove all blank lines at the end of a file.                                                                                                                            'reorder-python-imports' - Sort Python imports with reorder-python-imports.                                                                                                                       'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.                                                                                                           'yapf' - Fix Python files with yapf.
-"  Suggested Fixers:
-" 'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.
-" 'autopep8' - Fix PEP8 issues with autopep8.
-" 'black' - Fix PEP8 issues with black.
-"  'autopep8' - Fix PEP8 issues with autopep8.
-" 'black' - Fix PEP8 issues with black.
-" 'isort' - Sort Python imports with isort.
-" 'remove_trailing_lines' - Remove all blank lines at the end of a file.
-" 'reorder-python-imports' - Sort Python imports with reorder-python-imports.
-" 'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
-" 'yapf' - Fix Python files with yapf.
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -240,22 +218,6 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.egg-info$', '\~$', '\.git$', '\.egg
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('vim', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 " Ensure you have installed some decent font to show these pretty symbols, then
 " you can enable icon for the kind.
 let g:vista_icon_indent = ["╰▸ ", "├▸ "]
@@ -299,7 +261,6 @@ augroup configgroup
   " autocmd Filetype vue setlocal ts=2 sw=2 sts=2 expandtab
   " autocmd Filetype riot setlocal ts=2 sw=2 sts=0 expandtab
 
-  " temp disabled:
   autocmd FileType python setlocal commentstring=#\ %s
   autocmd Filetype python setlocal tabstop=4 shiftwidth=4 expandtab colorcolumn=80
   autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
@@ -307,6 +268,7 @@ augroup configgroup
   autocmd FileType python setlocal nowrap
   autocmd FileType python setlocal textwidth=79
   autocmd FileType python setlocal foldlevel=99
+
   " autocmd Filetype python nnoremap <buffer> <silent> <C-K> :LspPreviousError<CR>
   " autocmd Filetype python nnoremap <buffer> <silent> <C-J> :LspNextError<CR>
   " autocmd VimEnter *.py nested TagbarOpen
@@ -314,11 +276,39 @@ augroup configgroup
   autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 
 augroup END
+
+augroup alestatusupdate
+  autocmd!
+  autocmd BufEnter,BufRead * call ale#Queue(0)
+  autocmd User ALELint call lightline#update()
+augroup END
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+:call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+:call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+:call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+:call NERDTreeHighlightFile('vim', 'yellow', 'none', 'yellow', '#151515')
+:call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+:call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+:call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+:call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+:call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+:call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+:call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+:call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+:call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+:call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
 " }}}
 
 " ---- Lightline configuration ---- {{{
-" components are name:function to call
-" use the active: left/right lists to control what shows where
 
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 let s:p.normal.left = [ ['darkestgreen', 'brightgreen', 'bold'], ['white', 'gray4'] ]
@@ -343,7 +333,14 @@ let s:p.normal.error = [ [ 'gray9', 'brightestred' ] ]
 let s:p.normal.warning = [ [ 'gray1', 'yellow' ] ]
 
 let g:lightline#colorscheme#farlight#palette = lightline#colorscheme#fill(s:p)
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#unnamed      = '[...]'
+let g:lightline#bufferline#show_number  = 2
+let g:lightline#bufferline#filename_modifier  = ':t'    " only show filename. See :help filename-modifiers for more options
 
+" components are name:function to call
+" use the active: left/right lists to control what shows where
 let g:lightline = {
       \ 'colorscheme': 'farlight',
       \ 'separator': { 'left': '', 'right': '' },
@@ -366,18 +363,18 @@ let g:lightline = {
       \   'cocstatus': 'coc#status',
       \   'method': 'NearestMethodOrFunction',
       \ },
-      \ 'component_expand': {'buffers': 'lightline#bufferline#buffers', 'alestatus': 'g:LinterStatus'},
+      \ 'component_expand': {
+      \     'buffers': 'lightline#bufferline#buffers',
+      \     'alestatus': 'g:LinterStatus'
+      \ },
       \ 'component': {
       \   'readonly': '%{&readonly?"":""}',
       \ },
-      \ 'component_type': {'buffers': 'tabsel' , 'alestatus': 'error'}
+      \ 'component_type': {
+      \   'buffers': 'tabsel' ,
+      \   'alestatus': 'error'
       \ }
-
-let g:lightline#bufferline#show_number  = 1
-let g:lightline#bufferline#shorten_path = 1
-let g:lightline#bufferline#unnamed      = '[...]'
-let g:lightline#bufferline#show_number  = 2
-let g:lightline#bufferline#filename_modifier  = ':t'    " only show filename. See :help filename-modifiers for more options
+      \ }
 
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
 function! g:LightLineAleStatus()
@@ -392,25 +389,21 @@ function! g:LinterStatus() abort
     let l:all_non_errors = l:counts.total - l:all_errors
 
     return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
+          \   '%dW %dE',
+          \   all_non_errors,
+          \   all_errors
+          \)
 endfunction
 
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
-augroup alestatusupdate
-  autocmd!
-  autocmd BufEnter,BufRead * call ale#Queue(0)
-  autocmd User ALELint call lightline#update()
-augroup END
-
 function! LightLineBufSettings()
   let et = &et ==# 1 ? "•" : "➜"
-  return ('│ts│'. &tabstop . '│sw│'. &shiftwidth . '│et│' . et . '│')
+  let l:ft = &filetype ==# 'nerdtree'
+  let l:text = '│ts│'. &tabstop . '│sw│'. &shiftwidth . '│et│' . et . '│'
+  return (!l:ft ? text : '')
 endfunction
 
 function! LightLineModified()
@@ -467,7 +460,14 @@ function! LightLineFileencoding()
 endfunction
 
 function! LightLineMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
+  return expand('%:t') ==# '__Tagbar__' ? 'Tagbar':
+        \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
+        \ &filetype ==# 'unite' ? 'Unite' :
+        \ &filetype ==# 'vimfiler' ? 'VimFiler' :
+        \ &filetype ==# 'vimshell' ? 'VimShell' :
+        \ &filetype ==# 'nerdtree' ? 'NERDTree' :
+        \ winwidth(0) > 40 ? lightline#mode() :
+        \ ''
 endfunction
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
@@ -480,39 +480,6 @@ nmap <Leader>7 <Plug>lightline#bufferline#go(7)
 nmap <Leader>8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
-
-let g:tagbar_type_xquery = {
-  \ 'ctagstype' : 'xquery',
-  \ 'kinds'     : [
-      \ 'd:macros:1:0',
-      \ 'p:prototypes:1:0',
-      \ 'g:enums',
-      \ 'e:enumerators:0:0',
-      \ 't:typedefs:0:0',
-      \ 'n:namespaces',
-      \ 'c:classes',
-      \ 's:structs',
-      \ 'u:unions',
-      \ 'f:functions',
-      \ 'm:members:0:0',
-      \ 'v:variables:0:0'
-  \ ],
-  \ 'sro'        : '::',
-  \ 'kind2scope' : {
-      \ 'g' : 'enum',
-      \ 'n' : 'namespace',
-      \ 'c' : 'class',
-      \ 's' : 'struct',
-      \ 'u' : 'union'
-  \ },
-  \ 'scope2kind' : {
-      \ 'enum'      : 'g',
-      \ 'namespace' : 'n',
-      \ 'class'     : 'c',
-      \ 'struct'    : 's',
-      \ 'union'     : 'u'
-  \ }
-\ }
 
 " }}}
 
@@ -552,6 +519,11 @@ vnoremap <Leader>gB :Gbrowse<CR>
 
 " Add the entire file to the staging area
 nnoremap <Leader>gaf :Gw<CR>      " git add file
+
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
+" open mergetool with \mt
+nmap <leader>mt <plug>(MergetoolToggle)
 
 " }}}
 
@@ -637,6 +609,11 @@ try
 catch
 endtry
 
+let &colorcolumn=80
+" highlight the column at 80 chars
+" match OverLength /\%81v.\+/
+" highlight OverLength guibg=#592929
+
 if (g:my_machine ==# 'laptop')
   set background=dark
 
@@ -705,12 +682,6 @@ elseif (g:my_machine ==# 'desktop')
 
 endif
 
-let &colorcolumn=80
-
-" highlight the column at 80 chars
-" match OverLength /\%81v.\+/
-" highlight OverLength guibg=#592929
-
 " space open/closes folds
 nnoremap <space> za
 
@@ -718,12 +689,6 @@ nnoremap <space> za
 nmap <tab> :b#<cr>
 " cycle through tabs with shift-tab
 nmap <S-tab> :bn<cr>
-
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \   exe "normal! g`\"" |
-      \ endif
 
 " Use <C-L> to clear the highlighting of :set hlsearch.
 " if maparg('<C-L>', 'n') ==# ''
@@ -800,6 +765,11 @@ end
 
 " use \w to do a search/replace with current word
 :nmap <leader>w :s/\(<c-r>=expand("<cword>")<cr>\)/
+
+" hit F10 to show under cursor highlight group
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " }}}
 
@@ -947,9 +917,6 @@ end
 " :Thematic something
 " Plug 'reedes/vim-thematic'
 "
-" The :EasyAlign command
-" Plug 'junegunn/vim-easy-align'
-
 " Project wide find and replace
 " :Far foo bar **/*.py
 " :Fardo
@@ -1170,5 +1137,51 @@ end
 "
 " " Use auocmd to force lightline update.
 " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" Available Linters: ['bandit', 'flake8', 'mypy', 'prospector', 'pycodestyle', 'pydocstyle', 'pyflakes', 'pylama', 'pylint', 'pyls', 'pyre', 'vulture']
+" Enabled Linters: ['flake8', 'mypy', 'pylint']                                                                                                                                                    Suggested Fixers:                                                                                                                                                                                  'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.                                                                                                      'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'isort' - Sort Python imports with isort.                                                                                                                                                         'remove_trailing_lines' - Remove all blank lines at the end of a file.                                                                                                                            'reorder-python-imports' - Sort Python imports with reorder-python-imports.                                                                                                                       'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.                                                                                                           'yapf' - Fix Python files with yapf.
+"  Suggested Fixers:
+" 'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.
+" 'autopep8' - Fix PEP8 issues with autopep8.
+" 'black' - Fix PEP8 issues with black.
+"  'autopep8' - Fix PEP8 issues with autopep8.
+" 'black' - Fix PEP8 issues with black.
+" 'isort' - Sort Python imports with isort.
+" 'remove_trailing_lines' - Remove all blank lines at the end of a file.
+" 'reorder-python-imports' - Sort Python imports with reorder-python-imports.
+" 'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
+" 'yapf' - Fix Python files with yapf.
+
+" let g:tagbar_type_xquery = {
+"   \ 'ctagstype' : 'xquery',
+"   \ 'kinds'     : [
+"       \ 'd:macros:1:0',
+"       \ 'p:prototypes:1:0',
+"       \ 'g:enums',
+"       \ 'e:enumerators:0:0',
+"       \ 't:typedefs:0:0',
+"       \ 'n:namespaces',
+"       \ 'c:classes',
+"       \ 's:structs',
+"       \ 'u:unions',
+"       \ 'f:functions',
+"       \ 'm:members:0:0',
+"       \ 'v:variables:0:0'
+"   \ ],
+"   \ 'sro'        : '::',
+"   \ 'kind2scope' : {
+"       \ 'g' : 'enum',
+"       \ 'n' : 'namespace',
+"       \ 'c' : 'class',
+"       \ 's' : 'struct',
+"       \ 'u' : 'union'
+"   \ },
+"   \ 'scope2kind' : {
+"       \ 'enum'      : 'g',
+"       \ 'namespace' : 'n',
+"       \ 'class'     : 'c',
+"       \ 'struct'    : 's',
+"       \ 'union'     : 'u'
+"   \ }
+" \ }
 
 " }}}
