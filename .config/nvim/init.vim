@@ -1,6 +1,7 @@
 set t_Co=256
 
 " {{{ ---- Bootstrap ----
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -39,7 +40,7 @@ let g:my_machine = Identify()
 
 " }}}
 
-" {{{ ---- Plugin configuration ----
+" {{{ ---- Load plugins ----
 
 filetype plugin on
 filetype plugin indent on
@@ -71,46 +72,12 @@ Plug 'moll/vim-bbye'
 " See https://jakobgm.com/posts/vim/git-integration/
 " Show git status stull in guter column (next to numbers)
 Plug 'airblade/vim-gitgutter'
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '>'
-let g:gitgutter_sign_removed = '-'
-let g:gitgutter_sign_removed_first_line = '^'
-let g:gitgutter_sign_modified_removed = '<'
-let g:gitgutter_override_sign_column_highlight = 1
-highlight SignColumn guibg=bg
-highlight SignColumn ctermbg=bg
-" Jump between hunks
-nmap <Leader>gn <Plug>GitGutterNextHunk
-nmap <Leader>gp <Plug>GitGutterPrevHunk
-
-" Hunk-add and hunk-revert for chunk staging: git add/undo (chunk)
-nmap <Leader>ga <Plug>GitGutterStageHunk
-nmap <Leader>gu <Plug>GitGutterUndoHunk
-
 Plug 'jreybert/vimagit'
-" Open vimagit pane
-nnoremap <leader>gs :Magit<CR>       " git status
-" Push to remote
-nnoremap <leader>gP :! git push<CR>  " git Push
-" browse through chunks with <C-n> and <C-n, stage the current chunk with S,
-" and enter commit mode with CC, alternatively CA for making an amending
-" commit. Once you have written your commit message in commit mode, “write” the
-" buffer with your preferred save command and you’re done! Also the E binding,
-" which will open the modified/staged chunk in your other pane.
 
 " Git integration, do :Gdiff, :Gblame, :Gremove and more
 Plug 'tpope/vim-fugitive'
-" Show commits for every source line
-nnoremap <Leader>gb :Gblame<CR>  " git blame
-
+" Load git blame line in buffer
 Plug 'tpope/vim-rhubarb'
-" Open current line in the browser
-nnoremap <Leader>gB :.Gbrowse<CR>
-" Open visual selection in the browser
-vnoremap <Leader>gB :Gbrowse<CR>
-
-" Add the entire file to the staging area
-nnoremap <Leader>gaf :Gw<CR>      " git add file
 
 " Show indent guides
 Plug 'Yggdroot/indentLine'
@@ -125,89 +92,14 @@ let g:mergetool_prefer_revision = 'local'
 " open mergetool with \mt
 nmap <leader>mt <plug>(MergetoolToggle)
 
-" Adds :Gundo, a visual tree of the undo
-" Plug 'sjl/gundo.vim'
-
-" changes cursor shape to beam in insert mode
-" bug: inserts q in terminal
-" if !exists('$TMUX')     " only allow in non-tmux sessions, has display bug
-"   Plug 'jszakmeister/vim-togglecursor'
-" endif
-"
-" automatically set paste mode based on 'bracketed-paste' terminal support
-" disabled, messes with <tab>
-" Plug 'ConradIrwin/vim-bracketed-paste'
-"
-" allow changing between different physical environments adequate settings with
-" :Thematic something
-" Plug 'reedes/vim-thematic'
-"
-" The :EasyAlign command
-Plug 'junegunn/vim-easy-align'
-
-" Project wide find and replace
-" :Far foo bar **/*.py
-" :Fardo
-" Plug 'brooth/far.vim'
-
-" See https://www.mattlayman.com/blog/2019/supercharging-vim-blazing-fast-search/
-Plug 'jremmen/vim-ripgrep'
-Plug 'stefandtw/quickfix-reflector.vim'
-
-" Use :Ack to search with ag (mapped to <leader>a )
-" Plug 'mileszs/ack.vim'
-" Better quickfix behavior.
-" Plug 'yssl/QFEnter'
-" Plug 'romainl/vim-qf'
-
-" vim two-panes outliner
-" Plug 'vim-voom/VOoM'
-
 " Lightline colors in status bar
 Plug 'itchyny/lightline.vim'
 Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering'}
-" Plug 'NovaDev94/lightline-onedark'  " lightline theme let g:lightline.colorscheme = 'onedark'
-
-" Other UI enhancements
-" Plug 'gelus/vim-buffer-enhancement'     " renumber buffer, <count><leader><c-6> renumbers to said <count>
-" Plug 'jlanzarotta/bufexplorer'          " buffer list in buffer, open \be (normal) \bs (split), \bv (split vertical)
-" Plug 't9md/vim-choosewin'               " Choose window to switch with -
-"
-" Plug 'vim-scripts/XQuery-indentomnicompleteftplugin'
 
 " ========== Language Support =========
-Plug 'w0rp/ale'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"
-" Plug 'othree/html5.vim'
-" Plug 'scrooloose/syntastic'
 " ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim
 " and Vim 8 while you edit your text files.
-" See https://github.com/maralla/validator.vim for a better one??
-" or https://github.com/neomake/neomake
-
-" Plug 'python-mode/python-mode'
-Plug 'Vimjas/vim-python-pep8-indent'
-
-" Python fix code with F8
-Plug 'tell-k/vim-autopep8'
-
-Plug 'vim-scripts/nginx.vim'
-
-" Plug 'fatih/vim-go'         " do a :GoInstallBinaries
-" Plug 'jodosha/vim-godebug'    " :GoToggleBreakpoint & :GoDebug
-
-" Mustache and handlebars support
-" Plug 'mustache/vim-mustache-handlebars'
-" Riot.js support
-" Plug 'ryym/vim-riot'
-
-" Plug 'Galooshi/import-js'   " needs configuration, check package
-
-" Format selection with :Neoformat
-" Format selection in a different format :Neoformat! javascript
-" Plug 'sbdchd/neoformat'
-"
+Plug 'w0rp/ale'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 
@@ -221,26 +113,8 @@ Plug 'ap/vim-css-color'
 " Better increment (ctrl+a/ctrl+x) behavior
 Plug 'qwertologe/nextval.vim'
 
-" Better (faster) auto-folding. Type zuz to manually update folds
-" Plug 'Konfekt/FastFold'
-
 " ============ Colorthemes
 Plug 'AlessandroYorba/Alduin'
-" Plug 'AlessandroYorba/Libertine'
-" Plug 'AlessandroYorba/Despacio'
-" Plug 'AlessandroYorba/Sierra'
-" Plug 'AlessandroYorba/Arcadia' " not a scheme yet
-" Plug 'AlessandroYorba/Monrovia'
-" Plug 'MaxSt/FlatColor'
-" Plug 'ajmwagar/vim-dues'
-" Plug 'fcpg/vim-fahrenheit'       " earthy colors similar to alduin, starred by AlessandroYorba
-" Plug 'danilo-augusto/vim-afterglow'
-Plug 'NLKNguyen/papercolor-theme'
-" Plug 'KeitaNakamura/neodark.vim'
-" Plug 'freeo/vim-kalisi'
-" Plug '0ax1/lxvc'
-" Plug 'junegunn/seoul256.vim'
-" Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -289,16 +163,6 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 " ---- Plugin configurations --- {{{
 
-" setup proper python support
-"
-let g:pymode_lint = 0                                   " disable pymode linting
-let g:pymode_rope = 0                                   " disable pymode rope support
-let g:pymode_rope_completion = 0                        " disable completition on insert mode and  hit .
-let g:pymode_syntax = 1
-let g:pymode_syntax_slow_sync = 1                       " slower syntax mode, better at docstrings
-let g:pymode_syntax_all = 1                             " enable all python highlights
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all " highlight indent errors
-
 " buftabline configuration
 let g:buftabline_numbers = 2    " show buffer position next to each buffer label
 " use \1 to go to tab 1
@@ -310,29 +174,8 @@ let g:indentLine_color_gui = '#111111'
 " nnoremap <leader>z :MtaJumpToOtherTag<cr>
 
 " asynchronous lint engine (ale) settings
-" let g:ale_linters = {
-" \   'javascript': ['eslint'],
-" \   'python': ['flake8'],
-" \}
 
-call ale#linter#Define('html', {
-      \   'name': 'customhtmlhint',
-      \   'executable': 'htmlhint',
-      \   'command': expand("htmlhint --config $HOME/.htmlhintrc --format=unix stdin"),
-      \   'callback': 'ale#handlers#HandleUnixFormatAsError',
-      \})
-let g:ale_linters = {}
-let g:ale_linters.html = ['customhtmlhint']
-
-" let g:ale_python_pylint_executable = expand("$HOME/tools3/bin/pylint")
-" let g:ale_python_pylint_options = '--rcfile=~/.pylintc'
-" let g:ale_linters.python = ['pylint']
-"
-" TODO: solve python3 compatibility
-"
 let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
-let g:ale_linters.python = ['flake8']
-
 let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
 
 let g:ale_fixers = {
@@ -345,6 +188,23 @@ let g:ale_fixers = {
       \   'javascript': ['eslint']
       \}
 
+let g:ale_linters = {}
+let g:ale_linters.python = ['pyls']   " use vim-lsp for python integration
+
+" Available Linters: ['bandit', 'flake8', 'mypy', 'prospector', 'pycodestyle', 'pydocstyle', 'pyflakes', 'pylama', 'pylint', 'pyls', 'pyre', 'vulture']
+" Enabled Linters: ['flake8', 'mypy', 'pylint']                                                                                                                                                    Suggested Fixers:                                                                                                                                                                                  'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.                                                                                                      'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'isort' - Sort Python imports with isort.                                                                                                                                                         'remove_trailing_lines' - Remove all blank lines at the end of a file.                                                                                                                            'reorder-python-imports' - Sort Python imports with reorder-python-imports.                                                                                                                       'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.                                                                                                           'yapf' - Fix Python files with yapf.
+"  Suggested Fixers:
+" 'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.
+" 'autopep8' - Fix PEP8 issues with autopep8.
+" 'black' - Fix PEP8 issues with black.
+"  'autopep8' - Fix PEP8 issues with autopep8.
+" 'black' - Fix PEP8 issues with black.
+" 'isort' - Sort Python imports with isort.
+" 'remove_trailing_lines' - Remove all blank lines at the end of a file.
+" 'reorder-python-imports' - Sort Python imports with reorder-python-imports.
+" 'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
+" 'yapf' - Fix Python files with yapf.
+
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -356,28 +216,6 @@ let g:ale_fix_on_save = 1
 let g:ale_sign_error = "EE"
 let g:ale_sign_warning = "WW"
 
-" let g:ale_sign_error = "\u2639"     " sad smiley face
-" let g:ale_sign_warning = "\u2614"     " umbrela under rain
-
-let s:golint = expand('$HOME/go/bin/golint %t')
-call ale#linter#Define('go', {
-      \   'name': 'golint',
-      \   'executable': 'golint',
-      \   'command': s:golint,
-      \   'callback': 'ale#handlers#unix#HandleAsWarning',
-      \})
-let g:ale_linters.go = ['golint']
-
-" if executable('ag')
-"   let g:ackprg = 'ag --vimgrep'
-"   " let g:ackprg = 'ag --nogroup --nocolor --column'
-" endif
-" " dont jump to quickfix window immediately
-" " TODO: see how to configure ag https://gist.github.com/manasthakur/5afd3166a14bbadc1dc0f42d070bd746
-" cnoreabbrev Ack Ack!
-" nnoremap <Leader>a :Ack!<Space>
-"
-" " Auto-open NerdTree on all vims
 let g:NERDTreeShowHidden=1
 let g:NERDTreeIndicatorMapCustom = {
       \ "Modified"  : "✹",
@@ -390,7 +228,7 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Clean"     : "✔︎",
       \ "Unknown"   : "?"
       \ }
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.egg-info$', '\~$', '\.git$', '\.eggs', '__pycache__']
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.egg-info$', '\~$', '\.git$', '\.eggs', '__pycache__', '.~']
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
@@ -408,10 +246,6 @@ call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
-" choose window with letters and overlay preview
-" nmap - <Plug>(choosewin)
-" let g:choosewin_overlay_enable = 1
 
 " }}}
 
@@ -453,7 +287,9 @@ augroup configgroup
   autocmd FileType python setlocal nowrap
   autocmd FileType python setlocal textwidth=79
   autocmd FileType python setlocal foldlevel=99
-  "
+  " autocmd Filetype python nnoremap <buffer> <silent> <C-K> :LspPreviousError<CR>
+  " autocmd Filetype python nnoremap <buffer> <silent> <C-J> :LspNextError<CR>
+
   " autocmd VimEnter *.py nested TagbarOpen
 
   autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
@@ -523,10 +359,6 @@ let g:lightline#bufferline#unnamed      = '[...]'
 let g:lightline#bufferline#show_number  = 2
 let g:lightline#bufferline#filename_modifier  = ':t'    " only show filename. See :help filename-modifiers for more options
 
-" let g:lightline.colorscheme = 'neodark'
-" let g:lightline.mode_map         = { 'c': 'NORMAL' }
-" let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers', 'alestatus': 'g:LightLineAleStatus'}
-
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
 function! g:LightLineAleStatus()
   let l:s = ALEGetStatusLine()
@@ -545,14 +377,6 @@ function! g:LinterStatus() abort
     \   all_errors
     \)
 endfunction
-
-" augroup alestatusupdate
-"     autocmd!
-"     " autocmd BufWritePre * :call lightline#update()
-" augroup END
-" move between ALE error signs
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 augroup alestatusupdate
   autocmd!
@@ -664,8 +488,510 @@ let g:tagbar_type_xquery = {
 
 " }}}
 
+" {{{ ---- Git integration ----
 
+" Open current line in the browser
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '>'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+let g:gitgutter_override_sign_column_highlight = 1
+" Jump between hunks
+nmap <Leader>gn <Plug>(GitGutterNextHunk)
+nmap <Leader>gp <Plug>(GitGutterPrevHunk)
 
+" Hunk-add and hunk-revert for chunk staging: git add/undo (chunk)
+nmap <Leader>ga <Plug>(GitGutterStageHunk)
+nmap <Leader>gu <Plug>(GitGutterUndoHunk)
+
+" Open vimagit pane
+nnoremap <leader>gs :Magit<CR>       " git status
+" Push to remote
+nnoremap <leader>gP :! git push<CR>  " git Push
+" browse through chunks with <C-n> and <C-p>, stage the current chunk with S,
+" and enter commit mode with CC, alternatively CA for making an amending
+" commit. Once you have written your commit message in commit mode, “write” the
+" buffer with your preferred save command and you’re done! Also the E binding,
+" which will open the modified/staged chunk in your other pane.
+
+" Show commits for every source line
+nnoremap <Leader>gb :Gblame<CR>  " git blame
+
+nnoremap <Leader>gB :.Gbrowse<CR>
+" Open visual selection in the browser
+vnoremap <Leader>gB :Gbrowse<CR>
+
+" Add the entire file to the staging area
+nnoremap <Leader>gaf :Gw<CR>      " git add file
+
+" }}}
+
+" ---- Personal preferences ---- {{{
+"
+" Some of this stuff is lifted from sensible.vim
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+" fix spurious q characters in konsole
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+set guicursor=
+
+" syntax sync minlines=20000		" fixes syntax not updating on large files
+" set autoindent
+" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+syntax enable
+set backspace=indent,eol,start
+set backup      " backups
+set backupskip=/tmp/*,/private/tmp/*
+set complete-=i
+set cursorline
+set conceallevel=0    " if set higher hides quotes in json files
+set display+=lastline
+set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
+set foldcolumn=1        " increase size of fold column
+set foldlevelstart=0    " most folds opened by default
+set foldmethod=marker   " fold based on markers level
+set formatoptions=tcqrn1        " set autoformat options (think gq). See http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
+set history=1000
+set hlsearch        " highlight search matches
+set laststatus=2
+set lazyredraw
+set list            " show whitespace characters, useful
+set listchars=tab:▸\ ,trail:•,extends:>,precedes:<,nbsp:+,eol:¬
+set mouse=
+set noincsearch     " jumps to first match as you type
+set noshowmode      " already provided by lightline
+set nosmartcase
+set nosmartindent
+set nosmarttab
+set nospell
+set nowrap          " don't wrap, it's annoying
+set nrformats-=octal
+set number
+" set nuw=6               " increase size of gutter column
+set nuw=5               " increase size of gutter column
+set ruler
+set scrolloff=3     " how many lines to bottom cause scrolling
+set showcmd
+set showmatch
+set showtabline=2     " always show the tabline
+set sidescrolloff=5
+set splitbelow      " preferences for where the split happens
+set splitright
+set termguicolors
+set textwidth=79
+set ttimeout
+set timeoutlen=800
+set ttimeoutlen=10
+set undofile
+set undolevels=200        " undo settings
+set novisualbell  " annoying screen flash in VIM
+set wildmenu
+set writebackup
+
+set expandtab
+set tabstop=2   " not liking big tabs
+set shiftwidth=2
+
+" set foldenable    " this makes the folds closed when file is opened
+" set ignorecase        " when searching, ignore case if all letters lowercase
+" set smartcase     " override ignorecase if term has caps
+
+" clipboard configuration
+set clipboard=          " unnamedplus      "EasyClip + Vim + system clipboard
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+catch
+endtry
+
+if (g:my_machine ==# 'laptop')
+  set background=dark
+
+  let g:alduin_Shout_Become_Ethereal = 1      " black background
+  colorscheme alduin
+
+  " highlight SignColumn guibg=black
+  hi ColorColumn guibg=#112233
+  hi Conceal guibg=#000000 guifg=#111111
+  hi CursorLine guibg=#222222
+  hi CursorLineNr guibg=#222222
+  hi Define guifg=#6633ee
+  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
+  hi LineNr guibg=#121519 guifg=#444444
+  hi NonText guifg=#332233    " change color of at end of line conceal characters
+  hi Normal guibg=#111111
+  hi Search guifg=#dfdfaf guibg=#AA0b02
+  hi SpellBad term=underline gui=undercurl guisp=Orange
+  hi String guibg=#111111
+  hi Visual guibg=#1a5b3a guifg=#CCCCCC
+  hi htmlLink guifg=#668866
+
+  highlight SignColumn guibg=bg
+  highlight SignColumn ctermbg=bg
+
+elseif (g:my_machine ==# 'desktop')
+  set background=dark
+  " colorscheme flatcolor
+
+  let g:alduin_Shout_Become_Ethereal = 1      " black background
+  colorscheme alduin
+
+  highlight SignColumn guibg=bg
+  highlight SignColumn ctermbg=bg
+  hi ColorColumn guibg=#112233 guifg=#FFFFFF
+  hi Conceal guibg=#000000 guifg=#111111
+  hi CursorLine guibg=#191712
+  hi CursorLineNr guibg=#191712 guifg=#FFFFFF
+  hi Define guifg=#6633ee
+  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
+  hi LineNr guibg=#060606
+  hi NonText guifg=#112233    " change color of at end of line conceal characters
+  hi Normal guibg=#000000
+  hi Search guibg=#3a0b02
+  hi Search guifg=#dfdfaf guibg=#AA0b02
+  hi SpellBad term=underline gui=undercurl guisp=Orange
+  hi String guibg=#111111
+  hi Todo guibg=#AA0b02 guifg=bg
+  hi Visual guibg=#1a5b3a guifg=#CCCCCC
+  hi htmlLink guifg=#668866
+  " fixes match cursor
+  highlight MatchParen       guifg=#dfdfaf  guibg=#875f5f  gui=NONE       ctermfg=187   ctermbg=95    cterm=NONE
+
+endif
+
+let &colorcolumn=80
+
+" highlight the column at 80 chars
+" match OverLength /\%81v.\+/
+" highlight OverLength guibg=#592929
+
+" space open/closes folds
+nnoremap <space> za
+
+" switch between recent tabs with <tab> key
+nmap <tab> :b#<cr>
+" cycle through tabs with shift-tab
+nmap <S-tab> :bn<cr>
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+" if maparg('<C-L>', 'n') ==# ''
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>:syntax sync fromstart<CR>
+" endif
+
+" navigate between errors quickly
+" nnoremap <silent> <C-K> <Plug>(ale_previous_wrap)
+" nnoremap <silent> <C-J> <Plug>(ale_next_wrap)
+nmap <silent> <C-K> :ALEPreviousWrap<CR>
+nmap <silent> <C-J> :ALENextWrap<CR>
+
+" Copy to system clipboard with F7, paste with Shift+f7
+:map <F7> :w !xclip<CR><CR>
+:vmap <F7> "*y
+:map <S-F7> :r!xclip -o<CR>
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+"
+" toggle gundo
+" nnoremap <leader>u :GundoToggle<CR>
+
+" Close the current buffer
+:nnoremap <Leader>fq :Bdelete<CR>
+:nnoremap Q :Bdelete<CR>
+
+"add a shortcut to insert pdb by doing \pdb
+map <silent> <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
+
+" add a :DiffOrig command to see differences to last saved version
+command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+
+nnoremap <silent> <Leader>f :NERDTreeFind<CR>
+" nnoremap <silent> <Leader>t :TagbarToggle<CR>
+" toggle vista (Tagbar replacement)
+nnoremap <silent> <Leader>t :Vista!!<CR>
+
+" use f2 to format an xml file
+map <F2> <Esc>:1,$!xmllint --format -<CR>
+
+" Execute current line or current selection as Vim EX commands.
+" nnoremap <leader>x :exe getline(".")<CR>
+" vnoremap <leader>X :<C-w>exe join(getline("'<","'>"),'<Bar>')<CR>
+
+" hit \D to insert date in format 2014-05-30
+:nnoremap <Leader>D "=strftime("%Y-%m-%d")<CR>P
+:inoremap <Leader>D <C-R>=strftime("%Y-%m-%d")<CR>
+
+" navigate windows with meta+arrows (including 'escape' from terminal)
+map <A-l> <c-w>l
+map <A-h> <c-w>h
+map <A-k> <c-w>k
+map <A-j> <c-w>j
+imap <A-l> <ESC><c-w>l
+imap <A-h> <ESC><c-w>h
+imap <A-k> <ESC><c-w>k
+imap <A-j> <ESC><c-w>j
+
+" terminal keys, escape terminal mode with <esc>
+if exists(':tnoremap')
+  :tnoremap <Esc> <C-\><C-n>
+
+  " move between panes with alt+h/j/k/l
+  :tnoremap <A-h> <C-\><C-n><C-w>h
+  :tnoremap <A-j> <C-\><C-n><C-w>j
+  :tnoremap <A-k> <C-\><C-n><C-w>k
+  :tnoremap <A-l> <C-\><C-n><C-w>l
+end
+:nnoremap <A-h> <C-w>h
+:nnoremap <A-j> <C-w>j
+:nnoremap <A-k> <C-w>k
+:nnoremap <A-l> <C-w>l
+
+" use \w to do a search/replace with current word
+:nmap <leader>w :s/\(<c-r>=expand("<cword>")<cr>\)/
+
+" }}}
+
+" ---- Disabled stuff ---- {{{
+
+" call ale#linter#Define('html', {
+"       \   'name': 'customhtmlhint',
+"       \   'executable': 'htmlhint',
+"       \   'command': expand("htmlhint --config $HOME/.htmlhintrc --format=unix stdin"),
+"       \   'callback': 'ale#handlers#HandleUnixFormatAsError',
+"       \})
+" let g:ale_linters = {
+"   \ 'html: ['customhtmlhint'],
+"   \ 'python': ['flake8'],
+"   \}
+" let g:ale_python_pylint_executable = expand("$HOME/tools3/bin/pylint")
+" let g:ale_python_pylint_options = '--rcfile=~/.pylintc'
+" let g:ale_linters.python = ['pylint']
+" TODO: solve python3 compatibility
+" let s:golint = expand('$HOME/go/bin/golint %t')
+" call ale#linter#Define('go', {
+"       \   'name': 'golint',
+"       \   'executable': 'golint',
+"       \   'command': s:golint,
+"       \   'callback': 'ale#handlers#unix#HandleAsWarning',
+"       \})
+" let g:ale_linters.go = ['golint']
+" setup proper python support
+"
+" let g:pymode_lint = 0                                   " disable pymode linting
+" let g:pymode_rope = 0                                   " disable pymode rope support
+" let g:pymode_rope_completion = 0                        " disable completition on insert mode and  hit .
+" let g:pymode_syntax = 1
+" let g:pymode_syntax_slow_sync = 1                       " slower syntax mode, better at docstrings
+" let g:pymode_syntax_all = 1                             " enable all python highlights
+" let g:pymode_syntax_indent_errors = g:pymode_syntax_all " highlight indent errors
+
+" really slows down nvim
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'liuchengxu/vim-clap'
+
+" Plug 'mbadran/headlights'
+
+" Vim file manager
+" if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
+" Plug 'Shougo/unite.vim'     " dependency for vimfiler
+" Plug 'Shougo/vimfiler.vim'
+" endif
+
+" Helpers for writing vim scripts: :PP (pretty print), :Runtime (reload
+" runtime), zS (show syntax groups),
+" Plug 'tpope/vim-scriptease'
+
+" Mappings for vim-husk.
+" All mappings work only in vim command line mode.
+" C-a go to the beginning of the line
+" C-f go one character right or fall back to c_CTRL-F at the end of the line
+" C-b go one character left
+" C-d delete character or fall back to c_CTRL-D at the end of the line
+" C-k clear line after the cursor, overrides c_CTRL-K (if you're using C-k for digraphs check the docs how to disable)
+" C-x C-e open the command-line window, same as c_CTRL-f
+" M-f (Alt-f) go one "word" right
+" M-b (Alt-b) go one "word" left
+" M-d (Alt-d) delete "word" after the cursor
+" M-BS (Alt-Backspace) delete "word" before the cursor, same as c_CTRL-W
+" M-# (Alt-shift-3) insert comment at the beginning of the line and execute it. Useful for discarding the line, but still keeping it in the command-line history for later retrieval.
+" Plug 'vim-utils/vim-husk'
+
+" Vim Substitute as operator plugin
+" Plug 'kana/vim-operator-user'   " dependency of vim-operator-substitute
+" Plug 'milsen/vim-operator-substitute'
+"
+" Plug 'scrooloose/nerdcommenter'
+
+" Change surrounding parens: cs'"
+" Plug 'tpope/vim-surround'
+
+" :set ft=outlow for outliner functionality
+" lines starting with ===, [x], [-] or [ ], followed by a space are topics.
+" Plug 'lifepillar/vim-outlaw'
+
+" FastFold mapping and settings
+" nmap zuz <Plug>(FastFoldUpdate)
+" let g:fastfold_savehook = 1
+" let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+" let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+" let g:tex_fold_enabled=1
+" let g:vimsyn_folding='af'
+" let g:xml_syntax_folding = 1
+" let g:python_syntax_folding = 1
+" let g:php_folding = 1
+" let g:perl_fold = 1
+
+"
+" buffer movement, this doesn't work in Tmux
+" nnoremap <C-left> :bprev!<CR>
+" nnoremap <C-right> :bnext!<CR>
+
+" let s:pyls_exec = expand('$HOME/tools/bin/pyls')
+" if executable(s:pyls_exec)
+"     " pip install python-language-server
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'pyls',
+"         \ 'cmd': {server_info->[s:pyls_exec]},
+"         \ 'whitelist': ['python'],
+"         \ })
+" endif
+" let g:lsp_diagnostics_enabled = 1   " don't rely on ale for diagnostics
+" let g:lsp_signs_error = {'text': 'X'}
+" let g:lsp_signs_warning = {'text': '‼'}
+" let g:lsp_signs_hint = {'text': '?'}
+" let g:lsp_signs_enabled = 1         " enable signs
+" let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+"
+" " Highlight references to the symbol under the cursor
+" let g:lsp_highlight_references_enabled = 1
+" highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
+
+" let g:ale_sign_error = "\u2639"     " sad smiley face
+" let g:ale_sign_warning = "\u2614"     " umbrela under rain
+
+" if executable('ag')
+"   let g:ackprg = 'ag --vimgrep'
+"   " let g:ackprg = 'ag --nogroup --nocolor --column'
+" endif
+" " dont jump to quickfix window immediately
+" " TODO: see how to configure ag https://gist.github.com/manasthakur/5afd3166a14bbadc1dc0f42d070bd746
+" cnoreabbrev Ack Ack!
+" nnoremap <Leader>a :Ack!<Space>
+
+" Adds :Gundo, a visual tree of the undo
+" Plug 'sjl/gundo.vim'
+
+" changes cursor shape to beam in insert mode
+" bug: inserts q in terminal
+" if !exists('$TMUX')     " only allow in non-tmux sessions, has display bug
+"   Plug 'jszakmeister/vim-togglecursor'
+" endif
+"
+" automatically set paste mode based on 'bracketed-paste' terminal support
+" disabled, messes with <tab>
+" Plug 'ConradIrwin/vim-bracketed-paste'
+"
+" allow changing between different physical environments adequate settings with
+" :Thematic something
+" Plug 'reedes/vim-thematic'
+"
+" The :EasyAlign command
+" Plug 'junegunn/vim-easy-align'
+
+" Project wide find and replace
+" :Far foo bar **/*.py
+" :Fardo
+" Plug 'brooth/far.vim'
+
+" See https://www.mattlayman.com/blog/2019/supercharging-vim-blazing-fast-search/
+" Plug 'jremmen/vim-ripgrep'
+
+" Plug 'stefandtw/quickfix-reflector.vim'
+
+" Use :Ack to search with ag (mapped to <leader>a )
+" Plug 'mileszs/ack.vim'
+" Better quickfix behavior.
+" Plug 'yssl/QFEnter'
+" Plug 'romainl/vim-qf'
+
+" vim two-panes outliner
+" Plug 'vim-voom/VOoM'
+
+" Plug 'NovaDev94/lightline-onedark'  " lightline theme let g:lightline.colorscheme = 'onedark'
+
+" Other UI enhancements
+" Plug 'gelus/vim-buffer-enhancement'     " renumber buffer, <count><leader><c-6> renumbers to said <count>
+" Plug 'jlanzarotta/bufexplorer'          " buffer list in buffer, open \be (normal) \bs (split), \bv (split vertical)
+" Plug 't9md/vim-choosewin'               " Choose window to switch with -
+"
+" Plug 'vim-scripts/XQuery-indentomnicompleteftplugin'
+
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/vim-lsp'
+
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"
+" Plug 'othree/html5.vim'
+" Plug 'scrooloose/syntastic'
+" See https://github.com/maralla/validator.vim for a better one??
+" or https://github.com/neomake/neomake
+
+" Plug 'python-mode/python-mode'
+" Plug 'Vimjas/vim-python-pep8-indent'
+
+" Python fix code with F8
+" Plug 'tell-k/vim-autopep8'
+
+" Plug 'vim-scripts/nginx.vim'
+
+" Plug 'fatih/vim-go'         " do a :GoInstallBinaries
+" Plug 'jodosha/vim-godebug'    " :GoToggleBreakpoint & :GoDebug
+
+" Mustache and handlebars support
+" Plug 'mustache/vim-mustache-handlebars'
+" Riot.js support
+" Plug 'ryym/vim-riot'
+
+" Plug 'Galooshi/import-js'   " needs configuration, check package
+
+" Format selection with :Neoformat
+" Format selection in a different format :Neoformat! javascript
+" Plug 'sbdchd/neoformat'
+"
+" Better (faster) auto-folding. Type zuz to manually update folds
+" Plug 'Konfekt/FastFold'
+
+" Plug 'NLKNguyen/papercolor-theme'
+" Plug 'AlessandroYorba/Libertine'
+" Plug 'AlessandroYorba/Despacio'
+" Plug 'AlessandroYorba/Sierra'
+" Plug 'AlessandroYorba/Arcadia' " not a scheme yet
+" Plug 'AlessandroYorba/Monrovia'
+" Plug 'MaxSt/FlatColor'
+" Plug 'ajmwagar/vim-dues'
+" Plug 'fcpg/vim-fahrenheit'       " earthy colors similar to alduin, starred by AlessandroYorba
+" Plug 'danilo-augusto/vim-afterglow'
+" Plug 'KeitaNakamura/neodark.vim'
+" Plug 'freeo/vim-kalisi'
+" Plug '0ax1/lxvc'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'morhetz/gruvbox'
+
+" choose window with letters and overlay preview
+" nmap - <Plug>(choosewin)
+" let g:choosewin_overlay_enable = 1
+" }}}
 
 " ---- COC configuration ---- {{{
 
@@ -805,291 +1131,3 @@ let g:tagbar_type_xquery = {
 " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " }}}
-
-" ---- Personal preferences ---- {{{
-"
-" Some of this stuff is lifted from sensible.vim
-
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-" fix spurious q characters in konsole
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
-set guicursor=
-
-" syntax sync minlines=20000		" fixes syntax not updating on large files
-" set autoindent
-" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-
-syntax enable
-set backspace=indent,eol,start
-set backup      " backups
-set backupskip=/tmp/*,/private/tmp/*
-set complete-=i
-set cursorline
-set conceallevel=0    " if set higher hides quotes in json files
-set display+=lastline
-set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
-set foldcolumn=1        " increase size of fold column
-set foldlevelstart=0    " most folds opened by default
-set foldmethod=marker   " fold based on markers level
-set formatoptions=tcqrn1        " set autoformat options (think gq). See http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
-set history=1000
-set hlsearch        " highlight search matches
-set laststatus=2
-set lazyredraw
-set list            " show whitespace characters, useful
-set listchars=tab:▸\ ,trail:•,extends:>,precedes:<,nbsp:+,eol:¬
-set mouse=
-set noincsearch     " jumps to first match as you type
-set noshowmode      " already provided by lightline
-set nosmartcase
-set nosmartindent
-set nosmarttab
-set nospell
-set nowrap          " don't wrap, it's annoying
-set nrformats-=octal
-set number
-" set nuw=6               " increase size of gutter column
-set nuw=5               " increase size of gutter column
-set ruler
-set scrolloff=3     " how many lines to bottom cause scrolling
-set showcmd
-set showmatch
-set showtabline=2     " always show the tabline
-set sidescrolloff=5
-set splitbelow      " preferences for where the split happens
-set splitright
-set termguicolors
-set textwidth=79
-set ttimeout
-set timeoutlen=800
-set ttimeoutlen=10
-set undofile
-set undolevels=200        " undo settings
-set novisualbell  " annoying screen flash in VIM
-set wildmenu
-set writebackup
-
-set expandtab
-set tabstop=2   " not liking big tabs
-set shiftwidth=2
-
-" set foldenable    " this makes the folds closed when file is opened
-" set ignorecase        " when searching, ignore case if all letters lowercase
-" set smartcase     " override ignorecase if term has caps
-
-" clipboard configuration
-set clipboard=          " unnamedplus      "EasyClip + Vim + system clipboard
-
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-catch
-endtry
-
-if (g:my_machine ==# 'laptop')
-  set background=dark
-
-  let g:alduin_Shout_Become_Ethereal = 1      " black background
-  colorscheme alduin
-
-  " highlight SignColumn guibg=black
-  hi ColorColumn guibg=#112233
-  hi Conceal guibg=#000000 guifg=#111111
-  hi CursorLine guibg=#222222
-  hi CursorLineNr guibg=#222222
-  hi Define guifg=#6633ee
-  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
-  hi LineNr guibg=#121519 guifg=#444444
-  hi NonText guifg=#332233    " change color of at end of line conceal characters
-  hi Normal guibg=#111111
-  hi Search guifg=#dfdfaf guibg=#AA0b02
-  hi SpellBad term=underline gui=undercurl guisp=Orange
-  hi String guibg=#111111
-  hi Visual guibg=#1a5b3a guifg=#CCCCCC
-  hi htmlLink guifg=#668866
-
-elseif (g:my_machine ==# 'desktop')
-  set background=dark
-  " colorscheme flatcolor
-
-  let g:alduin_Shout_Become_Ethereal = 1      " black background
-  colorscheme alduin
-
-  hi ColorColumn guibg=#112233 guifg=#FFFFFF
-  hi Conceal guibg=#000000 guifg=#111111
-  hi CursorLine guibg=#191712
-  hi CursorLineNr guibg=#191712 guifg=#FFFFFF
-  hi Define guifg=#6633ee
-  hi EndOfBuffer guifg=bg     " hide ~ at end of buffers
-  hi LineNr guibg=#060606
-  hi NonText guifg=#112233    " change color of at end of line conceal characters
-  hi Normal guibg=#000000
-  hi Search guibg=#3a0b02
-  hi Search guifg=#dfdfaf guibg=#AA0b02
-  hi SpellBad term=underline gui=undercurl guisp=Orange
-  hi String guibg=#111111
-  hi Todo guibg=red guifg=#333333
-  hi Visual guibg=#1a5b3a guifg=#CCCCCC
-  hi htmlLink guifg=#668866
-  " fixes match cursor
-  highlight MatchParen       guifg=#dfdfaf  guibg=#875f5f  gui=NONE       ctermfg=187   ctermbg=95    cterm=NONE
-
-endif
-
-let &colorcolumn=80
-
-" highlight the column at 80 chars
-" match OverLength /\%81v.\+/
-" highlight OverLength guibg=#592929
-
-" space open/closes folds
-nnoremap <space> za
-
-" FastFold mapping and settings
-nmap zuz <Plug>(FastFoldUpdate)
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-let g:tex_fold_enabled=1
-let g:vimsyn_folding='af'
-let g:xml_syntax_folding = 1
-let g:python_syntax_folding = 1
-" let g:php_folding = 1
-" let g:perl_fold = 1
-
-"
-" buffer movement, this doesn't work in Tmux
-" nnoremap <C-left> :bprev!<CR>
-" nnoremap <C-right> :bnext!<CR>
-
-" switch between recent tabs with <tab> key
-nmap <tab> :b#<cr>
-" cycle through tabs with shift-tab
-nmap <S-tab> :bn<cr>
-
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \   exe "normal! g`\"" |
-      \ endif
-
-" Use <C-L> to clear the highlighting of :set hlsearch.
-" if maparg('<C-L>', 'n') ==# ''
-nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>:syntax sync fromstart<CR>
-" endif
-
-" navigate between errors quickly
-nmap <silent> <C-K> <Plug>(ale_previous_wrap)
-nmap <silent> <C-J> <Plug>(ale_next_wrap)
-
-" Copy to system clipboard with F7, paste with Shift+f7
-:map <F7> :w !xclip<CR><CR>
-:vmap <F7> "*y
-:map <S-F7> :r!xclip -o<CR>
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-"
-" toggle gundo
-" nnoremap <leader>u :GundoToggle<CR>
-
-" Close the current buffer
-:nnoremap <Leader>fq :Bdelete<CR>
-:nnoremap Q :Bdelete<CR>
-
-"add a shortcut to insert pdb by doing \pdb
-map <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
-
-" add a :DiffOrig command to see differences to last saved version
-command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-
-nnoremap <silent> <Leader>f :NERDTreeFind<CR>
-" nnoremap <silent> <Leader>t :TagbarToggle<CR>
-" toggle vista (Tagbar replacement)
-nnoremap <silent> <Leader>t :Vista!!<CR>
-
-" use f2 to format an xml file
-map <F2> <Esc>:1,$!xmllint --format -<CR>
-
-
-" Execute current line or current selection as Vim EX commands.
-" nnoremap <leader>x :exe getline(".")<CR>
-" vnoremap <leader>X :<C-w>exe join(getline("'<","'>"),'<Bar>')<CR>
-
-" hit \D to insert date in format 2014-05-30
-:nnoremap <Leader>D "=strftime("%Y-%m-%d")<CR>P
-:inoremap <Leader>D <C-R>=strftime("%Y-%m-%d")<CR>
-
-" navigate windows with meta+arrows (including 'escape' from terminal)
-map <A-l> <c-w>l
-map <A-h> <c-w>h
-map <A-k> <c-w>k
-map <A-j> <c-w>j
-imap <A-l> <ESC><c-w>l
-imap <A-h> <ESC><c-w>h
-imap <A-k> <ESC><c-w>k
-imap <A-j> <ESC><c-w>j
-
-" terminal keys, escape terminal mode with <esc>
-if exists(':tnoremap')
-  :tnoremap <Esc> <C-\><C-n>
-
-  " move between panes with alt+h/j/k/l
-  :tnoremap <A-h> <C-\><C-n><C-w>h
-  :tnoremap <A-j> <C-\><C-n><C-w>j
-  :tnoremap <A-k> <C-\><C-n><C-w>k
-  :tnoremap <A-l> <C-\><C-n><C-w>l
-end
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
-
-" }}}
-
-" really slows down nvim
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-" Plug 'liuchengxu/vim-clap'
-
-" Plug 'mbadran/headlights'
-
-" Vim file manager
-" if (g:my_machine ==# 'desktop') " on laptop it crashes nvim. :(
-" Plug 'Shougo/unite.vim'     " dependency for vimfiler
-" Plug 'Shougo/vimfiler.vim'
-" endif
-
-" Helpers for writing vim scripts: :PP (pretty print), :Runtime (reload
-" runtime), zS (show syntax groups),
-" Plug 'tpope/vim-scriptease'
-
-" Mappings for vim-husk.
-" All mappings work only in vim command line mode.
-" C-a go to the beginning of the line
-" C-f go one character right or fall back to c_CTRL-F at the end of the line
-" C-b go one character left
-" C-d delete character or fall back to c_CTRL-D at the end of the line
-" C-k clear line after the cursor, overrides c_CTRL-K (if you're using C-k for digraphs check the docs how to disable)
-" C-x C-e open the command-line window, same as c_CTRL-f
-" M-f (Alt-f) go one "word" right
-" M-b (Alt-b) go one "word" left
-" M-d (Alt-d) delete "word" after the cursor
-" M-BS (Alt-Backspace) delete "word" before the cursor, same as c_CTRL-W
-" M-# (Alt-shift-3) insert comment at the beginning of the line and execute it. Useful for discarding the line, but still keeping it in the command-line history for later retrieval.
-" Plug 'vim-utils/vim-husk'
-
-" Vim Substitute as operator plugin
-" Plug 'kana/vim-operator-user'   " dependency of vim-operator-substitute
-" Plug 'milsen/vim-operator-substitute'
-"
-" Plug 'scrooloose/nerdcommenter'
-
-" Change surrounding parens: cs'"
-" Plug 'tpope/vim-surround'
-
-" :set ft=outlow for outliner functionality
-" lines starting with ===, [x], [-] or [ ], followed by a space are topics.
-" Plug 'lifepillar/vim-outlaw'
-"
