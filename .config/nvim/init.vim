@@ -86,6 +86,12 @@ Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
 Plug 'samoshkin/vim-mergetool'
 
+" Modify * to also work with visual selections.
+Plug 'nelstrom/vim-visual-star-search'
+
+" Handle multi-file find and replace.
+Plug 'mhinz/vim-grepper'
+
 " Lightline colors in status bar
 Plug 'itchyny/lightline.vim'
 Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering'}
@@ -546,14 +552,23 @@ syntax enable
 set backspace=indent,eol,start
 set backup      " backups
 set backupskip=/tmp/*,/private/tmp/*
+
 set complete-=i
+set completeopt+=preview
+
 set cursorline
 set conceallevel=0    " if set higher hides quotes in json files
 set display+=lastline
 set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
+
 set foldcolumn=1        " increase size of fold column
 set foldlevelstart=0    " most folds opened by default
+set foldopen=hor,insert,jump,mark,percent,quickfix,search,tag,undo
+set foldenable
 set foldmethod=marker   " fold based on markers level
+" set foldmethod=syntax
+set foldlevelstart=1
+
 set formatoptions=tcqrn1        " set autoformat options (think gq). See http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
 set history=1000
 set hlsearch        " highlight search matches
@@ -599,6 +614,12 @@ set shiftwidth=2
 " set foldenable    " this makes the folds closed when file is opened
 " set ignorecase        " when searching, ignore case if all letters lowercase
 " set smartcase     " override ignorecase if term has caps
+
+
+" 'inccommand' shows results while typing a |:substitute| command
+if exists('&inccommand')
+  set inccommand=split  " can also do nosplit for inline preview
+endif
 
 " clipboard configuration
 set clipboard=          " unnamedplus      "EasyClip + Vim + system clipboard
@@ -770,6 +791,108 @@ end
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" Some stuff from https://github.com/nickjj/dotfiles/blob/master/.vimrc
+
+" Press * to search for the term under the cursor or a visual selection and
+" then press a key below to replace all instances of it in the current file.
+nnoremap <Leader>r :%s///g<Left><Left>
+nnoremap <Leader>rc :%s///gc<Left><Left><Left>
+
+" The same as above but instead of acting on the whole file it will be
+" restricted to the previously visually selected range. You can do that by
+" pressing *, visually selecting the range you want it to apply to and then
+" press a key below to replace all instances of it in the current selection.
+xnoremap <Leader>r :s///g<Left><Left>
+xnoremap <Leader>rc :s///gc<Left><Left><Left>
+
+" " Type a replacement term and press . to repeat the replacement again. Useful
+" " for replacing a few instances of the term (comparable to multiple cursors).
+nnoremap <silent> s* :let @/='\<'.expand('<cword>').'\>'<CR>cgn
+xnoremap <silent> s* "sy:let @/=@s<CR>cgn
+
+" Prevent x from overriding what's in the clipboard.
+" noremap x "_x
+" noremap X "_x
+
+" Keep cursor at the bottom of the visual selection after you yank it.
+vmap y ygv<Esc>
+
+" Eliminate issues where you accidentally hold shift for too long with :w.
+command! W write
+
+" " Clear search highlights.
+" map <Leader><Space> :let @/=''<CR>
+
+" Toggle quickfix window.
+function! QuickFix_toggle()
+    for i in range(1, winnr('$'))
+        let bnum = winbufnr(i)
+        if getbufvar(bnum, '&buftype') == 'quickfix'
+            cclose
+            return
+        endif
+    endfor
+
+    copen
+endfunction
+
+nnoremap <silent> <Leader>c :call QuickFix_toggle()<CR>
+
+" Unset paste on InsertLeave.
+" autocmd InsertLeave * silent! set nopaste
+
+" Profile Vim by running this command once to start it and again to stop it.
+function! s:profile(bang)
+  if a:bang
+    profile pause
+    noautocmd qall
+  else
+    profile start /tmp/profile.log
+    profile func *
+    profile file *
+  endif
+endfunction
+
+command! -bang Profile call s:profile(<bang>0)
+
+" .............................................................................
+" mhinz/vim-grepper
+" .............................................................................
+
+let g:grepper               = {}
+let g:grepper.tools=["ag", "rg", "ack", "grep"]
+" let g:grepper.jump          = 1
+" let g:grepper.next_tool     = '<leader>g'
+" let g:grepper.simple_prompt = 1
+" let g:grepper.quickfix      = 0
+
+" nnoremap <leader>gr :Grepper -tool git<cr>
+nnoremap <leader>gr :Grepper -tool ag<cr>
+
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
+" Start searching the word under the cursor:
+nnoremap <leader>* :Grepper -tool ag -cword -noprompt<cr>
+
+xmap gr <plug>(GrepperOperator)
+
+" After searching for text, press this mapping to do a project wide find and
+" replace. It's similar to <leader>r except this one applies to all matches
+" across all files instead of just the current file.
+nnoremap <Leader>R
+  \ :let @s='\<'.expand('<cword>').'\>'<CR>
+  \ :Grepper -cword -noprompt<CR>
+  \ :cfdo %s/<C-r>s//g \| update
+  \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
+" The same as above except it works with a visual selection.
+xmap <Leader>R
+    \ "sy
+    \ gvgr
+    \ :cfdo %s/<C-r>s//g \| update
+     \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
 " }}}
 
