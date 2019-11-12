@@ -174,6 +174,7 @@ let g:indentLine_color_gui = '#111111'
 let g:ale_set_balloons = 0
 let g:ale_cursor_detail = 0
 let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_prefix = " ➜ "
 
 let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
 let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
