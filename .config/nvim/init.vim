@@ -1,4 +1,5 @@
 set t_Co=256
+set nocompatible
 
 " {{{ ---- Bootstrap ----
 
@@ -58,6 +59,7 @@ call plug#begin('~/.vim/nvim-plugged')
 
 " The inimitable NerdTree. Locate files in explorer pane with <leader>f
 Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf.vim'
 
 " Toggle comments with tcc
 Plug 'tomtom/tcomment_vim'
@@ -108,6 +110,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 " Python 'tags' in a tagbar
 " Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vista.vim'   " tagbar replacement that uses LSP
+Plug 'chrisbra/vim-xml-runtime'     " official XML ft plugin
 "
 " Preview css colors
 Plug 'ap/vim-css-color'
@@ -121,6 +124,106 @@ Plug 'AlessandroYorba/Alduin'
 call plug#end()
 
 " }}}
+
+" ---- Personal preferences ---- {{{
+"
+" Some of this stuff is lifted from sensible.vim
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+" fix spurious q characters in konsole
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+set guicursor=
+
+" syntax sync minlines=20000		" fixes syntax not updating on large files
+" set autoindent
+" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+syntax enable
+set backspace=indent,eol,start
+set backup      " backups
+set backupskip=/tmp/*,/private/tmp/*
+
+set complete-=i
+set completeopt+=preview
+
+set cursorline
+set conceallevel=0    " if set higher hides quotes in json files
+set display+=lastline
+set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
+
+set foldcolumn=1        " increase size of fold column
+set foldlevelstart=0    " most folds opened by default
+set foldopen=hor,insert,jump,mark,percent,quickfix,search,tag,undo
+set foldenable
+set foldmethod=marker   " fold based on markers level
+" set foldmethod=syntax
+set foldlevelstart=1
+
+set formatoptions=tcqrn1        " set autoformat options (think gq). See http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
+set history=1000
+set hlsearch        " highlight search matches
+set laststatus=2
+set lazyredraw
+set list            " show whitespace characters, useful
+set listchars=tab:▸\ ,trail:•,extends:>,precedes:<,nbsp:+,eol:¬
+set mouse=
+set noincsearch     " jumps to first match as you type
+set noshowmode      " already provided by lightline
+set nosmartcase
+set nosmartindent
+set nosmarttab
+set nospell
+set nowrap          " don't wrap, it's annoying
+set nrformats-=octal
+set number
+" set nuw=6               " increase size of gutter column
+set nuw=5               " increase size of gutter column
+set ruler
+set scrolloff=3     " how many lines to bottom cause scrolling
+set showcmd
+set showmatch
+set showtabline=2     " always show the tabline
+set sidescrolloff=5
+set splitbelow      " preferences for where the split happens
+set splitright
+set termguicolors
+set textwidth=79
+set ttimeout
+set timeoutlen=800
+set ttimeoutlen=10
+set undofile
+set undolevels=200        " undo settings
+set novisualbell  " annoying screen flash in VIM
+set wildmenu
+set writebackup
+
+set expandtab
+set tabstop=2   " not liking big tabs
+set shiftwidth=2
+
+" set foldenable    " this makes the folds closed when file is opened
+" set ignorecase        " when searching, ignore case if all letters lowercase
+" set smartcase     " override ignorecase if term has caps
+
+
+" 'inccommand' shows results while typing a |:substitute| command
+if exists('&inccommand')
+  set inccommand=split  " can also do nosplit for inline preview
+endif
+
+" clipboard configuration
+set clipboard=          " unnamedplus      "EasyClip + Vim + system clipboard
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+catch
+endtry
+
+" }}}
+
 
 " ---- Custom functions ---- {{{
 
@@ -174,7 +277,7 @@ let g:indentLine_color_gui = '#111111'
 let g:ale_set_balloons = 0
 let g:ale_cursor_detail = 0
 let g:ale_virtualtext_cursor = 1
-let g:ale_virtualtext_prefix = " ➜ "
+let g:ale_virtualtext_prefix = "         ➜ "
 
 let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
 let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
@@ -187,12 +290,13 @@ let g:ale_fixers = {
       \       'isort',
       \       'add_blank_lines_for_python_control_statements',
       \   ],
-      \   'javascript': ['eslint']
+      \   'javascript': ['eslint'],
       \}
 
 let g:ale_linters = {
       \ 'python': ['flake8'],
-      \ 'javascript': ['eslint']
+      \ 'javascript': ['eslint'],
+      \ 'xml': ['xmllint']
       \ }
 " let g:ale_linters.python = ['pyls']   " use vim-lsp for python integration
 
@@ -201,7 +305,7 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-let g:ale_sign_column_always = 1
+let g:ale_sign_column_always = 0
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 
@@ -534,103 +638,7 @@ nmap <leader>mt <plug>(MergetoolToggle)
 
 " }}}
 
-" ---- Personal preferences ---- {{{
-"
-" Some of this stuff is lifted from sensible.vim
-
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-" fix spurious q characters in konsole
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
-set guicursor=
-
-" syntax sync minlines=20000		" fixes syntax not updating on large files
-" set autoindent
-" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-
-syntax enable
-set backspace=indent,eol,start
-set backup      " backups
-set backupskip=/tmp/*,/private/tmp/*
-
-set complete-=i
-set completeopt+=preview
-
-set cursorline
-set conceallevel=0    " if set higher hides quotes in json files
-set display+=lastline
-set fillchars=vert:│,fold:━     " this changes characters used for splits and horizontal folding
-
-set foldcolumn=1        " increase size of fold column
-set foldlevelstart=0    " most folds opened by default
-set foldopen=hor,insert,jump,mark,percent,quickfix,search,tag,undo
-set foldenable
-set foldmethod=marker   " fold based on markers level
-" set foldmethod=syntax
-set foldlevelstart=1
-
-set formatoptions=tcqrn1        " set autoformat options (think gq). See http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
-set history=1000
-set hlsearch        " highlight search matches
-set laststatus=2
-set lazyredraw
-set list            " show whitespace characters, useful
-set listchars=tab:▸\ ,trail:•,extends:>,precedes:<,nbsp:+,eol:¬
-set mouse=
-set noincsearch     " jumps to first match as you type
-set noshowmode      " already provided by lightline
-set nosmartcase
-set nosmartindent
-set nosmarttab
-set nospell
-set nowrap          " don't wrap, it's annoying
-set nrformats-=octal
-set number
-" set nuw=6               " increase size of gutter column
-set nuw=5               " increase size of gutter column
-set ruler
-set scrolloff=3     " how many lines to bottom cause scrolling
-set showcmd
-set showmatch
-set showtabline=2     " always show the tabline
-set sidescrolloff=5
-set splitbelow      " preferences for where the split happens
-set splitright
-set termguicolors
-set textwidth=79
-set ttimeout
-set timeoutlen=800
-set ttimeoutlen=10
-set undofile
-set undolevels=200        " undo settings
-set novisualbell  " annoying screen flash in VIM
-set wildmenu
-set writebackup
-
-set expandtab
-set tabstop=2   " not liking big tabs
-set shiftwidth=2
-
-" set foldenable    " this makes the folds closed when file is opened
-" set ignorecase        " when searching, ignore case if all letters lowercase
-" set smartcase     " override ignorecase if term has caps
-
-
-" 'inccommand' shows results while typing a |:substitute| command
-if exists('&inccommand')
-  set inccommand=split  " can also do nosplit for inline preview
-endif
-
-" clipboard configuration
-set clipboard=          " unnamedplus      "EasyClip + Vim + system clipboard
-
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-catch
-endtry
-
+" ---- Other settings {{{
 let &colorcolumn=80
 " highlight the column at 80 chars
 " match OverLength /\%81v.\+/
@@ -690,11 +698,17 @@ elseif (g:my_machine ==# 'desktop')
   " fixes match cursor
   highlight MatchParen       guifg=#dfdfaf  guibg=#875f5f  gui=NONE       ctermfg=187   ctermbg=95    cterm=NONE
 
-  hi ALEVirtualTextError guifg=#dfdfaf guibg=#AA0b02
-  hi ALEVirtualTextWarning guifg=#dfdfaf guibg=#AA0b02
-  hi ALEVirtualTextInfo guifg=#dfdfaf guibg=#AA0b02
-  hi ALEVirtualTextStyleError guifg=#dfdfaf guibg=#AA0b02
-  hi ALEVirtualTextStyleWarning guifg=#dfdfaf guibg=#AA0b02
+  " hi ALEVirtualTextError guifg=#dfdfaf guibg=#AA0b02
+  " hi ALEVirtualTextWarning guifg=#dfdfaf guibg=#AA0b02
+  " hi ALEVirtualTextInfo guifg=#dfdfaf guibg=#AA0b02
+  " hi ALEVirtualTextStyleError guifg=#dfdfaf guibg=#AA0b02
+  " hi ALEVirtualTextStyleWarning guifg=#dfdfaf guibg=#AA0b02
+
+  hi ALEVirtualTextError guifg=#AA0b02 guibg=#191712
+  hi ALEVirtualTextWarning guifg=#AA0b02 guibg=#191712
+  hi ALEVirtualTextInfo guifg=#AA0b02 guibg=#191712
+  hi ALEVirtualTextStyleError guifg=#AA0b02 guibg=#191712
+  hi ALEVirtualTextStyleWarning guifg=#AA0b02 guibg=#191712
 
   " |ALEVirtualTextError|        - Items with `'type': 'E'`
   " |ALEVirtualTextInfo|         - Items with `'type': 'I'`
@@ -750,7 +764,8 @@ nnoremap <silent> <Leader>f :NERDTreeFind<CR>
 nnoremap <silent> <Leader>t :Vista!!<CR>
 
 " use f2 to format an xml file
-map <F2> <Esc>:1,$!xmllint --format -<CR>
+" map <F2> <Esc>:1,$!xmllint --format -<CR>
+map <F2> <Esc>:1,$!/home/tibi/work/xmlformat/format.py<CR>
 
 " Execute current line or current selection as Vim EX commands.
 " nnoremap <leader>x :exe getline(".")<CR>
@@ -894,6 +909,61 @@ xmap <Leader>R
     \ gvgr
     \ :cfdo %s/<C-r>s//g \| update
      \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
+
+" Ag with file preview toggled by '?'
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
+" List files with preview
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" FZF theming
+function! s:fzf_statusline()
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+" Ripgrep with FZF (slower than Ag for some reason?)
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+
+" if executable('java') && filereadable(expand('~/lsp/org.eclipse.lsp4xml-0.3.0-uber.jar'))
+  " au User lsp_setup call lsp#register_server({
+  "       \ 'name': 'lsp4xml',
+  "       \ 'cmd': {server_info->[
+  "       \     'java',
+  "       \     '-noverify',
+  "       \     '-Xmx1G',
+  "       \     '-XX:+UseStringDeduplication',
+  "       \     '-Dfile.encoding=UTF-8',
+  "       \     '-jar',
+  "       \     expand('~/lsp/org.eclipse.lsp4xml-0.3.0-uber.jar')
+  "       \ ]},
+  "       \ 'whitelist': ['xml']
+  "       \ })
+
+  " call ale#linter#Define('xml', {
+  "       \   'name': 'lsp4xml',
+  "       \   'lsp': 'stdio',
+  "       \   'executable': 'java',
+  "       \   'command': expand("java -noverify -Xmx1G -XX:+UseStringDeduplication -Dfile.encoding=UTF-8 -jar $HOME/lsp/org.eclipse.lsp4xml-0.3.0-uber.jar stdin"),
+  "       \   'project_root': expand("$HOME/lsp"),
+  "       \})
+" endif
+
 
 " }}}
 
