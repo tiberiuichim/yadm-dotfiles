@@ -283,6 +283,8 @@ let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
 let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
 let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
 
+let g:ale_javascript_eslint_executable = expand("$HOME/.node_modules/bin/eslint")
+
 let g:ale_fixers = {
       \   'python': [
       \       'remove_trailing_lines',
