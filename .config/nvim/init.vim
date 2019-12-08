@@ -283,7 +283,19 @@ let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
 let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
 let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
 
-let g:ale_javascript_eslint_executable = expand("$HOME/.node_modules/bin/eslint")
+let g:ale_javascript_eslint_options = "--no-color"
+
+" let g:ale_javascript_eslint_executable = expand("$HOME/.node_modules/bin/eslint")
+"       \
+"'command':
+"
+" call ale#linter#Define('javascript', {
+"       \   'name': 'eslint',
+"       \   'output_stream': 'both',
+"       \   'executable': function('ale#handlers#eslint#GetExecutable'),
+"       \   'command': function('ale#handlers#eslint#GetCommand'),
+"       \   'callback': 'ale#handlers#eslint#HandleJSON',
+"       \})
 
 let g:ale_fixers = {
       \   'python': [
