@@ -108,8 +108,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 
 " Python 'tags' in a tagbar
-" Plug 'majutsushi/tagbar'
-Plug 'liuchengxu/vista.vim'   " tagbar replacement that uses LSP
+Plug 'majutsushi/tagbar'
+" Plug 'liuchengxu/vista.vim'   " tagbar replacement that uses LSP
 Plug 'chrisbra/vim-xml-runtime'     " official XML ft plugin
 "
 " Preview css colors
@@ -345,14 +345,14 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 " Ensure you have installed some decent font to show these pretty symbols, then
 " you can enable icon for the kind.
-let g:vista_icon_indent = ["╰▸ ", "├▸ "]
-let g:vista#renderer#enable_icon = 1
-" TODO: need to fix the default icon
-let g:vista#renderer#icons = {
-\   "default": "\uf794",
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
+" let g:vista_icon_indent = ["╰▸ ", "├▸ "]
+" let g:vista#renderer#enable_icon = 1
+" " TODO: need to fix the default icon
+" let g:vista#renderer#icons = {
+" \   "default": "\uf794",
+" \   "function": "\uf794",
+" \   "variable": "\uf71b",
+" \  }
 
 " }}}
 
@@ -414,7 +414,7 @@ autocmd BufReadPost *
       \   exe "normal! g`\"" |
       \ endif
 
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 :call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 :call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
@@ -520,9 +520,9 @@ function! g:LinterStatus() abort
           \)
 endfunction
 
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
+" function! NearestMethodOrFunction() abort
+"   return get(b:, 'vista_nearest_method_or_function', '')
+" endfunction
 
 function! LightLineBufSettings()
   let et = &et ==# 1 ? "•" : "➜"
@@ -773,9 +773,9 @@ map <silent> <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 
 nnoremap <silent> <Leader>f :NERDTreeFind<CR>
-" nnoremap <silent> <Leader>t :TagbarToggle<CR>
+nnoremap <silent> <Leader>t :TagbarToggle<CR>
 " toggle vista (Tagbar replacement)
-nnoremap <silent> <Leader>t :Vista!!<CR>
+" nnoremap <silent> <Leader>t :Vista!!<CR>
 
 " use f2 to format an xml file
 " map <F2> <Esc>:1,$!xmllint --format -<CR>

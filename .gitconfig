@@ -20,3 +20,5 @@
 #     prompt = false
 # [diff]
 #     tool = vimdiff
+[core]
+	excludes = /home/tibi/.gitignore_global
