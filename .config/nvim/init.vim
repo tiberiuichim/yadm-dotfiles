@@ -39,6 +39,8 @@ function! Identify()
 endfunction
 let g:my_machine = Identify()
 
+let $DISPLAY=':0'
+
 " }}}
 
 " {{{ ---- Load plugins ----
