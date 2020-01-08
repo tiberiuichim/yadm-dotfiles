@@ -63,6 +63,28 @@ call plug#begin('~/.vim/nvim-plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf.vim'
 
+" Enter vim-win with <leader>w or :Win. These can be customized (see
+" Configuration below).
+"
+"     Arrows or hjkl keys are used for movement.
+"
+"     There are various ways to change the active window.
+"         Use movement keys to move to neighboring windows.
+"         Enter a window number (where applicable, press <enter> to submit).
+"         Use w or W to sequentially move to the next or previous window.
+"
+"     Hold <shift> and use movement keys to resize the active window.
+"         Left movements decrease width and right movements increase width.
+"         Down movements decrease height and up movements increase height.
+"
+"     Press s followed by a movement key or window number, to swap buffers.
+"
+"     Press ? to show a help message.
+"
+"     Press <esc> to leave vim-win or go back (where applicable).
+"
+Plug 'dstein64/vim-win'
+
 " Toggle comments with tcc
 Plug 'tomtom/tcomment_vim'
 
@@ -86,7 +108,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'Yggdroot/indentLine'
 let g:indentLine_fileTypeExclude = ['json']
 
-Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+" Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
 Plug 'samoshkin/vim-mergetool'
 
