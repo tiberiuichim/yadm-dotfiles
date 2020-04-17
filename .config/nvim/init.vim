@@ -139,6 +139,9 @@ Plug 'chrisbra/vim-xml-runtime'     " official XML ft plugin
 " Preview css colors
 Plug 'ap/vim-css-color'
 
+" .pug files support
+Plug 'digitaltoad/vim-pug'
+
 " Better increment (ctrl+a/ctrl+x) behavior
 Plug 'qwertologe/nextval.vim'
 
@@ -395,6 +398,8 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.zpt setlocal filetype=xml
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
 
+  autocmd BufNewFile,BufRead *.overrides setlocal filetype=less
+
   autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript
   autocmd BufNewFile,BufRead *.js setlocal filetype=javascript
 
@@ -404,6 +409,7 @@ augroup configgroup
 
   autocmd Filetype json setlocal conceallevel=0
   autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
+  autocmd Filetype pug setlocal ts=4 sw=4 sts=4 expandtab
   autocmd Filetype javascript setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype css setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype xquery setlocal ts=4 sw=4 sts=4 expandtab

@@ -1,6 +1,7 @@
 [user]
-	name = Tiberiu Ichim
-	email = tiberiu.ichim@gmail.com
+#name = Tiberiu Ichim
+#email = tiberiu.ichim@gmail.com
+
 [http]
 	sslVerify = false
 [credential]
@@ -20,5 +21,12 @@
 #     prompt = false
 # [diff]
 #     tool = vimdiff
+#
 [core]
 	excludes = /home/tibi/.gitignore_global
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
