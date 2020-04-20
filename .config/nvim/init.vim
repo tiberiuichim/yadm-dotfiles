@@ -324,12 +324,12 @@ let g:ale_javascript_eslint_options = "--no-color"
 "       \   'callback': 'ale#handlers#eslint#HandleJSON',
 "       \})
 
+" \       'add_blank_lines_for_python_control_statements',
 let g:ale_fixers = {
       \   'python': [
       \       'remove_trailing_lines',
       \       'autopep8',
       \       'isort',
-      \       'add_blank_lines_for_python_control_statements',
       \   ],
       \   'javascript': ['eslint'],
       \}
