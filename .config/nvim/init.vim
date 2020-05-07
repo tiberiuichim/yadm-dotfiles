@@ -61,7 +61,7 @@ call plug#begin('~/.vim/nvim-plugged')
 
 " The inimitable NerdTree. Locate files in explorer pane with <leader>f
 Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf.vim'
 
 " Enter vim-win with <leader>w or :Win. These can be customized (see
 " Configuration below).
@@ -83,7 +83,7 @@ Plug 'junegunn/fzf.vim'
 "
 "     Press <esc> to leave vim-win or go back (where applicable).
 "
-Plug 'dstein64/vim-win'
+" Plug 'dstein64/vim-win'
 
 " Toggle comments with tcc
 Plug 'tomtom/tcomment_vim'
@@ -97,12 +97,12 @@ Plug 'moll/vim-bbye'
 " See https://jakobgm.com/posts/vim/git-integration/
 " Show git status stull in guter column (next to numbers)
 Plug 'airblade/vim-gitgutter'
-Plug 'jreybert/vimagit'
+" Plug 'jreybert/vimagit'
 
 " Git integration, do :Gdiff, :Gblame, :Gremove and more
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 " Load git blame line in buffer
-Plug 'tpope/vim-rhubarb'
+" Plug 'tpope/vim-rhubarb'
 
 " Show indent guides
 Plug 'Yggdroot/indentLine'
@@ -110,7 +110,7 @@ let g:indentLine_fileTypeExclude = ['json']
 
 " Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
-Plug 'samoshkin/vim-mergetool'
+" Plug 'samoshkin/vim-mergetool'
 
 " Modify * to also work with visual selections.
 Plug 'nelstrom/vim-visual-star-search'
@@ -809,7 +809,8 @@ nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 " use f2 to format an xml file
 " map <F2> <Esc>:1,$!xmllint --format -<CR>
-map <F2> <Esc>:1,$!/home/tibi/work/xmlformat/format.py<CR>
+map <F2> <Esc>:1,$!zpretty<CR>
+map <F3> <Esc>:1,$!zpretty -z<CR>
 
 " Execute current line or current selection as Vim EX commands.
 " nnoremap <leader>x :exe getline(".")<CR>
