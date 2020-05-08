@@ -398,6 +398,10 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.zpt setlocal filetype=xml
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
 
+  " autocmd BufWrite *.pt :%!zpretty
+  " autocmd BufWrite *.zpt :%!zpretty
+  " autocmd BufWrite *.zcml :%!zpretty -z
+
   autocmd BufNewFile,BufRead *.overrides setlocal filetype=less
 
   autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript
@@ -413,6 +417,7 @@ augroup configgroup
   autocmd Filetype javascript setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype css setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype xquery setlocal ts=4 sw=4 sts=4 expandtab
+
   " autocmd Filetype vue setlocal ts=2 sw=2 sts=2 expandtab
   " autocmd Filetype riot setlocal ts=2 sw=2 sts=0 expandtab
 
@@ -809,8 +814,8 @@ nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 " use f2 to format an xml file
 " map <F2> <Esc>:1,$!xmllint --format -<CR>
-map <F2> <Esc>:1,$!zpretty<CR>
-map <F3> <Esc>:1,$!zpretty -z<CR>
+map <F2> <Esc>:%!zpretty<CR>
+map <F3> <Esc>:%!zpretty -z<CR>
 
 " Execute current line or current selection as Vim EX commands.
 " nnoremap <leader>x :exe getline(".")<CR>
