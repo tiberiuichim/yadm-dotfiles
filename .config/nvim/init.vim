@@ -110,7 +110,7 @@ let g:indentLine_fileTypeExclude = ['json']
 
 " Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
-" Plug 'samoshkin/vim-mergetool'
+Plug 'samoshkin/vim-mergetool'
 
 " Modify * to also work with visual selections.
 Plug 'nelstrom/vim-visual-star-search'
@@ -128,8 +128,11 @@ Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering
 
 Plug 'w0rp/ale'
 
+Plug 'heavenshell/vim-jsdoc'
+
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'HerringtonDarkholme/yats.vim'
 
 " Python 'tags' in a tagbar
 Plug 'majutsushi/tagbar'
@@ -814,7 +817,7 @@ nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 " use f2 to format an xml file
 " map <F2> <Esc>:1,$!xmllint --format -<CR>
-map <F2> <Esc>:%!zpretty<CR>
+map <F2> <Esc>:%!zpretty -x<CR>
 map <F3> <Esc>:%!zpretty -z<CR>
 
 " Execute current line or current selection as Vim EX commands.
@@ -988,6 +991,8 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
+nmap <silent> <F8> ?function<cr>:noh<cr><Plug>(jsdoc)
 
 
 " if executable('java') && filereadable(expand('~/lsp/org.eclipse.lsp4xml-0.3.0-uber.jar'))

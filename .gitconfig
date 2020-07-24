@@ -1,11 +1,12 @@
 [user]
-#name = Tiberiu Ichim
-#email = tiberiu.ichim@gmail.com
+name = Tiberiu Ichim
+email = tiberiu.ichim@gmail.com
 
 [http]
 	sslVerify = false
-[credential]
-	helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring
+
+# [credential]
+# 	helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring
 
 # compatibility with https://github.com/samoshkin/vim-mergetool
 [merge]
@@ -31,5 +32,7 @@
 	process = git-lfs filter-process
 	required = true
 
-[includeIf "gitdir:work/"]
-  path = .gitconfig-tibi
+# [includeIf "gitdir:work/"]
+#   path = .gitconfig-tibi
+[pull]
+	ff = only

@@ -1,1 +1,0 @@
-/home/tibi/miniconda3/etc/fish/conf.d/conda.fish
