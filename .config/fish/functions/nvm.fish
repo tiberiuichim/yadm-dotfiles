@@ -1,4 +1,4 @@
-set -g nvm_version 1.0.1
+set -g nvm_version 1.1.0
 
 function nvm -a cmd -d "Node.js version manager"
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
@@ -52,12 +52,12 @@ function _nvm_help
     echo "       nvm use <version>    Download <version> and modify PATH to use it"
     echo "       nvm                  Use version in .nvmrc (or stdin if not a tty)"
     echo "examples:"
-    echo "       nvm use 12"
+    echo "       nvm use 14"
     echo "       nvm use lts"
     echo "       nvm use latest"
     echo "       nvm use dubnium"
     echo "       nvm ls '^1|9\$'"
-    echo "       nvm ls 10"
+    echo "       nvm ls 12"
     echo "       nvm <file"
 end
 
@@ -169,7 +169,7 @@ function _nvm_use
                         set arch armv6l
                     case armv7 armv7l
                         set arch armv7l
-                    case armv8 armv8l
+                    case armv8 armv8l aarch64
                         set arch arm64
                     case \*
                         set arch x86

@@ -1,1 +1,0 @@
-/home/tibi/.fzf/shell/key-bindings.fish

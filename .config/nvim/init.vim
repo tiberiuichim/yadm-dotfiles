@@ -61,6 +61,9 @@ call plug#begin('~/.vim/nvim-plugged')
 
 " The inimitable NerdTree. Locate files in explorer pane with <leader>f
 Plug 'scrooloose/nerdtree'
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
+" Plug 'ms-jpq/chadtree'
+
 " Plug 'junegunn/fzf.vim'
 
 " Enter vim-win with <leader>w or :Win. These can be customized (see
@@ -130,8 +133,11 @@ Plug 'w0rp/ale'
 
 Plug 'heavenshell/vim-jsdoc'
 
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
+Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
+let g:polyglot_disabled = ['jsx']
+
 Plug 'HerringtonDarkholme/yats.vim'
 
 " Python 'tags' in a tagbar
@@ -335,15 +341,26 @@ let g:ale_fixers = {
       \       'isort',
       \   ],
       \   'javascript': ['eslint'],
+      \   'css': ['stylelint'],
+      \   'less': ['prettier'],
+      \   'json': ['prettier']
       \}
 
 let g:ale_linters = {
       \ 'python': ['flake8'],
       \ 'javascript': ['eslint'],
-      \ 'xml': ['xmllint']
+      \ 'xml': ['xmllint'],
+      \ 'css': ['stylelint'],
+      \ 'less': ['stylelint']
       \ }
-" let g:ale_linters.python = ['pyls']   " use vim-lsp for python integration
 
+" let g:ale_linters_explicit = 1
+" let g:ale_fix_on_save = 1
+"
+" let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all'
+
+
+" let g:ale_linters.python = ['pyls']   " use vim-lsp for python integration
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -810,6 +827,7 @@ map <silent> <leader>pdb oimport pdb; pdb.set_trace()<Esc>=
 " add a :DiffOrig command to see differences to last saved version
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 
+nnoremap <leader>v <cmd>CHADopen<cr>
 nnoremap <silent> <Leader>f :NERDTreeFind<CR>
 nnoremap <silent> <Leader>t :TagbarToggle<CR>
 " toggle vista (Tagbar replacement)
