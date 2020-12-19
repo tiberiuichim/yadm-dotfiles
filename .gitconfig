@@ -6,7 +6,7 @@ email = tiberiu.ichim@gmail.com
 	sslVerify = false
 
 [credential]
-	# helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring
+	helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring
 
 # compatibility with https://github.com/samoshkin/vim-mergetool
 [merge]

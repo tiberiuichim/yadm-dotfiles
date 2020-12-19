@@ -61,32 +61,7 @@ call plug#begin('~/.vim/nvim-plugged')
 
 " The inimitable NerdTree. Locate files in explorer pane with <leader>f
 Plug 'scrooloose/nerdtree'
-Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
-" Plug 'ms-jpq/chadtree'
-
-" Plug 'junegunn/fzf.vim'
-
-" Enter vim-win with <leader>w or :Win. These can be customized (see
-" Configuration below).
-"
-"     Arrows or hjkl keys are used for movement.
-"
-"     There are various ways to change the active window.
-"         Use movement keys to move to neighboring windows.
-"         Enter a window number (where applicable, press <enter> to submit).
-"         Use w or W to sequentially move to the next or previous window.
-"
-"     Hold <shift> and use movement keys to resize the active window.
-"         Left movements decrease width and right movements increase width.
-"         Down movements decrease height and up movements increase height.
-"
-"     Press s followed by a movement key or window number, to swap buffers.
-"
-"     Press ? to show a help message.
-"
-"     Press <esc> to leave vim-win or go back (where applicable).
-"
-" Plug 'dstein64/vim-win'
+" Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 
 " Toggle comments with tcc
 Plug 'tomtom/tcomment_vim'
@@ -100,16 +75,11 @@ Plug 'moll/vim-bbye'
 " See https://jakobgm.com/posts/vim/git-integration/
 " Show git status stull in guter column (next to numbers)
 Plug 'airblade/vim-gitgutter'
-" Plug 'jreybert/vimagit'
 
-" Git integration, do :Gdiff, :Gblame, :Gremove and more
-" Plug 'tpope/vim-fugitive'
-" Load git blame line in buffer
-" Plug 'tpope/vim-rhubarb'
 
 " Show indent guides
 Plug 'Yggdroot/indentLine'
-let g:indentLine_fileTypeExclude = ['json']
+let g:indentLine_fileTypeExclude = ['json', 'markdown', 'rst']
 
 " Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
@@ -334,11 +304,20 @@ let g:ale_javascript_eslint_options = "--no-color"
 "       \})
 
 " \       'add_blank_lines_for_python_control_statements',
+" let g:ale_fixers = {
+"       \   'python': [
+"       \       'remove_trailing_lines',
+"       \       'autopep8',
+"       \       'isort',
+"       \   ],
+"       \   'javascript': ['eslint'],
+"       \   'css': ['stylelint'],
+"       \   'less': ['prettier'],
+"       \   'json': ['prettier']
+"       \}
 let g:ale_fixers = {
       \   'python': [
-      \       'remove_trailing_lines',
-      \       'autopep8',
-      \       'isort',
+      \       'black',
       \   ],
       \   'javascript': ['eslint'],
       \   'css': ['stylelint'],
@@ -417,6 +396,7 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.pt setlocal filetype=xml
   autocmd BufNewFile,BufRead *.zpt setlocal filetype=xml
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
+  autocmd BufNewFile,BufRead *.overrides setlocal filetype=less
 
   " autocmd BufWrite *.pt :%!zpretty
   " autocmd BufWrite *.zpt :%!zpretty
@@ -449,11 +429,17 @@ augroup configgroup
   autocmd FileType python setlocal textwidth=79
   autocmd FileType python setlocal foldlevel=99
 
+  autocmd FileType markdown setlocal conceallevel=0
+
   " autocmd Filetype python nnoremap <buffer> <silent> <C-K> :LspPreviousError<CR>
   " autocmd Filetype python nnoremap <buffer> <silent> <C-J> :LspNextError<CR>
   " autocmd VimEnter *.py nested TagbarOpen
 
   autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+
+  autocmd FileType rst setlocal wrap
+  autocmd FileType rst setlocal textwidth=79
+  autocmd Filetype rst setlocal ts=4 sw=4 sts=4 expandtab
 
 augroup END
 
@@ -1013,6 +999,24 @@ command! -bang -nargs=* Rg
 nmap <silent> <F8> ?function<cr>:noh<cr><Plug>(jsdoc)
 
 
+" Check if NERDTree is open or active
+function! s:isNERDTreeOpen()
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! s:syncTree()
+  if &modifiable && s:isNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
+" Highlight currently open buffer in NERDTree
+" autocmd BufEnter * call s:syncTree()
+
+
 " if executable('java') && filereadable(expand('~/lsp/org.eclipse.lsp4xml-0.3.0-uber.jar'))
   " au User lsp_setup call lsp#register_server({
   "       \ 'name': 'lsp4xml',
@@ -1450,5 +1454,39 @@ nmap <silent> <F8> ?function<cr>:noh<cr><Plug>(jsdoc)
 "       \ 'union'     : 'u'
 "   \ }
 " \ }
+" Plug 'ms-jpq/chadtree'
+
+" Plug 'junegunn/fzf.vim'
+
+" Enter vim-win with <leader>w or :Win. These can be customized (see
+" Configuration below).
+"
+"     Arrows or hjkl keys are used for movement.
+"
+"     There are various ways to change the active window.
+"         Use movement keys to move to neighboring windows.
+"         Enter a window number (where applicable, press <enter> to submit).
+"         Use w or W to sequentially move to the next or previous window.
+"
+"     Hold <shift> and use movement keys to resize the active window.
+"         Left movements decrease width and right movements increase width.
+"         Down movements decrease height and up movements increase height.
+"
+"     Press s followed by a movement key or window number, to swap buffers.
+"
+"     Press ? to show a help message.
+"
+"     Press <esc> to leave vim-win or go back (where applicable).
+"
+" Plug 'dstein64/vim-win'
+" git lens blame plugin
+" Plug 'ttys3/nvim-blamer.lua'
+" Plug 'jreybert/vimagit'
+
+" Git integration, do :Gdiff, :Gblame, :Gremove and more
+" Plug 'tpope/vim-fugitive'
+"
+" Load git blame line in buffer
+" Plug 'tpope/vim-rhubarb'
 
 " }}}
