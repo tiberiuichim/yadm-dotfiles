@@ -390,6 +390,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 "
 
 au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/* if &ft == '' | setfiletype nginx | endif
+":%!~/tools3/bin/zpretty -z
 
 augroup configgroup
   autocmd!
@@ -401,8 +402,8 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
   autocmd BufNewFile,BufRead *.overrides setlocal filetype=less
 
-  autocmd BufWritePre *.{pt,zpt} :%!~/tools3/bin/zpretty -x
-  autocmd BufWritePre *.zcml :%!~/tools3/bin/zpretty -z
+  autocmd BufWritePre *.{pt,zpt} :call ZPT_format()
+  autocmd BufWritePre *.zcml :call ZCML_format()
 
   autocmd BufNewFile,BufRead *.overrides setlocal filetype=less
 
@@ -1017,6 +1018,59 @@ endfunction
 
 " Highlight currently open buffer in NERDTree
 " autocmd BufEnter * call s:syncTree()
+"
+"
+function CurPos(action)
+  if a:action == "save"
+    let b:saveve = &virtualedit
+    let b:savesiso = &sidescrolloff
+    set virtualedit=all
+    set sidescrolloff=0
+    let b:curline = line(".")
+    let b:curvcol = virtcol(".")
+    let b:curwcol = wincol()
+    normal! g0
+    let b:algvcol = virtcol(".")
+    normal! M
+    let b:midline = line(".")
+    execute "normal! ".b:curline."G".b:curvcol."|"
+    let &virtualedit = b:saveve
+    let &sidescrolloff = b:savesiso
+  elseif a:action == "restore"
+    let b:saveve = &virtualedit
+    let b:savesiso = &sidescrolloff
+    set virtualedit=all
+    set sidescrolloff=0
+    execute "normal! ".b:midline."Gzz".b:curline."G0"
+    let nw = wincol() - 1
+    if b:curvcol != b:curwcol - nw
+      execute "normal! ".b:algvcol."|zs"
+      let s = wincol() - nw - 1
+      if s != 0
+        execute "normal! ".s."zl"
+      endif
+    endif
+    execute "normal! ".b:curvcol."|"
+    let &virtualedit = b:saveve
+    let &sidescrolloff = b:savesiso
+    unlet b:saveve b:savesiso b:curline b:curvcol b:curwcol b:algvcol b:midline
+  endif
+  return ""
+endfunction
+
+func! ZCML_format()
+  "call CurPos("save")
+  let save_cursor = getcurpos()
+  exe '%!~/tools3/bin/zpretty -z'
+  call setpos('.', save_cursor)
+  "call CurPos("restore")
+endfunc
+
+func! ZPT_format()
+  let save_cursor = getcurpos()
+  exe '%!~/tools3/bin/zpretty -x'
+  call setpos('.', save_cursor)
+endfunc
 
 
 " if executable('java') && filereadable(expand('~/lsp/org.eclipse.lsp4xml-0.3.0-uber.jar'))
