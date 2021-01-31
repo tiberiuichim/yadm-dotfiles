@@ -285,9 +285,9 @@ let g:ale_cursor_detail = 0
 let g:ale_virtualtext_cursor = 1
 let g:ale_virtualtext_prefix = "         ➜ "
 
-let g:ale_python_flake8_executable = expand("$HOME/tools/bin/flake8")
-let g:ale_python_autopep8_executable = expand("$HOME/tools/bin/autopep8")
-let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
+let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
+let g:ale_python_autopep8_executable = expand("$HOME/tools3/bin/autopep8")
+" let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
 
 let g:ale_javascript_eslint_options = "--no-color"
 
@@ -317,7 +317,10 @@ let g:ale_javascript_eslint_options = "--no-color"
 "       \}
 let g:ale_fixers = {
       \   'python': [
-      \       'black',
+      \       'autopep8',
+      \       'trim_whitespace',
+      \       'isort',
+      \       'remove_trailing_lines',
       \   ],
       \   'javascript': ['eslint'],
       \   'css': ['stylelint'],
@@ -398,9 +401,8 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
   autocmd BufNewFile,BufRead *.overrides setlocal filetype=less
 
-  " autocmd BufWrite *.pt :%!zpretty
-  " autocmd BufWrite *.zpt :%!zpretty
-  " autocmd BufWrite *.zcml :%!zpretty -z
+  autocmd BufWritePre *.{pt,zpt} :%!~/tools3/bin/zpretty -x
+  autocmd BufWritePre *.zcml :%!~/tools3/bin/zpretty -z
 
   autocmd BufNewFile,BufRead *.overrides setlocal filetype=less
 
@@ -821,8 +823,8 @@ nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 " use f2 to format an xml file
 " map <F2> <Esc>:1,$!xmllint --format -<CR>
-map <F2> <Esc>:%!zpretty -x<CR>
-map <F3> <Esc>:%!zpretty -z<CR>
+" map <F2> <Esc>:%! /home/tibi/tools3/zpretty -x<CR>
+" map <F3> <Esc>:%! /home/tibi/tools3/zpretty -z<CR>
 
 " Execute current line or current selection as Vim EX commands.
 " nnoremap <leader>x :exe getline(".")<CR>
