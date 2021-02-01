@@ -61,6 +61,7 @@ call plug#begin('~/.vim/nvim-plugged')
 
 " The inimitable NerdTree. Locate files in explorer pane with <leader>f
 Plug 'scrooloose/nerdtree'
+Plug 'flwyd/nerdtree-harvest'
 " Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 
 " Toggle comments with tcc
