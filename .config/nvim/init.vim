@@ -60,9 +60,12 @@ filetype plugin indent on
 call plug#begin('~/.vim/nvim-plugged')
 
 " The inimitable NerdTree. Locate files in explorer pane with <leader>f
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'flwyd/nerdtree-harvest'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
+
+Plug 'el-iot/buffer-tree-explorer.vim'
 
 " Toggle comments with tcc
 Plug 'tomtom/tcomment_vim'
@@ -288,6 +291,9 @@ let g:ale_virtualtext_prefix = "         ➜ "
 
 let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
 let g:ale_python_autopep8_executable = expand("$HOME/tools3/bin/autopep8")
+let g:ale_python_black_executable = expand("$HOME/tools3/bin/black")
+let g:ale_python_isort_executable = expand("$HOME/tools3/bin/isort")
+
 " let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
 
 let g:ale_javascript_eslint_options = "--no-color"
@@ -316,12 +322,24 @@ let g:ale_javascript_eslint_options = "--no-color"
 "       \   'less': ['prettier'],
 "       \   'json': ['prettier']
 "       \}
+"
+" Available Linters: ['bandit', 'flake8', 'mypy', 'prospector', 'pycodestyle', 'pydocstyle', 'pyflakes', 'pylama', 'pylint', 'pyls', 'pyre', 'vulture']
+" Enabled Linters: ['flake8', 'mypy', 'pylint']
+" Suggested Fixers:
+" 'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.
+" 'autopep8' - Fix PEP8 issues with autopep8.
+" 'black' - Fix PEP8 issues with black.
+" 'isort' - Sort Python imports with isort.
+" 'remove_trailing_lines' - Remove all blank lines at the end of a file.
+" 'reorder-python-imports' - Sort Python imports with reorder-python-imports.
+" 'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
+" 'yapf' - Fix Python files with yapf.
+
 let g:ale_fixers = {
       \   'python': [
-      \       'autopep8',
       \       'trim_whitespace',
-      \       'isort',
       \       'remove_trailing_lines',
+      \       'black',
       \   ],
       \   'javascript': ['eslint'],
       \   'css': ['stylelint'],
@@ -426,11 +444,11 @@ augroup configgroup
   " autocmd Filetype riot setlocal ts=2 sw=2 sts=0 expandtab
 
   autocmd FileType python setlocal commentstring=#\ %s
-  autocmd Filetype python setlocal tabstop=4 shiftwidth=4 expandtab colorcolumn=80
+  autocmd Filetype python setlocal tabstop=4 shiftwidth=4 expandtab colorcolumn=89
   autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
   autocmd FileType python match Excess /\%120v.*/
   autocmd FileType python setlocal nowrap
-  autocmd FileType python setlocal textwidth=79
+  autocmd FileType python setlocal textwidth=89
   autocmd FileType python setlocal foldlevel=99
 
   autocmd FileType markdown setlocal conceallevel=0
@@ -1465,19 +1483,6 @@ endfunc
 "
 " " Use auocmd to force lightline update.
 " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-" Available Linters: ['bandit', 'flake8', 'mypy', 'prospector', 'pycodestyle', 'pydocstyle', 'pyflakes', 'pylama', 'pylint', 'pyls', 'pyre', 'vulture']
-" Enabled Linters: ['flake8', 'mypy', 'pylint']                                                                                                                                                    Suggested Fixers:                                                                                                                                                                                  'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.                                                                                                      'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'autopep8' - Fix PEP8 issues with autopep8.                                                                                                                                                       'black' - Fix PEP8 issues with black.                                                                                                                                                             'isort' - Sort Python imports with isort.                                                                                                                                                         'remove_trailing_lines' - Remove all blank lines at the end of a file.                                                                                                                            'reorder-python-imports' - Sort Python imports with reorder-python-imports.                                                                                                                       'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.                                                                                                           'yapf' - Fix Python files with yapf.
-"  Suggested Fixers:
-" 'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.
-" 'autopep8' - Fix PEP8 issues with autopep8.
-" 'black' - Fix PEP8 issues with black.
-"  'autopep8' - Fix PEP8 issues with autopep8.
-" 'black' - Fix PEP8 issues with black.
-" 'isort' - Sort Python imports with isort.
-" 'remove_trailing_lines' - Remove all blank lines at the end of a file.
-" 'reorder-python-imports' - Sort Python imports with reorder-python-imports.
-" 'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
-" 'yapf' - Fix Python files with yapf.
 
 " let g:tagbar_type_xquery = {
 "   \ 'ctagstype' : 'xquery',
