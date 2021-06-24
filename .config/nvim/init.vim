@@ -62,7 +62,7 @@ call plug#begin('~/.vim/nvim-plugged')
 " The inimitable NerdTree. Locate files in explorer pane with <leader>f
 Plug 'preservim/nerdtree'
 Plug 'flwyd/nerdtree-harvest'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 " Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 
 Plug 'el-iot/buffer-tree-explorer.vim'
@@ -297,8 +297,10 @@ let g:ale_python_isort_executable = expand("$HOME/tools3/bin/isort")
 " let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
 
 let g:ale_javascript_eslint_options = "--no-color"
+let g:ale_javascript_eslint_executable = "./eslint.sh"
 
-" let g:ale_javascript_eslint_executable = expand("$HOME/.node_modules/bin/eslint")
+" expand("NODE_PATH=project/node_modules project/node_modules/.bin/eslint")
+
 "       \
 "'command':
 "
@@ -339,7 +341,8 @@ let g:ale_fixers = {
       \   'python': [
       \       'trim_whitespace',
       \       'remove_trailing_lines',
-      \       'black',
+      \       'autopep8',
+      \       'isort',
       \   ],
       \   'javascript': ['eslint'],
       \   'css': ['stylelint'],
@@ -420,9 +423,10 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.zpt setlocal filetype=xml
   autocmd BufNewFile,BufRead *.zcml setlocal filetype=xml
   autocmd BufNewFile,BufRead *.overrides setlocal filetype=less
+  autocmd BufNewFile,BufRead *.variables setlocal filetype=less
 
-  autocmd BufWritePre *.{pt,zpt} :call ZPT_format()
-  autocmd BufWritePre *.zcml :call ZCML_format()
+  " autocmd BufWritePre *.{pt,zpt} :call ZPT_format()
+  " autocmd BufWritePre *.zcml :call ZCML_format()
 
   autocmd BufNewFile,BufRead *.overrides setlocal filetype=less
 
