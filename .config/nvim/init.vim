@@ -65,7 +65,7 @@ Plug 'flwyd/nerdtree-harvest'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
 " Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 
-Plug 'el-iot/buffer-tree-explorer.vim'
+" Plug 'el-iot/buffer-tree-explorer.vim'
 
 " Toggle comments with tcc
 Plug 'tomtom/tcomment_vim'
@@ -130,6 +130,7 @@ Plug 'qwertologe/nextval.vim'
 
 " Best color theme evah
 Plug 'AlessandroYorba/Alduin'
+Plug 'scheakur/vim-scheakur'
 
 call plug#end()
 
@@ -234,6 +235,9 @@ endtry
 
 " }}}
 
+" Autofocus active file when changing buffers
+" See https://superuser.com/questions/195022/vim-how-to-synchronize-nerdtree-with-current-opened-tab-file-path
+autocmd BufEnter * if &modifiable | NERDTreeFind | wincmd p | endif
 
 " ---- Custom functions ---- {{{
 
