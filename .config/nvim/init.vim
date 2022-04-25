@@ -22,11 +22,11 @@ if executable(s:py2)
   " bin/pip install pynvim
 else
   echom "tools3/bin/python not installed"
-  let s:py3 = expand("$HOME/tools3/bin/python")
-  if executable(s:py3)
-    let g:autopep8_cmd = expand("$HOME/tools3/bin/autopep8")
-    let g:python3_host_prog = s:py3
-  endif
+  " let s:py3 = expand("$HOME/tools3/bin/python")
+  " if executable(s:py3)
+  "   let g:autopep8_cmd = expand("$HOME/tools3/bin/autopep8")
+  "   let g:python3_host_prog = s:py3
+  " endif
 endif
 
 function! Identify()
@@ -58,6 +58,42 @@ filetype plugin indent on
 " NOTE: Make sure you use single quotes when defining Plug
 
 call plug#begin('~/.vim/nvim-plugged')
+
+" Distraction-free editing; Turn on with :Goyo 80. Turn off with :Goyo!
+" Plug 'junegunn/goyo.vim'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+noremap <silent> <Leader>w :call ToggleWrap()<CR>
+function ToggleWrap()
+  if &wrap
+    echo "Wrap OFF"
+    setlocal nowrap
+    set virtualedit=all
+    silent! nunmap <buffer> <Up>
+    silent! nunmap <buffer> <Down>
+    silent! nunmap <buffer> <Home>
+    silent! nunmap <buffer> <End>
+    silent! iunmap <buffer> <Up>
+    silent! iunmap <buffer> <Down>
+    silent! iunmap <buffer> <Home>
+    silent! iunmap <buffer> <End>
+  else
+    echo "Wrap ON"
+    setlocal wrap linebreak nolist
+    set virtualedit=
+    setlocal display+=lastline
+    noremap  <buffer> <silent> <Up>   gk
+    noremap  <buffer> <silent> <Down> gj
+    noremap  <buffer> <silent> <Home> g<Home>
+    noremap  <buffer> <silent> <End>  g<End>
+    inoremap <buffer> <silent> <Up>   <C-o>gk
+    inoremap <buffer> <silent> <Down> <C-o>gj
+    inoremap <buffer> <silent> <Home> <C-o>g<Home>
+    inoremap <buffer> <silent> <End>  <C-o>g<End>
+  endif
+endfunction
 
 " The inimitable NerdTree. Locate files in explorer pane with <leader>f
 Plug 'preservim/nerdtree'
@@ -130,7 +166,10 @@ Plug 'qwertologe/nextval.vim'
 
 " Best color theme evah
 Plug 'AlessandroYorba/Alduin'
-Plug 'scheakur/vim-scheakur'
+" Plug 'scheakur/vim-scheakur'
+
+" Git integration, do :Gdiff, :Gblame, :Gremove and more
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -209,6 +248,7 @@ set undolevels=200        " undo settings
 set novisualbell  " annoying screen flash in VIM
 set wildmenu
 set writebackup
+set ff=unix
 
 set expandtab
 set tabstop=2   " not liking big tabs
@@ -237,7 +277,7 @@ endtry
 
 " Autofocus active file when changing buffers
 " See https://superuser.com/questions/195022/vim-how-to-synchronize-nerdtree-with-current-opened-tab-file-path
-autocmd BufEnter * if &modifiable | NERDTreeFind | wincmd p | endif
+" autocmd BufEnter * if &modifiable | NERDTreeFind | wincmd p | endif
 
 " ---- Custom functions ---- {{{
 
@@ -293,10 +333,10 @@ let g:ale_cursor_detail = 0
 let g:ale_virtualtext_cursor = 1
 let g:ale_virtualtext_prefix = "         ➜ "
 
-let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
-let g:ale_python_autopep8_executable = expand("$HOME/tools3/bin/autopep8")
-let g:ale_python_black_executable = expand("$HOME/tools3/bin/black")
-let g:ale_python_isort_executable = expand("$HOME/tools3/bin/isort")
+" let g:ale_python_flake8_executable = expand("$HOME/tools3/bin/flake8")
+" let g:ale_python_autopep8_executable = expand("$HOME/tools3/bin/autopep8")
+" let g:ale_python_black_executable = expand("$HOME/tools3/bin/black")
+" let g:ale_python_isort_executable = expand("$HOME/tools3/bin/isort")
 
 " let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
 
@@ -343,10 +383,10 @@ let g:ale_javascript_eslint_executable = "./eslint.sh"
 
 let g:ale_fixers = {
       \   'python': [
+      \       'black',
+      \       'isort',
       \       'trim_whitespace',
       \       'remove_trailing_lines',
-      \       'autopep8',
-      \       'isort',
       \   ],
       \   'javascript': ['eslint'],
       \   'css': ['stylelint'],
@@ -1099,6 +1139,7 @@ func! ZPT_format()
   call setpos('.', save_cursor)
 endfunc
 
+:nnoremap Y yy
 
 " if executable('java') && filereadable(expand('~/lsp/org.eclipse.lsp4xml-0.3.0-uber.jar'))
   " au User lsp_setup call lsp#register_server({
@@ -1553,8 +1594,6 @@ endfunc
 " Plug 'ttys3/nvim-blamer.lua'
 " Plug 'jreybert/vimagit'
 
-" Git integration, do :Gdiff, :Gblame, :Gremove and more
-" Plug 'tpope/vim-fugitive'
 "
 " Load git blame line in buffer
 " Plug 'tpope/vim-rhubarb'
