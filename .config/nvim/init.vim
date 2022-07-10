@@ -389,8 +389,8 @@ let g:ale_fixers = {
       \       'remove_trailing_lines',
       \   ],
       \   'javascript': ['eslint'],
-      \   'css': ['stylelint'],
-      \   'less': ['prettier'],
+      \   'css': ['prettier', 'stylelint'],
+      \   'less': ['prettier', 'stylelint'],
       \   'json': ['prettier']
       \}
 
@@ -406,6 +406,7 @@ let g:ale_linters = {
 " let g:ale_fix_on_save = 1
 "
 " let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all'
+" let g:ale_stylelint_options = '--fix'
 
 
 " let g:ale_linters.python = ['pyls']   " use vim-lsp for python integration
