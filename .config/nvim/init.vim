@@ -381,10 +381,11 @@ let g:ale_javascript_eslint_executable = "./eslint.sh"
 " 'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
 " 'yapf' - Fix Python files with yapf.
 
+" \       'black',
 let g:ale_fixers = {
       \   'python': [
-      \       'black',
       \       'isort',
+      \       'black',
       \       'trim_whitespace',
       \       'remove_trailing_lines',
       \   ],
@@ -401,6 +402,7 @@ let g:ale_linters = {
       \ 'css': ['stylelint'],
       \ 'less': ['stylelint']
       \ }
+" 'flake8'
 
 " let g:ale_linters_explicit = 1
 " let g:ale_fix_on_save = 1
@@ -892,8 +894,8 @@ nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 " use f2 to format an xml file
 " map <F2> <Esc>:1,$!xmllint --format -<CR>
-" map <F2> <Esc>:%! /home/tibi/tools3/zpretty -x<CR>
-" map <F3> <Esc>:%! /home/tibi/tools3/zpretty -z<CR>
+map <F2> <Esc>:%! /home/tibi/tools3/zpretty -i -x<CR>
+map <F3> <Esc>:%! /home/tibi/tools3/zpretty -i -z<CR>
 
 " Execute current line or current selection as Vim EX commands.
 " nnoremap <leader>x :exe getline(".")<CR>
