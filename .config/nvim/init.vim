@@ -385,11 +385,12 @@ let g:ale_javascript_eslint_executable = "./eslint.sh"
 let g:ale_fixers = {
       \   'python': [
       \       'isort',
-      \       'black',
+      \       'autopep8',
       \       'trim_whitespace',
       \       'remove_trailing_lines',
       \   ],
-      \   'javascript': ['eslint'],
+      \   'javascript': ['eslint', 'prettier'],
+      \   'typescriptreact': ['eslint', 'prettier'],
       \   'css': ['prettier', 'stylelint'],
       \   'less': ['prettier', 'stylelint'],
       \   'json': ['prettier']
