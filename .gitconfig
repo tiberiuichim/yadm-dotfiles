@@ -38,3 +38,5 @@ email = tiberiu.ichim@gmail.com
 	ff = only
 [init]
 	defaultBranch = main
+[push]
+	autoSetupRemote = true
