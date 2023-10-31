@@ -15,19 +15,19 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
-let s:py2 = expand("$HOME/tools/bin/python2")
-if executable(s:py2)
-  let g:autopep8_cmd = expand("$HOME/tools/bin/autopep8")
-  let g:python_host_prog = s:py2
-  " bin/pip install pynvim
-else
-  echom "tools3/bin/python not installed"
-  " let s:py3 = expand("$HOME/tools3/bin/python")
-  " if executable(s:py3)
-  "   let g:autopep8_cmd = expand("$HOME/tools3/bin/autopep8")
-  "   let g:python3_host_prog = s:py3
-  " endif
-endif
+" let s:py2 = expand("$HOME/tools/bin/python2")
+" if executable(s:py2)
+"   let g:autopep8_cmd = expand("$HOME/tools/bin/autopep8")
+"   let g:python_host_prog = s:py2
+"   " bin/pip install pynvim
+" else
+"   " echom "tools3/bin/python not installed"
+"   " let s:py3 = expand("$HOME/tools3/bin/python")
+"   " if executable(s:py3)
+"   "   let g:autopep8_cmd = expand("$HOME/tools3/bin/autopep8")
+"   "   let g:python3_host_prog = s:py3
+"   " endif
+" endif
 
 function! Identify()
   let l:h = hostname()
@@ -141,7 +141,10 @@ Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering
 
 Plug 'w0rp/ale'
 
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
+" Plug 'huggingface/llm.nvim'
 
 Plug 'heavenshell/vim-jsdoc'
 
@@ -447,7 +450,49 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " npm i -g pyright
 " npm install -g typescript typescript-language-server
 
+" Lua configuration. I don't do, yet, init.lua
+
 lua << EOF
+
+require("mason").setup()
+require("mason-lspconfig").setup()
+
+-- local llm = require('llm')
+  -- cf Setup
+
+-- llm.setup({
+--   api_token = nil, -- cf Install paragraph
+--   model = "bigcode/starcoder", -- can be a model ID or an http(s) endpoint
+--   tokens_to_clear = { "<|endoftext|>" }, -- tokens to remove from the model's output
+--   -- parameters that are added to the request body
+--   query_params = {
+--     max_new_tokens = 60,
+--     temperature = 0.2,
+--     top_p = 0.95,
+--     stop_tokens = nil,
+--   },
+--   -- set this if the model supports fill in the middle
+--   fim = {
+--     enabled = true,
+--     prefix = "<fim_prefix>",
+--     middle = "<fim_middle>",
+--     suffix = "<fim_suffix>",
+--   },
+--   debounce_ms = 150,
+--   accept_keymap = "<Tab>",
+--   dismiss_keymap = "<S-Tab>",
+--   tls_skip_verify_insecure = false,
+--   -- llm-ls configuration, cf llm-ls section
+--   lsp = {
+--     bin_path = nil,
+--     version = "0.4.0",
+--   },
+--   tokenizer = nil, -- cf Tokenizer paragraph
+--   context_window = 8192, -- max number of tokens for the context window
+--   enable_suggestions_on_startup = true,
+--   enable_suggestions_on_files = "*", -- pattern matching syntax to enable suggestions on specific files, either a string or a list of strings
+-- })
+
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup {}
 lspconfig.tsserver.setup {}

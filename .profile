@@ -16,8 +16,11 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+export CUDA_HOME=/usr/local/cuda-12.3
+
 # set PATH so it includes user's private bin directories
-PATH="$HOME/bin:$HOME/.local/bin:$PATH:$HOME/anaconda3/bin"
+PATH="$HOME/bin:$HOME/.local/bin:${CUDA_HOME}/bin:$PATH:$HOME/anaconda3/bin"
+export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:$LD_LIBRARY_PATH
 
 export PATH="$HOME/.cargo/bin:$PATH"
 export GOPATH="$HOME/Software/go"
