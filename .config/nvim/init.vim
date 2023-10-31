@@ -392,7 +392,7 @@ let g:ale_fixers = {
       \       'remove_trailing_lines',
       \   ],
       \   'javascript': ['eslint', 'prettier'],
-      \   'typescriptreact': ['eslint', 'prettier'],
+      \   'typescriptreact': ['eslint'],
       \   'css': ['prettier', 'stylelint'],
       \   'less': ['prettier', 'stylelint'],
       \   'json': ['prettier']
@@ -542,6 +542,7 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.json setlocal conceallevel=0
 
   autocmd Filetype json setlocal conceallevel=0
+  autocmd Filetype jsonc setlocal conceallevel=0
   autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype pug setlocal ts=4 sw=4 sts=4 expandtab
   autocmd Filetype javascript setlocal ts=2 sw=2 sts=2 expandtab
