@@ -399,13 +399,13 @@ let l:executables = [
 endfunction
 
 
-call ale#linter#Define('typescript', {
-\   'name': 'eslinttibi',
-\   'executable': function('ale#handlers#eslint#GetExecutable'),
-\   'cwd': function('g:AleGetCwd'),
-\   'command': function('ale#handlers#eslint#GetCommand'),
-\   'callback': 'ale#handlers#eslint#HandleJSON',
-\})
+" call ale#linter#Define('typescript', {
+" \   'name': 'eslinttibi',
+" \   'executable': function('ale#handlers#eslint#GetExecutable'),
+" \   'cwd': function('g:AleGetCwd'),
+" \   'command': function('ale#handlers#eslint#GetCommand'),
+" \   'callback': 'ale#handlers#eslint#HandleJSON',
+" \})
 
 
 
@@ -453,9 +453,9 @@ let g:ale_fixers = {
       \       'trim_whitespace',
       \       'remove_trailing_lines',
       \   ],
-      \   'javascript': ['eslinttibi', 'prettier'],
-      \   'typescriptreact': ['eslinttibi'],
-      \   'typescript': ['eslinttibi'],
+      \   'javascript': ['eslint', 'prettier'],
+      \   'typescriptreact': ['eslint'],
+      \   'typescript': ['eslint'],
       \   'css': ['prettier', 'stylelint'],
       \   'less': ['prettier', 'stylelint'],
       \   'json': ['prettier']
@@ -463,7 +463,7 @@ let g:ale_fixers = {
 
 let g:ale_linters = {
       \ 'python': ['flake8'],
-      \ 'javascript': ['eslinttibi'],
+      \ 'javascript': ['eslint'],
       \   'typescript': [],
       \ 'xml': ['xmllint'],
       \ 'css': ['stylelint'],
