@@ -144,6 +144,7 @@ Plug 'w0rp/ale'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'gsuuon/llm.nvim'
 " Plug 'huggingface/llm.nvim'
 
 Plug 'heavenshell/vim-jsdoc'
@@ -396,6 +397,7 @@ let g:ale_fixers = {
       \   ],
       \   'javascript': ['eslint', 'prettier'],
       \   'typescriptreact': ['eslint'],
+      \   'typescript': ['eslint'],
       \   'css': ['prettier', 'stylelint'],
       \   'less': ['prettier', 'stylelint'],
       \   'json': ['prettier']
@@ -457,41 +459,144 @@ lua << EOF
 require("mason").setup()
 require("mason-lspconfig").setup()
 
--- local llm = require('llm')
-  -- cf Setup
 
--- llm.setup({
---   api_token = nil, -- cf Install paragraph
---   model = "bigcode/starcoder", -- can be a model ID or an http(s) endpoint
---   tokens_to_clear = { "<|endoftext|>" }, -- tokens to remove from the model's output
---   -- parameters that are added to the request body
---   query_params = {
---     max_new_tokens = 60,
---     temperature = 0.2,
---     top_p = 0.95,
---     stop_tokens = nil,
---   },
---   -- set this if the model supports fill in the middle
---   fim = {
---     enabled = true,
---     prefix = "<fim_prefix>",
---     middle = "<fim_middle>",
---     suffix = "<fim_suffix>",
---   },
---   debounce_ms = 150,
---   accept_keymap = "<Tab>",
---   dismiss_keymap = "<S-Tab>",
---   tls_skip_verify_insecure = false,
---   -- llm-ls configuration, cf llm-ls section
---   lsp = {
---     bin_path = nil,
---     version = "0.4.0",
---   },
---   tokenizer = nil, -- cf Tokenizer paragraph
---   context_window = 8192, -- max number of tokens for the context window
---   enable_suggestions_on_startup = true,
---   enable_suggestions_on_files = "*", -- pattern matching syntax to enable suggestions on specific files, either a string or a list of strings
--- })
+local llm = require "llm"
+local llamacpp = require "llm.providers.llamacpp"
+local codellama = require "llm.providers.llamacpp"
+local extract = require "llm.prompts.extract"
+local starters = require "llm.prompts.starters"
+-- See https://github.com/JoseConseco/nvim_config/blob/master/lua/nv_llm-nvim/init.lua
+
+local defaultOptions = {
+  server_start = {
+    command = '/mnt/docker/work/sd/llama.cpp/server',
+    args = {
+      '-m', '/mnt/docker/work/sd/text-generation-webui/models/openassistant-llama2-13b-orca-8k-3319.Q4_K_M.gguf',
+      '-c', 4096,
+      '-ngl', 22
+    }
+    }
+  }
+
+require('llm').setup({
+  hl_group = "Substitute",
+  -- prompts = util.module.autoload "prompt_library",
+  default_prompt = llamacpp.default_prompt,
+  join_undo = true,
+  prompts = {
+    -- ask = starters.ask,
+    llamacpp = starters.llamacpp,
+    codellama = starters.codellama,
+
+    modify = {
+      provider = llamacpp,
+      params = { temperature = 0.4, },
+
+      options = {
+        temperature = 0.5,     -- Adjust the randomness of the generated text (default: 0.8).
+        repeat_penalty = 1.0,  -- Control the repetition of token sequences in the generated text (default: 1.1)
+        seed = -1,             -- Set the random number generator (RNG) seed (default: -1, -1 = random seed)
+      },
+
+      mode = llm.mode.INSERT_OR_REPLACE,
+      -- mode = llm.mode.BUFFER,
+      builder = function(input)
+        return function(build)
+          vim.ui.input(
+            { prompt = 'Action to perform on code: ' },
+            function(user_input)
+              if user_input == nil then return end
+
+              local final_prompt = ''
+              if #user_input > 0 then
+
+                final_prompt =
+[===[ <s>[INST]<<SYS>>\nHelp USER by updating his code wrapped inside [CODE] tag.\nUSER:]===] .. user_input .. "\n[CODE]\n" .. input .. "\n[/CODE]\n [/INST]"
+
+              else
+                return
+              end
+
+              print(final_prompt)
+              build({
+                prompt = final_prompt
+              })
+            end)
+        end
+      end,
+      transform = extract.markdown_code,
+    },
+
+  --  ask = {
+  --     provider = llamacpp,
+  --     params = { temperature = 0.7, },
+  --     mode = llm.mode.INSERT,
+  --     -- options = defaultOptions,
+  --     builder = function(input)
+  --
+  --      return function(build)
+  --         vim.ui.input(
+  --           { prompt = 'Instruction: ' },
+  --           function(user_input)
+  --             if user_input == nil then return end
+  --
+  --             local final_prompt = ''
+  --             if #user_input > 0 then
+  --
+  --               -- [===[<s>[INST]<<SYS>>\nWrite code to solve the following coding problem. Please wrap your code answer using ```. Output only the code.\n<</SYS>>.]==]
+  --
+  --               final_prompt =
+  -- " <s>[INST]<<SYS>>Write code to solve the following coding problem that obeys the constraints and passes the example test cases. Please wrap your code answer using ```.<<SYS>>"
+  -- .. user_input .. "\n[/INST]\n"
+  --
+  --             else
+  --               return
+  --             end
+  --
+  --             build({
+  --               prompt = final_prompt
+  --             })
+  --           end)
+  --       end
+  --     end,
+  --     transform = extract.markdown_code,
+  -- },
+  -- commit = {
+  --   provider = codellama,
+  --   mode = llm.mode.INSERT,
+  --   builder = function()
+  --     local git_diff = vim.fn.system {'git', 'diff', '--staged'}
+  --
+  --     if not git_diff:match('^diff') then
+  --       vim.notify(vim.fn.system('git status'), vim.log.levels.ERROR)
+  --       return
+  --     end
+  --
+  --     return {
+  --       messages = {
+  --         {
+  --           role = 'user',
+  --           content = 'Write a terse commit message according to the Conventional Commits specification. Try to stay below 80 characters total. Staged git diff: ```\n' .. git_diff .. '\n```'
+  --         }
+  --       }
+  --     }
+  --   end,
+  -- },
+  -- ['llama'] = {
+  --   provider = codellama,
+  --   -- options = defaultOptions,
+  --   builder = function(input, context)
+  --     return {
+  --       prompt = llamacpp.llama_2_user_prompt({
+  --       user = context.args or '',
+  --       message = input
+  --       })
+  --       }
+  --     end
+  --   }
+
+}
+})
 
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup {}
@@ -1705,3 +1810,5 @@ endfunc
 " Plug 'tpope/vim-rhubarb'
 
 " }}}
+
+
