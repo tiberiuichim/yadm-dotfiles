@@ -454,8 +454,8 @@ let g:ale_fixers = {
       \       'remove_trailing_lines',
       \   ],
       \   'javascript': ['eslint', 'prettier'],
-      \   'typescriptreact': ['eslint'],
-      \   'typescript': ['eslint'],
+      \   'typescriptreact': ['eslint', 'prettier'],
+      \   'typescript': ['eslint', 'prettier'],
       \   'css': ['prettier', 'stylelint'],
       \   'less': ['prettier', 'stylelint'],
       \   'json': ['prettier']
