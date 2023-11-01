@@ -140,7 +140,7 @@ Plug 'mgee/lightline-bufferline'    " , {'branch': 'add-ordinal-buffer-numbering
 " ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim
 " and Vim 8 while you edit your text files.
 
-Plug 'w0rp/ale'
+Plug 'tiberiuichim/ale', {'branch': 'fix-pnpm'}
 
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
@@ -355,6 +355,60 @@ let g:ale_typescript_eslint_executable = "eslint"
 
 " expand("NODE_PATH=project/node_modules project/node_modules/.bin/eslint")
 
+
+" Given a buffer, return an appropriate working directory for ESLint.
+function! g:AleGetCwd(buffer) abort
+    " ESLint 6 loads plugins/configs/parsers from the project root
+    " By default, the project root is simply the CWD of the running process.
+    " https://github.com/eslint/rfcs/blob/master/designs/2018-simplified-package-loading/README.md
+    " https://github.com/dense-analysis/ale/issues/2787
+    "
+    " If eslint is installed in a directory which contains the buffer, assume
+    " it is the ESLint project root.  Otherwise, use nearest node_modules.
+    " Note: If node_modules not present yet, can't load local deps anyway.
+let l:executables = [
+\   '.yarn/sdks/eslint/bin/eslint.js',
+\   'node_modules/.bin/eslint_d',
+\   'node_modules/eslint/bin/eslint.js',
+\   'node_modules/.bin/eslint',
+\]
+
+    let l:executable = ale#path#FindNearestExecutable(a:buffer, l:executables)
+
+    if stridx(l:executable, '.pnpm/') > -1
+        let l:modules_dir = ale#path#FindNearestDirectory(a:buffer, 'node_modules')
+        let l:modules_root = !empty(l:modules_dir) ? fnamemodify(l:modules_dir, ':h:h') : ''
+
+        echom l:modules_root
+        return l:modules_root
+    elseif !empty(l:executable)
+        let l:modules_index = strridx(l:executable, 'node_modules')
+        let l:modules_root = l:modules_index > -1 ? l:executable[0:l:modules_index - 2] : ''
+
+        let l:sdks_index = stridx(l:executable, ale#path#Simplify('.yarn/sdks'))
+        let l:sdks_root = l:sdks_index > -1 ? l:executable[0:l:sdks_index - 2] : ''
+    else
+        let l:modules_dir = ale#path#FindNearestDirectory(a:buffer, 'node_modules')
+        let l:modules_root = !empty(l:modules_dir) ? fnamemodify(l:modules_dir, ':h:h') : ''
+
+        let l:sdks_dir = ale#path#FindNearestDirectory(a:buffer, ale#path#Simplify('.yarn/sdks'))
+        let l:sdks_root = !empty(l:sdks_dir) ? fnamemodify(l:sdks_dir, ':h:h:h') : ''
+    endif
+
+    return strlen(l:modules_root) > strlen(l:sdks_root) ? l:modules_root : l:sdks_root
+endfunction
+
+
+call ale#linter#Define('typescript', {
+\   'name': 'eslinttibi',
+\   'executable': function('ale#handlers#eslint#GetExecutable'),
+\   'cwd': function('g:AleGetCwd'),
+\   'command': function('ale#handlers#eslint#GetCommand'),
+\   'callback': 'ale#handlers#eslint#HandleJSON',
+\})
+
+
+
 "       \
 "'command':
 "
@@ -399,9 +453,9 @@ let g:ale_fixers = {
       \       'trim_whitespace',
       \       'remove_trailing_lines',
       \   ],
-      \   'javascript': ['eslint', 'prettier'],
-      \   'typescriptreact': ['eslint'],
-      \   'typescript': ['eslint'],
+      \   'javascript': ['eslinttibi', 'prettier'],
+      \   'typescriptreact': ['eslinttibi'],
+      \   'typescript': ['eslinttibi'],
       \   'css': ['prettier', 'stylelint'],
       \   'less': ['prettier', 'stylelint'],
       \   'json': ['prettier']
@@ -409,7 +463,7 @@ let g:ale_fixers = {
 
 let g:ale_linters = {
       \ 'python': ['flake8'],
-      \ 'javascript': ['eslint'],
+      \ 'javascript': ['eslinttibi'],
       \   'typescript': [],
       \ 'xml': ['xmllint'],
       \ 'css': ['stylelint'],
