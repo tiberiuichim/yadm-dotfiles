@@ -120,6 +120,7 @@ Plug 'airblade/vim-gitgutter'
 " Show indent guides
 Plug 'Yggdroot/indentLine'
 let g:indentLine_fileTypeExclude = ['json', 'markdown', 'rst']
+let g:indentLine_setConceal = 0
 
 " Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
@@ -143,6 +144,8 @@ Plug 'w0rp/ale'
 
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
+" Plug 'jose-elias-alvarez/null-ls.nvim'
+" Plug 'MunifTanjim/eslint.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'gsuuon/llm.nvim'
 " Plug 'huggingface/llm.nvim'
@@ -150,9 +153,9 @@ Plug 'gsuuon/llm.nvim'
 Plug 'heavenshell/vim-jsdoc'
 
 " Plug 'pangloss/vim-javascript'
-Plug 'yuezk/vim-js'
-Plug 'maxmellon/vim-jsx-pretty'
-let g:polyglot_disabled = ['jsx']
+" Plug 'yuezk/vim-js'
+" Plug 'maxmellon/vim-jsx-pretty'
+" let g:polyglot_disabled = ['jsx']
 
 Plug 'HerringtonDarkholme/yats.vim'
 
@@ -346,8 +349,9 @@ let g:ale_python_flake8_executable = expand("$HOME/miniconda3/bin/flake8")
 
 " let g:ale_python_pyls_executable = expand("$HOME/tools/bin/pyls")
 
-let g:ale_javascript_eslint_options = "--no-color"
-let g:ale_javascript_eslint_executable = "./eslint.sh"
+" let g:ale_javascript_eslint_options = "--no-color"
+let g:ale_javascript_eslint_executable = "eslint"
+let g:ale_typescript_eslint_executable = "eslint"
 
 " expand("NODE_PATH=project/node_modules project/node_modules/.bin/eslint")
 
@@ -406,6 +410,7 @@ let g:ale_fixers = {
 let g:ale_linters = {
       \ 'python': ['flake8'],
       \ 'javascript': ['eslint'],
+      \   'typescript': [],
       \ 'xml': ['xmllint'],
       \ 'css': ['stylelint'],
       \ 'less': ['stylelint']
@@ -598,6 +603,31 @@ require('llm').setup({
 }
 })
 
+-- local null_ls = require("null-ls")
+-- local eslint = require("eslint")
+--
+-- null_ls.setup()
+--
+-- eslint.setup({
+--   bin = 'eslint', -- or `eslint_d`
+--   code_actions = {
+--     enable = true,
+--     apply_on_save = {
+--       enable = true,
+--       types = { "directive", "problem", "suggestion", "layout" },
+--     },
+--     disable_rule_comment = {
+--       enable = true,
+--       location = "separate_line", -- or `same_line`
+--     },
+--   },
+--   diagnostics = {
+--     enable = true,
+--     report_unused_disable_directives = false,
+--     run_on = "type", -- or `save`
+--   },
+-- })
+
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup {}
 lspconfig.tsserver.setup {}
@@ -690,9 +720,11 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.vue setlocal filetype=html
   autocmd BufNewFile,BufRead *.tag setlocal filetype=html
   autocmd BufNewFile,BufRead *.json setlocal conceallevel=0
+  autocmd BufNewFile,BufRead *.jsonc setlocal conceallevel=0
 
   autocmd Filetype json setlocal conceallevel=0
   autocmd Filetype jsonc setlocal conceallevel=0
+
   autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
   autocmd Filetype pug setlocal ts=4 sw=4 sts=4 expandtab
   autocmd Filetype javascript setlocal ts=2 sw=2 sts=2 expandtab
