@@ -1,0 +1,3 @@
+return {
+  "qwertologe/nextval.vim",
+}
