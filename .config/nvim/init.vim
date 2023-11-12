@@ -161,8 +161,9 @@ Plug 'HerringtonDarkholme/yats.vim'
 
 " Python 'tags' in a tagbar
 " Plug 'majutsushi/tagbar'
-" Plug 'liuchengxu/vista.vim'   " tagbar replacement that uses LSP
+Plug 'liuchengxu/vista.vim'   " tagbar replacement that uses LSP
 Plug 'chrisbra/vim-xml-runtime'     " official XML ft plugin
+Plug 'weilbith/nvim-lsp-smag'
 "
 " Preview css colors
 Plug 'ap/vim-css-color'
@@ -1269,9 +1270,9 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | d
 
 nnoremap <leader>v <cmd>CHADopen<cr>
 nnoremap <silent> <Leader>f :NERDTreeFind<CR>
-nnoremap <silent> <Leader>t :TagbarToggle<CR>
+" nnoremap <silent> <Leader>t :TagbarToggle<CR>
 " toggle vista (Tagbar replacement)
-" nnoremap <silent> <Leader>t :Vista!!<CR>
+nnoremap <silent> <Leader>t :Vista!!<CR>
 
 " use f2 to format an xml file
 " map <F2> <Esc>:1,$!xmllint --format -<CR>
