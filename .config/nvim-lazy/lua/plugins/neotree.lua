@@ -421,8 +421,8 @@ local config = {
         ["]g"] = "next_git_modified",
         ["i"] = "show_file_details",
         -- tibi, change from default
-        -- ["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
-        ["o"] = "open",
+        ["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
+        -- ["o"] = {"open"},
         ["oc"] = { "order_by_created", nowait = false },
         ["od"] = { "order_by_diagnostics", nowait = false },
         ["og"] = { "order_by_git_status", nowait = false },
@@ -682,3 +682,5 @@ local config = {
 }
 
 require("neo-tree").setup(config)
+
+return {}
