@@ -1,5 +1,6 @@
 return {
   "AlessandroYorba/Alduin",
+  priority = 1000,
   config = function()
     vim.cmd("let g:alduin_Shout_Become_Ethereal = 1")
     vim.cmd("colorscheme alduin")
