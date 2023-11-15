@@ -13,3 +13,8 @@ map("v", "y", "ygv<Esc>", { desc = "Yank visual selection" })
 
 map("n", "<S-Right>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer to right" })
 map("n", "<S-Left>", "<cmd>BufferLineMovePrev<cr>", { desc = "Move buffer to left" })
+
+map("n", "<space>e", vim.diagnostic.open_float)
+map("n", "[d", vim.diagnostic.goto_prev)
+map("n", "]d", vim.diagnostic.goto_next)
+map("n", "<space>q", vim.diagnostic.setloclist)

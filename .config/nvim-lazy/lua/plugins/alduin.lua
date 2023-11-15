@@ -23,6 +23,21 @@ return {
     vim.cmd("hi Todo guibg=#AA0b02 guifg=bg")
     vim.cmd("hi Visual guibg=#1a5b3a guifg=#CCCCCC")
     vim.cmd("hi htmlLink guifg=#668866")
+    vim.cmd("hi diffAdded gui=NONE")
+
+    vim.cmd("hi GitSignsAdd gui=NONE")
+    vim.cmd("hi GitSignsDelete gui=NONE")
+    vim.cmd("hi GitSignsChange gui=NONE")
+
+    -- GitSignsAdd = {
+    --   fg = "#399a96"
+    -- },
+    -- GitSignsChange = {
+    --   fg = "#6482bd"
+    -- },
+    -- GitSignsDelete = {
+    --   fg = "#c25d64"
+    -- },
 
     -- -- " fixes match cursor
     vim.cmd("highlight MatchParen guifg=#dfdfaf guibg=#875f5f gui=NONE ctermfg=187 ctermbg=95 cterm=NONE")
