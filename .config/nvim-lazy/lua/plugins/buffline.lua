@@ -12,8 +12,8 @@ return {
     { "<leader>8", "<Cmd>BufferLineGoToBuffer 8<cr>", desc = "Go to buffer 8" },
     { "<leader>9", "<Cmd>BufferLineGoToBuffer 9<cr>", desc = "Go to buffer 9" },
     { "<leader>0", "<Cmd>BufferLineGoToBuffer 10<cr>", desc = "Go to buffer 10" },
-    { "<S-h>", false },
-    { "<S-l>", false },
+    { "<S-h>", "<Cmd>:normal! H<CR>", desc = "Move to top of screen" },
+    { "<S-l>", "<Cmd>:normal! L<CR>", desc = "Move to bottom of screen" },
   },
   opts = {
     options = {
