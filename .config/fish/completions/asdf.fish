@@ -1,0 +1,1 @@
+/home/tibi/.asdf/completions/asdf.fish
