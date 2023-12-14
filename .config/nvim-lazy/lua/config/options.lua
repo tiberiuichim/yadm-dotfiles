@@ -5,7 +5,15 @@
 -- To temporarily disable the mouse, hold down shift key
 -- vim.opt.mouse = ''
 
-vim.opt.colorcolumn = "80"
-vim.g.mapleader = "\\"
-vim.g.maplocalleader = "\\"
+local opt = vim.opt
+local g = vim.g
+
+g.mapleader = "\\"
+g.maplocalleader = "\\"
+
+opt.colorcolumn = "80"
+opt.relativenumber = false
+opt.ignorecase = false
+opt.conceallevel = 0
+
 -- vim.opt.colorcolumn = "+1"

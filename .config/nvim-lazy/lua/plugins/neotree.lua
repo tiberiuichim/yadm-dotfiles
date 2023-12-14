@@ -5,9 +5,9 @@ local config = {
   -- The name used here must be the same name you would use in a require() call.
   sources = {
     "filesystem",
-    "buffers",
+    -- "buffers",
     "git_status",
-    -- "document_symbols",
+    "document_symbols",
   },
   add_blank_line_at_top = false, -- Add a blank line at the top of the tree.
   auto_clean_after_session_restore = false, -- Automatically clean up broken neo-tree buffers saved in sessions
@@ -407,7 +407,7 @@ local config = {
   filesystem = {
     window = {
       mappings = {
-        ["H"] = "toggle_hidden",
+        ["T"] = "toggle_hidden",
         ["/"] = "fuzzy_finder",
         ["D"] = "fuzzy_finder_directory",
         --["/"] = "filter_as_you_type", -- this was the default until v1.28
@@ -443,7 +443,7 @@ local config = {
     -- "never"  means directory scans are never async.
     scan_mode = "shallow", -- "shallow": Don't scan into directories to detect possible empty directory a priori
     -- "deep": Scan into directories to detect empty or grouped empty directories a priori.
-    bind_to_cwd = true, -- true creates a 2-way binding between vim's cwd and neo-tree's root
+    bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
     cwd_target = {
       sidebar = "tab", -- sidebar is when position = left or right
       current = "window", -- current is when position = current
@@ -522,7 +522,7 @@ local config = {
     follow_current_file = {
       enabled = false, -- This will find and focus the file in the active buffer every time
       --               -- the current file is changed while the tree is open.
-      leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+      leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
     },
     hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
     -- in whatever position is specified in window.position
@@ -535,9 +535,9 @@ local config = {
   buffers = {
     bind_to_cwd = true,
     follow_current_file = {
-      enabled = true, -- This will find and focus the file in the active buffer every time
+      enabled = false, -- This will find and focus the file in the active buffer every time
       --              -- the current file is changed while the tree is open.
-      leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+      leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
     },
     group_empty_dirs = true, -- when true, empty directories will be grouped together
     show_unloaded = false, -- When working with sessions, for example, restored but unfocused buffers
