@@ -20,7 +20,10 @@ return {
     options = {
       numbers = "ordinal",
       always_show_bufferline = true,
-      tab_size = 14,
+      tab_size = 12,
+      -- show_close_icon = false,
+      show_buffer_close_icons = false,
+      show_buffer_icons = false,
     },
   },
 }
