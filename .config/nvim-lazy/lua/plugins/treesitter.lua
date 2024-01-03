@@ -23,5 +23,8 @@ return {
       "vim",
       "yaml",
     })
+
+    -- see https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#modules
+    opts.highlight = false
   end,
 }
