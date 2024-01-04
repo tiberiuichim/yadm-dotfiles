@@ -2,6 +2,7 @@ return {
   "telescope.nvim",
   keys = {
     { "<leader>gr", "<Cmd>Telescope live_grep<cr>", desc = "Live Grep in Telescope" },
+    { "<leader>U", "<cmd>Telescope undo<cr>", desc = "undo history" },
     -- local builtin = require('telescope.builtin')
     -- vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
     -- vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
@@ -10,6 +11,7 @@ return {
     -- nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
   },
   dependencies = {
+    "debugloop/telescope-undo.nvim",
     "nvim-telescope/telescope-fzf-native.nvim",
     config = function()
       require("telescope").load_extension("fzf")
