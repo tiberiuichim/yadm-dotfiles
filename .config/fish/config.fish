@@ -4,7 +4,9 @@ end
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-eval /home/tibi/miniconda3/bin/conda "shell.fish" hook $argv | source
+if test -e /home/tibi/miniconda3/bin/conda
+    eval /home/tibi/miniconda3/bin/conda "shell.fish" hook $argv | source
+end
 # <<< conda initialize <<<
 
 
