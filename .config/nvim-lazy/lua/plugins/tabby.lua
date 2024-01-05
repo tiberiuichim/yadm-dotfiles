@@ -1,3 +1,0 @@
-return {
-  "TabbyML/vim-tabby",
-}
