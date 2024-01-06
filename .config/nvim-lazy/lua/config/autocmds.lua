@@ -9,6 +9,7 @@ vim.api.nvim_exec(
   augroup filetype_mapping
     autocmd!
     autocmd BufRead,BufNewFile *.script set filetype=lua
+    autocmd BufRead,BufNewFile *.gui_script set filetype=lua
   augroup END
 ]],
   false
