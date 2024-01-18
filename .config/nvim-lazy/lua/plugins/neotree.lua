@@ -681,6 +681,11 @@ local config = {
   },
 }
 
-require("neo-tree").setup(config)
-
-return {}
+return {
+  -- "nvim-neo-tree/neo-tree.nvim",
+  -- opts = {
+  --   config = function()
+  --     -- require("neo-tree").setup(config)
+  --   end,
+  -- },
+}
