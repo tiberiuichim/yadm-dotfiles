@@ -1,7 +1,9 @@
+-- see https://github.com/nvim-tree/nvim-tree.lua
 return {
   "preservim/nerdtree",
   config = function()
-    vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>NERDTreeFind<cr>", { desc = "Find file in NERDTree" })
+    -- vim.g.NERDTreeIgnore = { ".pyc$", ".pyo$", ".egg-info$", "~$", ".git$", ".eggs", "__pycache__", ".~" }
+    vim.api.nvim_set_keymap("n", "<leader>fe", "<cmd>NERDTreeFind<cr>", { desc = "Find file in NERDTree" })
   end,
 }
 
