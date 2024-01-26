@@ -10,6 +10,7 @@ vim.api.nvim_exec(
     autocmd!
     autocmd BufRead,BufNewFile *.script set filetype=lua
     autocmd BufRead,BufNewFile *.gui_script set filetype=lua
+    autocmd BufRead,BufNewFile *.zcml set filetype=xml
   augroup END
 ]],
   false
