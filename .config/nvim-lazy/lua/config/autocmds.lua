@@ -15,3 +15,6 @@ vim.api.nvim_exec(
 ]],
   false
 )
+
+-- autocmd BufWritePre *.py LspStop
+-- autocmd BufWritePost *.py LspStart

@@ -709,7 +709,7 @@ return {
       {
         "<leader>fn",
         function()
-          require("neo-tree.command").execute({ toggle = true, reveal = true })
+          require("neo-tree.command").execute({ reveal = true })
         end,
         desc = "Explorer NeoTree (reveal current file)",
       },
