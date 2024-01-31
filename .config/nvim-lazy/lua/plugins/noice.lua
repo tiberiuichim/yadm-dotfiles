@@ -6,21 +6,21 @@ return {
     views = {
       cmdline_popup = {
         position = {
-          row = 5,
+          row = "90%",
           col = "50%",
         },
         size = {
           width = width,
           height = "auto",
         },
-        -- clean popup style
-        border = {
-          style = "none",
-          padding = { 2, 3 },
-        },
-        win_options = {
-          winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-        },
+        -- -- clean popup style
+        -- border = {
+        --   style = "none",
+        --   padding = { 2, 3 },
+        -- },
+        -- win_options = {
+        --   winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+        -- },
       },
       popupmenu = {
         relative = "editor",
