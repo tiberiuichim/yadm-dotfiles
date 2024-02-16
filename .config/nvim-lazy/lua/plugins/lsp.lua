@@ -1,3 +1,7 @@
+local function sort_imports()
+  vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
+end
+
 return {
   "neovim/nvim-lspconfig",
   opts = {
@@ -18,6 +22,9 @@ return {
         vim.print("configuring")
       end,
     },
+  },
+  keys = {
+    { "<leader>si", sort_imports, desc = "Sort imports with LSP" },
   },
 }
 
