@@ -12,19 +12,19 @@ endfunction
 function! HighlightFile()
   " Execute the NERDTreeHighlightFile command
   call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-  call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')    
-  call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')      
-  call NERDTreeHighlightFile('vim', 'yellow', 'none', 'yellow', '#151515')    
-  call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')    
-  call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515') 
-  call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')   
-  call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')   
-  call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')   
-  call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')       
-  call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')        
-  call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')       
-  call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')       
-  call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')  
+  call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+  call NERDTreeHighlightFile('vim', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+  call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+  call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+  call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+  call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 endfunction
 
 let g:NERDTreeIndicatorMapCustom = {
@@ -56,7 +56,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
       false
     )
   end,
-  enabled = false,
+  enabled = true,
 }
 
 -- -- let g:NERDTreeShowHidden=1

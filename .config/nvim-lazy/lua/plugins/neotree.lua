@@ -1387,7 +1387,7 @@ return {
         show_hidden_count = false, -- when true, the number of hidden items in each folder will be shown as the last entry
       },
     },
-    enabled = true,
+    enabled = false,
     keys = {
       {
         "<leader>fn",
