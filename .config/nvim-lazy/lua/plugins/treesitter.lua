@@ -25,6 +25,6 @@ return {
     })
 
     -- see https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#modules
-    -- opts.highlight = false
+    opts.highlight = false
   end,
 }
