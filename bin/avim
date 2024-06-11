@@ -1,0 +1,2 @@
+#!/bin/sh
+exec env NVIM_APPNAME=nvim-avim nvim "$@"
