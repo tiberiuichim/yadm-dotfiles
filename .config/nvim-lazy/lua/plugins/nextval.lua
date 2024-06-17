@@ -1,3 +1,4 @@
-return {
-  "qwertologe/nextval.vim",
-}
+return {}
+-- return {
+--   "qwertologe/nextval.vim",
+-- }
