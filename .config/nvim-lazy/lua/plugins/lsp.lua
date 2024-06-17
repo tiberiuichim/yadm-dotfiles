@@ -22,6 +22,9 @@ return {
         vim.print("configuring")
       end,
     },
+    inlay_hints = {
+      enabled = false,
+    },
   },
   keys = {
     { "<leader>si", sort_imports, desc = "Sort imports with LSP" },
