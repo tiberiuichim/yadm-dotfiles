@@ -1,0 +1,159 @@
+return {}
+
+-- return {
+--   url = "https://gitlab.com/schrieveslaach/sonarlint.nvim",
+--   ft = {
+--     "cpp",
+--     "javascript",
+--     "javascriptreact",
+--     "typescript",
+--     "typescriptreact",
+--     "html",
+--     "css",
+--     "python",
+--     "java",
+--   },
+--   dependencies = {
+--     "mfussenegger/nvim-jdtls",
+--   },
+--   config = function()
+--     local mason_path = os.getenv("MASON")
+--     local mason_bin_path = mason_path .. "\\bin"
+--     require("sonarlint").setup({
+--       server = {
+--         cmd = {
+--           mason_bin_path .. "\\sonarlint-language-server.cmd",
+--           "-stdio",
+--           "-analyzers",
+--           vim.fn.expand(mason_path .. "/share/sonarlint-analyzers/sonarpython.jar"),
+--           vim.fn.expand(mason_path .. "/share/sonarlint-analyzers/sonarcfamily.jar"),
+--           vim.fn.expand(mason_path .. "/share/sonarlint-analyzers/sonarjava.jar"),
+--         },
+--       },
+--       filetypes = {
+--         "cpp",
+--         "javascript",
+--         "javascriptreact",
+--         "typescript",
+--         "typescriptreact",
+--         "html",
+--         "css",
+--         "python",
+--         "java",
+--       },
+--     })
+--   end,
+-- }
+
+-- return {
+--   "schrieveslaach/sonarlint.nvim",
+--   dir = vim.fn.stdpath("config") .. "/lua/manual-plugins/sonarlint.nvim",
+--   opts = {
+--     setup = function()
+--       vim.notify("Installing")
+--       require("sonarlint").setup({
+--         server = {
+--           cmd = {
+--             "sonarlint-language-server",
+--             -- Ensure that sonarlint-language-server uses stdio channel
+--             "-stdio",
+--             "-analyzers",
+--             -- paths to the analyzers you need, using those for python and java in this example
+--             vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
+--             vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
+--             vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
+--           },
+--         },
+--         filetypes = {
+--           "javascript",
+--           "javascriptreact",
+--           "typescript",
+--           "typescriptreact",
+--           "html",
+--           "css",
+--           "python",
+--           "java",
+--         },
+--       })
+--     end,
+--   },
+-- }
+--
+--
+--
+--
+-- return {
+--   {
+--     "neovim/nvim-lspconfig",
+--     opts = {
+--       servers = {
+--         sonarlint = {
+--           -- Ensure Mason installs the server
+--           mason = {
+--             ensure_installed = { "sonarlint-language-server" },
+--           },
+--           filetypes = {
+--             "javascript",
+--             "javascriptreact",
+--             "typescript",
+--             "typescriptreact",
+--             "html",
+--             "css",
+--             "python",
+--             "java",
+--           },
+--           settings = {
+--             sonarlint = {
+--               rules = {
+--                 -- Add any specific rules you want to enable/disable
+--               },
+--             },
+--           },
+--         },
+--       },
+--       setup = {
+--         sonarlint = function(_, opts)
+--           local lspconfig = require("lspconfig")
+--           local configs = require("lspconfig.configs")
+--
+--           if not configs.sonarlint then
+--             configs.sonarlint = {
+--               default_config = {
+--                 cmd = {
+--                   "sonarlint-language-server",
+--                   "-stdio",
+--                   "-analyzers",
+--                   vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
+--                   vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
+--                   vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarhtml.jar"),
+--                   vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarxml.jar"),
+--                   vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
+--                 },
+--                 filetypes = opts.filetypes,
+--                 root_dir = lspconfig.util.find_git_ancestor,
+--                 settings = opts.settings,
+--               },
+--               -- handlers = {
+--               --   ["sonarlint/shouldAnalyseFile"] = function(_, _, params, client_id, bufnr, config)
+--               --     vim.notify(vim.inspect(params))
+--               --     return true -- or your logic
+--               --   end,
+--               -- },
+--             }
+--           end
+--
+--           opts.handlers = {
+--             ["sonarlint/shouldAnalyseFile"] = function(_, _, params, client_id, bufnr, config)
+--               vim.notify(vim.inspect(params))
+--               return true -- or your logic
+--             end,
+--           }
+--
+--           -- vim.notify(vim.inspect(opts))
+--
+--           lspconfig.sonarlint.setup(opts)
+--         end,
+--       },
+--     },
+--   },
+-- }
