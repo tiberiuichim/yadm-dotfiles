@@ -5,6 +5,7 @@ end
 
 return {
   "MagicDuck/grug-far.nvim",
+  enable = false,
   event = "VeryLazy",
   keys = {
     { "<leader>gy", global_search_replace, desc = "Global search/replace for word" },
