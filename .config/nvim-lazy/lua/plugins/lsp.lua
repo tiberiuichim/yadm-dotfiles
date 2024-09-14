@@ -19,7 +19,7 @@ return {
     },
     setup = {
       ["lua_ls"] = function()
-        vim.print("configuring")
+        -- vim.print("configuring")
       end,
     },
     inlay_hints = {

@@ -41,5 +41,10 @@ return {
         },
       },
     },
+    lsp = {
+      hover = {
+        silent = true,
+      },
+    },
   },
 }
