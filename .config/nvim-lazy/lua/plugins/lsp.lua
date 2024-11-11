@@ -5,18 +5,18 @@ end
 return {
   "neovim/nvim-lspconfig",
   opts = {
-    servers = {
-      pylsp = {
-        settings = {
-          pylsp = {
-            plugins = {
-              pyflakes = { enabled = false },
-              pycodestyle = { enabled = false },
-            },
-          },
-        },
-      },
-    },
+    -- servers = {
+    --   pylsp = {
+    --     settings = {
+    --       pylsp = {
+    --         plugins = {
+    --           pyflakes = { enabled = false },
+    --           pycodestyle = { enabled = false },
+    --         },
+    --       },
+    --     },
+    --   },
+    -- },
     setup = {
       ["lua_ls"] = function()
         -- vim.print("configuring")
