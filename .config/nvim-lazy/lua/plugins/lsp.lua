@@ -2,6 +2,9 @@ local function sort_imports()
   vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
 end
 
+-- see also config/options.lua
+-- vim.g.lazyvim_python_lsp = "basedpyright"
+
 return {
   "neovim/nvim-lspconfig",
   opts = {

@@ -8,6 +8,8 @@ local g = vim.g
 g.mapleader = "\\"
 g.maplocalleader = "\\"
 
+-- g.lazyvim_python_lsp = "basedpyright"
+
 opt.colorcolumn = "80"
 opt.relativenumber = false
 opt.ignorecase = false
