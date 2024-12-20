@@ -1,5 +1,6 @@
 local function sort_imports()
   vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
+  print("Done sorting")
 end
 
 -- see also config/options.lua
