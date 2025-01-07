@@ -1,7 +1,7 @@
-local function sort_imports()
-  vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
-  print("Done sorting")
-end
+-- local function sort_imports()
+--   vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
+--   print("Done sorting")
+-- end
 
 -- see also config/options.lua
 -- vim.g.lazyvim_python_lsp = "basedpyright"
@@ -31,7 +31,7 @@ return {
     },
   },
   keys = {
-    { "<leader>si", sort_imports, desc = "Sort imports with LSP" },
+    -- { "<leader>si", sort_imports, desc = "Sort imports with LSP" },
   },
 }
 
