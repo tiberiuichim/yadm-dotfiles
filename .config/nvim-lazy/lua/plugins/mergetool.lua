@@ -2,6 +2,8 @@ return {
   "samoshkin/vim-mergetool",
   keys = {
     { "<leader>mt", "<Cmd>MergetoolToggle<cr>", desc = "Toggle Mergetool" },
+    { "<leader>ml", "<Cmd>MergetoolDiffExchangeLeft<cr>", desc = "Mergetool exchange left" },
+    { "<leader>mr", "<Cmd>MergetoolPreferRemote<cr>", desc = "Mergetool prefer remote" },
   },
   config = function()
     vim.g.mergetool_layout = "mr"
