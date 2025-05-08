@@ -1,12 +1,13 @@
 return {
   "AlessandroYorba/Alduin",
+  -- "bakageddy/alduin.nvim",
   priority = 1000,
   config = function()
     vim.cmd("let g:alduin_Shout_Become_Ethereal = 1")
     vim.cmd("colorscheme alduin")
 
-    vim.cmd("highlight SignColumn guibg=bg")
-    vim.cmd("highlight SignColumn ctermbg=bg")
+    vim.cmd("hi SignColumn guibg=bg")
+    vim.cmd("hi SignColumn ctermbg=bg")
     vim.cmd("hi ColorColumn guibg=#112233 guifg=#FFFFFF")
     vim.cmd("hi Conceal guibg=#000000 guifg=#111111")
     vim.cmd("hi CursorLine guibg=#191712")
