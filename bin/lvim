@@ -1,2 +1,2 @@
 #!/bin/sh
-exec env NVIM_APPNAME=nvim-lazy nvim "$@"
+exec env NVIM_APPNAME=nvim-lazy /home/tibi/Software/nvim "$@"
