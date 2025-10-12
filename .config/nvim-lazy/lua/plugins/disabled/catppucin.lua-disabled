@@ -1,0 +1,8 @@
+return {
+  "catppuccin/nvim",
+  priority = 1000, -- Ensure it loads first
+  -- name = "catppuccin",
+  config = function()
+    vim.cmd("colorscheme catppuccin")
+  end,
+}
