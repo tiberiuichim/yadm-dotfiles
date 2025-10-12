@@ -24,6 +24,9 @@ if not string match -q -- $CUDA_HOME $PATH
     set -gx PATH "$CUDA_HOME/bin" $PATH
 end
 
-source ~/.asdf/asdf.fish
+# source ~/.asdf/asdf.fish
 
 set -gx PATH /home/tibi/bin $PATH
+
+# uv
+fish_add_path "/home/tibi/.local/bin"
