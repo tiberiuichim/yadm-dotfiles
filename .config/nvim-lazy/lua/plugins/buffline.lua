@@ -13,6 +13,8 @@ return {
     { "<leader>8", "<Cmd>:lua require('bufferline').go_to(8, true)<cr>", desc = "Go to buffer 8" },
     { "<leader>9", "<Cmd>:lua require('bufferline').go_to(9, true)<cr>", desc = "Go to buffer 9" },
     { "<leader>0", "<Cmd:lua require('bufferline').go_to(10, true)<cr>", desc = "Go to buffer 10" },
+    { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Go to next buffer" },
+    { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Go to previous buffer" },
     { "<S-h>", "<Cmd>:normal! H<CR>", desc = "Move to top of screen" },
     { "<S-l>", "<Cmd>:normal! L<CR>", desc = "Move to bottom of screen" },
   },

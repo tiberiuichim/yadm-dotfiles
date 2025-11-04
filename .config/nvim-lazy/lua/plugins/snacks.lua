@@ -1,6 +1,14 @@
 return {
   "folke/snacks.nvim",
   ---@type snacks.Config
+  keys = {
+    {
+      "<leader>e",
+      function()
+        require("snacks").explorer.reveal()
+      end,
+    },
+  },
   opts = {
     scroll = {
       enabled = false,
