@@ -1394,6 +1394,9 @@ return {
           },
         },
       },
+      source_selector = {
+        winbar = false,
+      },
     },
     enabled = true,
     keys = {
