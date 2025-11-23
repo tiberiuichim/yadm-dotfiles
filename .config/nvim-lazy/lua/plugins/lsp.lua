@@ -21,6 +21,18 @@ local function disable_text()
   })
 end
 
+local function toggle_diagnostics()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled({ bufnr = 0 }))
+
+  -- see https://github.com/MeanderingProgrammer/render-markdown.nvim
+  require("render-markdown").buf_toggle()
+  print(
+    "Diagnostics/RenderMarkdown "
+      .. (vim.diagnostic.is_enabled({ bufnr = 0 }) and "enabled" or "disabled")
+      .. " for this buffer"
+  )
+end
+
 return {
   "neovim/nvim-lspconfig",
   opts = {
@@ -41,6 +53,8 @@ return {
   keys = {
     -- vim.diagnostic.setloclist()
     { "<leader>uq", disable_text, desc = "Disable diagnostic text" },
+    { "<leader>td", toggle_diagnostics, desc = "Toggle diagnostics for buffer" },
+
     -- { "<leader>si", sort_imports, desc = "Sort imports with LSP" },
   },
 }
