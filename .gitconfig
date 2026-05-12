@@ -27,6 +27,8 @@ email = tiberiu.ichim@gmail.com
 	excludes = /home/tibi/.gitignore_global
 	excludesfile = /home/tibi/.gitignore
 	editor = nvim
+	pager = cat
+#| less -RFX
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f

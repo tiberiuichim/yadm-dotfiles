@@ -62,3 +62,6 @@ end
 # end
 # uv
 fish_add_path "/home/tibi/.local/bin"
+
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"

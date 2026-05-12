@@ -16,7 +16,7 @@ if [ -n "$BASH_VERSION" ]; then
 	fi
 fi
 
-export CUDA_HOME=/usr/local/cuda-12.3
+export CUDA_HOME=/usr/local/cuda-13.2
 
 # set PATH so it includes user's private bin directories
 PATH="$HOME/bin:$HOME/.local/bin:${CUDA_HOME}/bin:$PATH:$HOME/anaconda3/bin"
